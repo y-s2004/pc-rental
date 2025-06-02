@@ -6,11 +6,34 @@ import styles from '../styles/UserList.module.css';
 import { useRouter } from 'next/navigation';
 import { axiosInstance } from '../lib/axios';
 
+
 export default function UserList() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [hasMounted, setHasMounted] = useState(false);
+  const [detailUser, setDetailUser] = useState(null);
+  const [serchText, setSerchText] = useState('');
+  const [filteredUsers, setFilteredUsers] = useState(null);
+  const [editMode, setEditMode] = useState(false);
+  const [editUser, setEditUser] = useState({});
+  const [editError, setEditError] = useState('');
+
+  const handleSearch = () => {
+    if (!serchText) {
+      setFilteredUsers(null);
+      return;
+    }
+    setFilteredUsers(
+      users.filter(user => 
+        Object.values(user)
+        .join(' ')
+        .toLowerCase()
+        .includes(serchText.toLowerCase())
+      )
+    );
+  };
+
   const router = useRouter();
 
   const [open, setOpen] = useState(false);
@@ -44,6 +67,7 @@ export default function UserList() {
   useEffect(() => {
     axiosInstance.get('/user')
       .then(res => {
+        console.log('ユーザデータ:', res.data);
         setUsers(res.data);
         setLoading(false);
       })
@@ -77,6 +101,52 @@ export default function UserList() {
     };
   }, [open]);
 
+  
+
+  useEffect(() => {
+    if (detailUser) {
+      setEditUser({
+        ...detailUser,
+        gender: typeof detailUser.gender === 'number'
+          ? (detailUser.gender === 0 ? '男性' : detailUser.gender === 1 ? '女性' : 'その他')
+          : detailUser.gender
+      });
+      setEditMode(false);
+      setEditError('');
+    }
+  }, [detailUser]);
+
+  const handleDelete = async () => {
+    try {
+      await axiosInstance.delete(`/user/${detailUser.employee_no}`);
+      setUsers(users.filter(u => u.employee_no !== detailUser.employee_no));
+      setDetailUser(null);
+    } catch (err) {
+      setEditError('削除に失敗しました');
+    }
+  };
+
+  const handleUpdate = async () => {
+    try {
+      const payload = {
+        ...editUser,
+        age: parseInt(editUser.age, 10),
+        gender: editUser.gender === '男性' ? 0 : editUser.gender === '女性' ? 1 : 2,
+      };
+      delete payload.register_date;
+      delete payload.update_date;
+
+      const res = await axiosInstance.put(`/user/${detailUser.employee_no}`, payload);
+
+      setUsers(users.map(u => u.employee_no === detailUser.employee_no ? { ...u, ...res.data } : u));
+      setDetailUser({ ...detailUser, ...res.data });
+      setEditMode(false);
+      setEditError('');
+    } catch (err) {
+      setEditError('更新に失敗しました');
+    }
+  };
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewUser(prev => ({ ...prev, [name]: value }));
@@ -106,11 +176,9 @@ export default function UserList() {
   const payload = {
     ...payloadRaw,
     age: parseInt(payloadRaw.age, 10),
-    gender: payloadRaw.gender === '男性' ? 0 : 1,
+    gender: payloadRaw.gender === '男性' ? 0 : payloadRaw.gender === '女性' ? 1 : 2,
     delete_flag: false,
   };
-
-  console.log('送信データ:', JSON.stringify(payload, null, 2));
 
   const res = await axiosInstance.post('/user', payload);
   setSubmitMessage('ユーザ登録に成功しました！');
@@ -169,10 +237,29 @@ export default function UserList() {
 
       <div className={styles.container}>
         <div className={styles.listWrapper}>
-          <h1>ユーザリスト</h1>
-
-          
-
+          <div className={styles.headerRow}>
+            <h1>ユーザリスト</h1>
+            <div className={styles.searchBoxWrapper}>
+              <input
+                className={styles.searchInput}
+                type="text"
+                placeholder="検索"
+                value={serchText}
+                onChange={(e) => {
+                  setSerchText(e.target.value)
+                  if (e.target.value === '') {
+                    setFilteredUsers(null);
+                  }
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleSearch();
+                  }
+                }}
+              />
+              <button className={styles.serchBtn} onClick={handleSearch}>検索</button>
+            </div>
+          </div>
           <table className={styles.table}>
             <thead>
               <tr>
@@ -180,123 +267,232 @@ export default function UserList() {
                 <th>名前</th>
                 <th>部署</th>
                 <th>役職</th>
+                <th>詳細</th>
               </tr>
             </thead>
             <tbody>
-              {users.map(user => (
+              {(filteredUsers ?? users).map(user => (
                 <tr key={user.employee_no}>
                   <td>{user.employee_no}</td>
                   <td>{user.name}</td>
                   <td>{user.department}</td>
                   <td>{user.position}</td>
+                  <td>
+                    <button 
+                      className={styles.detailBtn}
+                      onClick={() => setDetailUser(user)}
+                    >
+                      詳細
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-          <div className={styles.buttonGroup}>
-              <button className={styles.btn} onClick={() => setShowForm(true)}>新規登録</button>
-              <button className={styles.btn} onClick={() => router.push('/home')}>戻る</button>
-          </div>
-            
-            {showForm && (
-              <div className={styles.modalOverlay} onClick={() => setShowForm(false)}>
-                <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-                  <h2>新規ユーザ登録</h2>
-                    <form onSubmit={handleSubmit} className={styles.form}>
-                      <input
-                        name="employee_no"
-                        placeholder="社員番号"
-                        value={newUser.employee_no}
-                        onChange={handleInputChange}
-                        required
-                      />
-                      <input
-                        name="name"
-                        placeholder="名前"
-                        value={newUser.name}
-                        onChange={handleInputChange}
-                        required
-                      />
-                      <input
-                        name="name_kana"
-                        placeholder="名前カナ"
-                        value={newUser.name_kana}
-                        onChange={handleInputChange}
-                      />
-                      <input
-                        name="department"
-                        placeholder="部署"
-                        value={newUser.department}
-                        onChange={handleInputChange}
-                      />
-                      <input
-                        name="tel_no"
-                        placeholder="電話番号"
-                        value={newUser.tel_no}
-                        onChange={handleInputChange}
-                      />
-                      <input
-                        name="mail_address"
-                        placeholder="メールアドレス"
-                        value={newUser.mail_address}
-                        onChange={handleInputChange}
-                      />
-                      <input
-                        name="age"
-                        type="number"
-                        placeholder="年齢"
-                        value={newUser.age}
-                        onChange={handleInputChange}
-                      />
-                      <input
-                        name="position"
-                        placeholder="役職"
-                        value={newUser.position}
-                        onChange={handleInputChange}
-                      />
+        <div className={styles.buttonGroup}>
+            <button className={styles.btn} onClick={() => setShowForm(true)}>新規登録</button>
+            <button className={styles.btn} onClick={() => router.push('/home')}>戻る</button>
+        </div>
 
-                      <select
-                        name="gender"
-                        value={newUser.gender}
-                        onChange={handleInputChange}
-                        required
-                      >
-                        <option value="">性別を選択</option>
-                        {genderOptions.map(g => (
-                          <option key={g} value={g}>{g}</option>
-                        ))}
-                      </select>
-
-                      <select
-                        name="account_level"
-                        value={newUser.account_level}
-                        onChange={handleInputChange}
-                        required
-                      >
-                        <option value="">アカウントレベルを選択</option>
-                        {accountLevelOptions.map(level => (
-                          <option key={level} value={level}>{level}</option>
-                        ))}
-                      </select>
-
-                      {newUser.account_level === '管理者' && (
-                        <input
-                          name="password"
-                          type="password"
-                          placeholder="パスワード"
-                          value={newUser.password}
-                          onChange={handleInputChange}
-                          required
-                        />
-                      )}
-
-                      <button type="submit">登録</button>
-                      <button type="button" onClick={() => setShowForm(false)}>キャンセル</button>
-                    </form>
-                  {submitMessage && <p>{submitMessage}</p>}
+        {detailUser && (
+          <div className={styles.modalOverlay} onClick={() => setDetailUser(null)}>
+            <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
+              <h2 className={styles.detailTitle}>ユーザ詳細</h2>
+              <div className={styles.detailGrid}>
+                <div className={styles.detailLabel}>社員番号</div>
+                <div className={styles.detailValue}>: {editMode
+                  ? <input value={editUser.employee_no} disabled />
+                  : detailUser.employee_no}</div>
+                <div className={styles.detailLabel}>名前</div>
+                <div className={styles.detailValue}>: {editMode
+                  ? <input value={editUser.name} onChange={e => setEditUser(u => ({...u, name: e.target.value}))} />
+                  : detailUser.name}</div>
+                <div className={styles.detailLabel}>名前カナ</div>
+                <div className={styles.detailValue}>: {editMode
+                  ? <input value={editUser.name_kana} onChange={e => setEditUser(u => ({...u, name_kana: e.target.value}))} />
+                  : detailUser.name_kana}</div>
+                <div className={styles.detailLabel}>部署</div>
+                <div className={styles.detailValue}>: {editMode
+                  ? <input value={editUser.department} onChange={e => setEditUser(u => ({...u, department: e.target.value}))} />
+                  : detailUser.department}</div>
+                <div className={styles.detailLabel}>電話番号</div>
+                <div className={styles.detailValue}>: {editMode
+                  ? <input value={editUser.tel_no} onChange={e => setEditUser(u => ({...u, tel_no: e.target.value}))} />
+                  : detailUser.tel_no}</div>
+                <div className={styles.detailLabel}>メールアドレス</div>
+                <div className={styles.detailValue}>: {editMode
+                  ? <input value={editUser.mail_address} onChange={e => setEditUser(u => ({...u, mail_address: e.target.value}))} />
+                  : detailUser.mail_address}</div>
+                <div className={styles.detailLabel}>年齢</div>
+                <div className={styles.detailValue}>: {editMode
+                  ? <input type="number" value={editUser.age} onChange={e => setEditUser(u => ({...u, age: e.target.value}))} />
+                  : detailUser.age}</div>
+                <div className={styles.detailLabel}>性別</div>
+                <div className={styles.detailValue}>: {editMode
+                  ? (
+                    <select value={editUser.gender} onChange={e => setEditUser(u => ({...u, gender: e.target.value}))}>
+                      {genderOptions.map(g => <option key={g} value={g}>{g}</option>)}
+                    </select>
+                  )
+                  : (typeof detailUser.gender === 'number'
+                      ? (detailUser.gender === 0 ? '男性' : detailUser.gender === 1 ? '女性' : 'その他')
+                      : detailUser.gender)
+                }</div>
+                <div className={styles.detailLabel}>役職</div>
+                <div className={styles.detailValue}>: {editMode
+                  ? <input value={editUser.position} onChange={e => setEditUser(u => ({...u, position: e.target.value}))} />
+                  : detailUser.position}</div>
+                <div className={styles.detailLabel}>アカウントレベル</div>
+                <div className={styles.detailValue}>: {editMode
+                  ? (
+                    <select value={editUser.account_level} onChange={e => setEditUser(u => ({...u, account_level: e.target.value, password: ''}))}>
+                      {accountLevelOptions.map(level => <option key={level} value={level}>{level}</option>)}
+                    </select>
+                  )
+                  : detailUser.account_level}
                 </div>
+                {editMode && editUser.account_level === '管理者' && (
+                  <>
+                    <div className={styles.detailLabel}>パスワード</div>
+                    <div className={styles.detailValue}>: <input
+                      type="password"
+                      value={editUser.password || ''}
+                      onChange={e => setEditUser(u => ({...u, password: e.target.value}))}
+                      required
+                    /></div>
+                  </>
+                )}
+                <div className={styles.detailLabel}>登録日</div>
+                <div className={styles.detailValue}>
+                  : {detailUser.register_date
+                    ? new Date(detailUser.register_date).toLocaleDateString('ja-JP', {year: 'numeric', month: '2-digit', day: '2-digit'})
+                    : ''}
+                </div>
+                {detailUser.update_date && (
+                  <>
+                    <div className={styles.detailLabel}>最終更新日</div>
+                    <div className={styles.detailValue}>
+                      : {new Date(detailUser.update_date).toLocaleDateString('ja-JP', {year: 'numeric', month: '2-digit', day: '2-digit'})}
+                    </div>
+                  </>
+                )}
               </div>
+              <div className={styles.detailBtnGroup}>
+                <button className={styles.deleteBtn} onClick={handleDelete}>削除</button>
+                {editMode ? (
+                  <button className={styles.updateBtn} onClick={handleUpdate}>保存</button>
+                ) : (
+                  <button className={styles.updateBtn} onClick={() => setEditMode(true)}>更新</button>
+                )}
+                <button className={styles.closeBtn} onClick={() => {
+                  setDetailUser(null);
+                  setEditMode(false);
+                }}>戻る</button>
+              </div>
+              {editError && <div className={styles.errorMsg}>{editError}</div>}
+            </div>
+          </div>
+        )}
+
+        {showForm && (
+          <div className={styles.modalOverlay} onClick={() => setShowForm(false)}>
+            <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+              <h2>新規ユーザ登録</h2>
+                <form onSubmit={handleSubmit} className={styles.form}>
+                    <input
+                      name="employee_no"
+                      placeholder="社員番号"
+                      value={newUser.employee_no}
+                      onChange={handleInputChange}
+                      required
+                    />
+                    <input
+                      name="name"
+                      placeholder="名前"
+                      value={newUser.name}
+                      onChange={handleInputChange}
+                      required
+                    />
+                    <input
+                      name="name_kana"
+                      placeholder="名前カナ"
+                      value={newUser.name_kana}
+                      onChange={handleInputChange}
+                    />
+                    <input
+                      name="department"
+                      placeholder="部署"
+                      value={newUser.department}
+                      onChange={handleInputChange}
+                    />
+                    <input
+                      name="tel_no"
+                      placeholder="電話番号"
+                      value={newUser.tel_no}
+                      onChange={handleInputChange}
+                    />
+                    <input
+                      name="mail_address"
+                      placeholder="メールアドレス"
+                      value={newUser.mail_address}
+                      onChange={handleInputChange}
+                    />
+                    <input
+                      name="age"
+                      type="number"
+                      placeholder="年齢"
+                      value={newUser.age}
+                      onChange={handleInputChange}
+                    />
+                    <input
+                      name="position"
+                      placeholder="役職"
+                      value={newUser.position}
+                      onChange={handleInputChange}
+                    />
+
+                    <select
+                      name="gender"
+                      value={newUser.gender}
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <option value="">性別を選択</option>
+                      {genderOptions.map(g => (
+                        <option key={g} value={g}>{g}</option>
+                      ))}
+                    </select>
+
+                    <select
+                      name="account_level"
+                      value={newUser.account_level}
+                        onChange={handleInputChange}
+                      required
+                    >
+                      <option value="">アカウントレベルを選択</option>
+                      {accountLevelOptions.map(level => (
+                        <option key={level} value={level}>{level}</option>
+                      ))}
+                    </select>
+
+                    {newUser.account_level === '管理者' && (
+                      <input
+                        name="password"
+                        type="password"
+                        placeholder="パスワード"
+                        value={newUser.password}
+                        onChange={handleInputChange}
+                        required
+                      />
+                    )}
+
+                    <button type="submit">登録</button>
+                    <button type="button" onClick={() => setShowForm(false)}>キャンセル</button>
+                  </form>
+                {submitMessage && <p>{submitMessage}</p>}
+              </div>
+            </div>
           )}
       </div>
     </>

@@ -80,13 +80,37 @@
 .table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #333;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);  
+  table-layout: fixed;
+  max-width: 100%;
+  word-wrap: break-word;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  display: table;
+  border-spacing: 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;     
 }
 
 .table th,
 .table td {
   border: 1px solid #ccc;
   padding: 8px 12px;
-  text-align: left;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.table th:last-child,
+.table td:last-child {
+  min-width: 80px;
+  width: 100px;
+  text-align: center;
 }
 
 .table th {
@@ -108,7 +132,7 @@
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-  max-width: 700px;
+  max-width: 1000px;
   min-width: 320px;
   max-height: 400px;
   overflow-y: auto;
@@ -116,6 +140,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.listWrapper h1{
+  align-self:  flex-start;
+  margin-bottom: 20px;
+  color: #333;
 }
 
 .buttonGroup {
@@ -133,7 +163,6 @@
   text-decoration: none;
   font-size: 1rem;
   cursor: pointer;
-  transition: background 0.2s;
 }
 
 .btn:hover { background: #2674c2; }
@@ -152,11 +181,135 @@
   background: #fff;
   border-radius: 12px;
   padding: 32px 24px;
-  min-width: 320px;
-  max-width: 400px;
+  min-width: 340px;
+  max-width: 420px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.18);
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.searchBoxWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.searchInput {
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+  outline: none;
+}
+
+.searchBtn {
+  background: #0261c0;
+  color: #fff;
+  padding: 8px 24px;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.searchBtn:hover {
+  background: #2674c2;
+}
+
+.headerRow {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.headerRow h1 {
+  margin: 0;
+  font-size: 1.7rem;
+  color: #333;
+  white-space: nowrap;
+  gap: 10px;
+}
+
+.detailTitle {
+  margin-bottom: 18px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #0261c0;
+  text-align: center;
+}
+
+.detailGrid {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 10px 0;
+  margin-bottom: 28px;
+}
+
+.detailLabel {
+  font-weight: bold;
+  color: #2674c2;
+  text-align: left;
+  padding-right: 8px;
+}
+
+.detailValue {
+  color: #222;
+  text-align: left;
+  word-break: break-all;
+}
+
+.detailBtnGroup {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.deleteBtn {
+  background: #e53935;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 24px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.deleteBtn:hover {
+  background: #b71c1c;
+}
+
+.updateBtn {
+  background: #fbc02d;
+  color: #222;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 24px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.updateBtn:hover {
+  background: #f9a825;
+}
+
+.closeBtn {
+  background: #0261c0;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 24px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.closeBtn:hover {
+  background: #2674c2;
 }
