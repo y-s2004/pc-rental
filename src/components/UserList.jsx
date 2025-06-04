@@ -2,9 +2,10 @@
 
 import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
-import styles from '../styles/UserList.module.css'; 
+import styles from '../styles/UserList.module.css';
 import { useRouter } from 'next/navigation';
 import { axiosInstance } from '../lib/axios';
+import { useCookies } from 'react-cookie';
 
 
 export default function UserList() {
@@ -18,6 +19,8 @@ export default function UserList() {
   const [editMode, setEditMode] = useState(false);
   const [editUser, setEditUser] = useState({});
   const [editError, setEditError] = useState('');
+  const [cookies, setCookie, removeCookie] = useCookies(['token']); 
+  
 
   const handleSearch = () => {
     if (serchText.trim() === '') {
@@ -168,59 +171,70 @@ export default function UserList() {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const payload = {
-    ...newUser,
-    delete_flag: false,
+    const payload = {
+      ...newUser,
+      delete_flag: false,
+    };
+    
+    if (newUser.account_level !== '管理者') {
+      payload.password = 'dummy'; 
+    }
+
+    console.log(payload)
+
+    try {
+    const {
+      register_date,
+      update_date,
+      ...payloadRaw
+    } = newUser;
+
+    const payload = {
+      ...payloadRaw,
+      age: parseInt(payloadRaw.age, 10),
+      gender: payloadRaw.gender === '男性' ? 0 : payloadRaw.gender === '女性' ? 1 : 2,
+      delete_flag: false,
+    };
+
+    const res = await axiosInstance.post('/user', payload);
+      setSubmitMessage('ユーザ登録に成功しました！');
+      setUsers(prev => [...prev, res.data]);
+      setNewUser({
+        employee_no: '',
+        name: '',
+        name_kana: '',
+        department: '',
+        tel_no: '',
+        mail_address: '',
+        age: '',
+        gender: '',
+        position: '',
+        account_level: '',
+        password: '',
+      });
+    } catch (err) {
+      console.error(err);
+      setSubmitMessage('ユーザ登録に失敗しました。');
+    }
   };
-  
-  if (newUser.account_level !== '管理者') {
-    payload.password = 'dummy'; 
-  }
-
-  console.log(payload)
-
-  try {
-  const {
-    register_date,
-    update_date,
-    ...payloadRaw
-  } = newUser;
-
-  const payload = {
-    ...payloadRaw,
-    age: parseInt(payloadRaw.age, 10),
-    gender: payloadRaw.gender === '男性' ? 0 : payloadRaw.gender === '女性' ? 1 : 2,
-    delete_flag: false,
-  };
-
-  const res = await axiosInstance.post('/user', payload);
-  setSubmitMessage('ユーザ登録に成功しました！');
-  setUsers(prev => [...prev, res.data]);
-  setNewUser({
-    employee_no: '',
-    name: '',
-    name_kana: '',
-    department: '',
-    tel_no: '',
-    mail_address: '',
-    age: '',
-    gender: '',
-    position: '',
-    account_level: '',
-    password: '',
-  });
-} catch (err) {
-  console.error(err);
-  setSubmitMessage('ユーザ登録に失敗しました。');
-}
-};
 
 
   if (!hasMounted) return null;
   if (loading) return <p>Loading...</p>;
   if (error) return <p style={{ color: 'red' }}>{error}</p>;
+
+  const handleLogout = () => {
+        removeCookie('token');
+
+        localStorage.removeItem('authToken'); 
+        sessionStorage.removeItem('authToken'); 
+
+
+        console.log('ログアウトしました');
+        router.push('/login'); 
+  };
 
   return (
     <>
@@ -248,6 +262,9 @@ export default function UserList() {
             <Link href="/late" onClick={() => setOpen(false)}>延滞者リスト</Link>
           </nav>
         )}
+        <button className={styles.logoutButton} onClick={handleLogout}>
+                ログアウト
+        </button>
       </header>
 
       <div className={styles.container}>

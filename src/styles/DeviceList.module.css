@@ -385,6 +385,14 @@
   box-sizing: border-box;
 }
 
+.remarksInputSmall {
+  width: 200px; 
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
 .formButtonGroup {
   grid-column: span 2;
   display: flex;
@@ -426,4 +434,47 @@
 .remarksInput {
   width: 100%;
   min-width: 300px;
+}
+
+.inventoryDateInput {
+  width: 100%;
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.remarksWrapper {
+  grid-column: span 2; 
+  text-align: center; 
+}
+
+.remarksInput {
+  width: 100%;
+  min-height: 80px;
+  resize: vertical;
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.logoutButton {
+  position: absolute;
+  top: 1rem;
+  right: 3rem;
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.logoutButton:hover {
+  background-color: rgba(255, 255, 255, 0.2);
 }

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import styles from '../styles/Rental.module.css';
 import { useRouter } from 'next/navigation';
 import { axiosInstance } from '../lib/axios';
+import { useCookies } from 'react-cookie';
 
 export default function DeviceList() {
   const [devices, setDevices] = useState([]);
@@ -16,6 +17,9 @@ export default function DeviceList() {
   const [showRentalForm, setShowRentalForm] = useState(false);
   const [rentalDevice, setRentalDevice] = useState(null);
   const [rentalMessage, setRentalMessage] = useState('');
+  const [returnMessage, setReturnMessage] = useState('');
+  const [cookies, setCookie, removeCookie] = useCookies(['token']); 
+  
 
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -63,7 +67,7 @@ export default function DeviceList() {
 
   const handleSearch = () => {
     if (searchText.trim() === '') {
-      setFilteredDevices(null); // 全件表示に戻す
+      setFilteredDevices(null); 
     } else {
       const filtered = availableDevices.filter(device =>
         Object.values(device).some(value =>
@@ -90,10 +94,10 @@ export default function DeviceList() {
         return_date: new Date(rentalDevice.return_date).toISOString(),
         name: rentalDevice.name,
         place: rentalDevice.place || '',
-        rental_status: true,
-        inventory_date: new Date(rentalDevice.inventory_date).toISOString(),
+        rental_status: true, 
         remarks: rentalDevice.remarks || ''
       };
+
       const res = await axiosInstance.post('/rental', payload);
 
       setDevices(devices.map(device =>
@@ -110,11 +114,39 @@ export default function DeviceList() {
     }
   };
 
+  const handleReturn = async (device) => {
+    try {
+      const payload = {
+        user_no: device.user_no,
+      };
+
+      const res = await axiosInstance.post(`/rental/${device.asset_num}/return`, payload);
+
+      setDevices(devices.filter(d => d.asset_num !== device.asset_num));
+
+      setReturnMessage(`資産番号 ${device.asset_num} の返却が完了しました！`);
+    } catch (err) {
+      console.error('返却エラー:', err);
+      setReturnMessage(`資産番号 ${device.asset_num} の返却に失敗しました。`);
+    }
+  };
+
   if (!hasMounted) return null;
   if (loading) return <p>Loading...</p>;
   if (error) return <p style={{ color: 'red' }}>{error}</p>;
 
   const displayDevices = filteredDevices ?? availableDevices;
+
+  const handleLogout = () => {
+        removeCookie('token');
+
+        localStorage.removeItem('authToken'); 
+        sessionStorage.removeItem('authToken'); 
+
+
+        console.log('ログアウトしました');
+        router.push('/login'); 
+  };
 
   return (
     <>
@@ -140,6 +172,10 @@ export default function DeviceList() {
             <Link href="/over" onClick={() => setOpen(false)}>延滞者リスト</Link>
           </nav>
         )}
+
+        <button className={styles.logoutButton} onClick={handleLogout}>
+                ログアウト
+        </button>
       </header>
 
       <div className={styles.container}>
@@ -197,7 +233,7 @@ export default function DeviceList() {
         <div className={styles.backButtonWrapper}>
           <button
             className={styles.backButton}
-            onClick={() => router.push('/user')}
+            onClick={() => router.push('/home')}
           >
             戻る
           </button>
@@ -238,15 +274,6 @@ export default function DeviceList() {
                     required
                   />
                 </div>
-                <div>
-                  <label>棚卸し日</label>
-                  <input
-                    type="date"
-                    value={rentalDevice.inventory_date || ''}
-                    onChange={e => setRentalDevice({ ...rentalDevice, inventory_date: e.target.value })}
-                    required
-                  />
-                </div>
                 <div className={styles.remarksWrapper}>
                   <label>備考</label>
                   <textarea
@@ -264,6 +291,8 @@ export default function DeviceList() {
             </div>
           </div>
         )}
+
+        {returnMessage && <p className={styles.message}>{returnMessage}</p>}
       </div>
     </>
   );
