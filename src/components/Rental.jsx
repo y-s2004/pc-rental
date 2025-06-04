@@ -181,7 +181,7 @@ export default function DeviceList() {
       <div className={styles.container}>
         <div className={styles.listWrapper}>
           <div className={styles.headerRow}>
-            <h1>貸出可能な機器リスト</h1>
+            <h1>貸出可能なデバイス</h1>
             <div className={styles.searchBoxWrapper}>
               <input
                 className={styles.searchInput}

@@ -252,7 +252,7 @@ export default function DeviceList() {
       <div className={styles.container}>
         <div className={styles.listWrapper}>
           <div className={styles.headerRow}>
-            <h1>機器リスト</h1>
+            <h1>デバイスリスト</h1>
             <div className={styles.searchBoxWrapper}>
               <input
                 className={styles.searchInput}

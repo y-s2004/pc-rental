@@ -144,7 +144,7 @@ export default function ReturnDeviceList() {
         <div className={styles.container}>
           <div className={styles.listWrapper}>
             <div className={styles.headerRow}>
-              <h1>貸出中の機器リスト</h1>
+              <h1>貸出中のデバイス</h1>
               <div className={styles.searchBoxWrapper}>
                 <input
                   className={styles.searchInput}
