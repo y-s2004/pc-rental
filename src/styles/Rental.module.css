@@ -44,7 +44,7 @@
   left: 0;
   background: #2674c2;
   border-radius: 6px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   min-width: 180px;
@@ -80,7 +80,7 @@
 .listContent {
   overflow-y: auto;
   width: 100%;
-  max-height: 400px; 
+  max-height: 400px;
   padding: 16px;
   box-sizing: border-box;
   padding: 0;
@@ -92,7 +92,8 @@
   table-layout: fixed;
 }
 
-.table th, .table td {
+.table th,
+.table td {
   border: 1px solid #ddd;
   top: 100;
   padding: 8px;
@@ -104,7 +105,7 @@
   top: 0;
   background-color: #dcdada;
   z-index: 100;
-  padding: 20px 8px; 
+  padding: 20px 8px;
   border-bottom: none;
   border-top: none;
 }
@@ -129,16 +130,15 @@
   background-color: #eaeaea;
 }
 
-
 .listWrapper {
   margin: 0 auto;
   margin-top: 40px;
   margin-bottom: 24px;
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-  max-width: 1000px;
-  min-width: 320px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  max-width: 1500px;
+  min-width: 1000px;
   max-height: 500px;
   overflow-y: auto;
   padding: 32px 24px 24px 24px;
@@ -149,8 +149,8 @@
   padding: 16px;
 }
 
-.listWrapper h1{
-  align-self:  flex-start;
+.listWrapper h1 {
+  align-self: flex-start;
   margin-bottom: 20px;
   color: #333;
 }
@@ -161,10 +161,11 @@
   justify-content: center;
   margin-top: 20px;
   position: sticky;
-  bottom: 0; 
-  background: #fff; 
-  z-index: 10; 
-  padding: 16px 0; 
+  bottom: 0;
+  background: #fff;
+  z-index: 10;
+  padding: 16px 0;
+  grid-column: span 2;
 }
 
 .btn {
@@ -177,19 +178,26 @@
   outline: none;
 }
 
-.btn.secondary{
-    background: #0261c0; 
-    color: #fff;
+.btn.secondary {
+  background: #0261c0;
+  color: #fff;
 }
 
-.btn:hover { background: #f9a825; }
+.btn:hover {
+  background: #f9a825;
+}
 
-.btn.secondary:hover { background: #2674c2; }
+.btn.secondary:hover {
+  background: #2674c2;
+}
 
 .modalOverlay {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.4);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
   z-index: 2000;
   display: flex;
   align-items: center;
@@ -199,10 +207,10 @@
 .modalContent {
   background: #fff;
   border-radius: 12px;
-  padding: 32px 24px;
-  min-width: 340px;
-  max-width: 600px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  padding: 32px;
+  min-width: 350px;
+  max-width: 900px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -250,11 +258,11 @@
   justify-content: space-between;
   margin-bottom: 20px;
   position: sticky;
-  top: 0; 
-  background: #fff; 
-  z-index: 5; 
+  top: 0;
+  background: #fff;
+  z-index: 5;
   padding: 16px 0;
-  border-bottom: 1px solid #ddd; 
+  border-bottom: 1px solid #ddd;
 }
 
 .headerRow h1 {
@@ -301,17 +309,17 @@
 }
 
 .detailBtn {
-  background-color: #2674c2; 
+  background-color: #2674c2;
   color: white;
-  border: none; 
+  border: none;
   border-radius: 4px;
   padding: 8px 16px;
-  cursor: pointer; 
-  transition: background-color 0.3s ease; 
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .detailBtn:hover {
-  background-color: #1a5a9e; 
+  background-color: #1a5a9e;
 }
 
 .deleteBtn {
@@ -361,7 +369,7 @@
 
 .form {
   display: grid;
-  grid-template-columns: 1fr 1fr; 
+  grid-template-columns: 1fr 1fr;
   gap: 16px 24px;
   width: 100%;
   max-width: 1000px;
@@ -395,7 +403,134 @@
 }
 
 .formButton {
-  background: #f57f17;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button.formButton.orangeButton {
+  background: #f57f17 !important;
+  color: #fff !important;
+}
+
+button.formButton.orangeButton:hover {
+  background: #f9a825 !important;
+}
+
+.secondaryButton {
+  background: #0261c0;
+  color: #fff;
+}
+
+.secondaryButton:hover {
+  background: #2674c2;
+}
+
+.remarksWrapper {
+  grid-column: span 2; 
+  text-align: center; 
+}
+
+.remarksInput {
+  width: 100%;
+  min-height: 80px;
+  resize: vertical;
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.backButtonWrapper {
+  margin-top: 20px;
+  text-align: center;
+  padding: 16px 0;
+  background: #fff;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+}
+
+.backButton {
+  background: #0261c0;
+  color: #fff;
+  padding: 20px 50px;
+  border-radius: 5px;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+}
+
+.backButton:hover {
+  background: #2674c2;
+}
+
+.rentalBtn {
+  background: #0261c0;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.rentalBtn:hover {
+  background: #2674c2;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent {
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  min-width: 350px;
+  max-width: 900px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 24px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.form input,
+.form textarea {
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form button {
+  background: #0261c0;
   color: #fff;
   padding: 10px 24px;
   border: none;
@@ -405,15 +540,6 @@
   transition: background 0.2s;
 }
 
-.formButton:hover {
-  background: #f9a825; 
-}
-
-.formButton.secondary {
-  background: #0261c0; 
-  color: #fff;
-}
-
-.formButton.secondary:hover {
-  background: #2674c2; 
+.form button:hover {
+  background: #2674c2;
 }

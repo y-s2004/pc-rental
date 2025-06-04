@@ -22,10 +22,12 @@ export default function Login() {
         axiosInstance.post("/login", data)
         .then(res => {
             if (res.status === 200) {
+                console.log("ログイン成功", res);
                 setMessage("ログイン完了");
                 let page = cookies.pastPage || "/home";
                 setCookie("token", res.data);
                 removeCookie("pastPage");
+                router.push(page);
             } else {
                 setMessage("社員番号またはパスワードが違います");
                 setEmployee("");
