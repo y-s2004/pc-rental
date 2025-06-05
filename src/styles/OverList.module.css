@@ -584,3 +584,8 @@ button.formButton.orangeButton:hover {
 .backButton:hover {
   background: #2674c2;
 }
+
+.redText {
+  color: red;
+  font-weight: bold;
+}

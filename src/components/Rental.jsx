@@ -86,7 +86,15 @@ export default function DeviceList() {
 
   const handleRentalSubmit = async (e) => {
     e.preventDefault();
+    setRentalMessage('');
     try {
+
+      const userRes = await axiosInstance.get(`/user/${rentalDevice.user_no}`);
+      if (!userRes.data || !userRes.data.employee_no) {
+        setRentalMessage('入力された社員番号のユーザが存在しません。');
+        return;
+      }
+
       const payload = {
         asset_num: rentalDevice.asset_num,
         user_no: rentalDevice.user_no,
