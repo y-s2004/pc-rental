@@ -16,6 +16,16 @@
     position: relative;
 }
 
+.menuTitleMain {
+    display: block;
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #0261c0;
+    margin-bottom: 18px;
+    text-align: center;
+    letter-spacing: 0.05em;
+}
+
 .menuTitle {
     font-weight: 1000;
     font-size: 1.8rem; 
@@ -105,6 +115,7 @@
     margin-right: 10px;
     z-index: 10;
 }
+
 .bar {
     width: 28px;
     height: 3px;
@@ -114,7 +125,7 @@
 
 .dropdown {
   position: absolute;
-  top: 48px;
+  top: 60px; 
   left: 0;
   background: #2674c2;
   border-radius: 6px;

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
+import Header from './Header';
+import OverTable from './OverTable';
 import styles from '../styles/OverList.module.css';
 import { axiosInstance } from '../lib/axios';
 import { useRouter } from 'next/navigation';
@@ -71,38 +72,15 @@ export default function Over() {
     if (e.key === 'Enter') handleSearch();
   };
 
-  // --- ここからJSX ---
   return (
     <>
-      <header className={styles.header}>
-        <button
-          className={styles.hamburger}
-          aria-label="メニュー"
-          onClick={() => setOpen(!open)}
-          ref={hamburgerRef}
-        >
-          <span className={styles.bar} />
-          <span className={styles.bar} />
-          <span className={styles.bar} />
-        </button>
-        <span className={styles.title}>PC貸出システム</span>
-        {open && (
-          <nav className={styles.dropdown} ref={dropdownRef}>
-            <Link href="/" onClick={() => setOpen(false)}>メインメニュー</Link>
-            <Link href="/device" onClick={() => setOpen(false)}>機器リスト</Link>
-            <Link href="/user" onClick={() => setOpen(false)}>ユーザリスト</Link>
-            <Link href="/rental" onClick={() => setOpen(false)}>貸出</Link>
-            <Link href="/return" onClick={() => setOpen(false)}>返却</Link>
-            <Link href="/over" onClick={() => setOpen(false)}>延滞者リスト</Link>
-          </nav>
-        )}
-        <button className={styles.logoutButton} onClick={() => router.push('/login')}>
-          ログアウト
-        </button>
-      </header>
-
-      
-
+      <Header
+        open={open}
+        setOpen={setOpen}
+        hamburgerRef={hamburgerRef}
+        dropdownRef={dropdownRef}
+        styles={styles}
+      />
 
       <div className={styles.container}>
         <div className={styles.listWrapper}>
@@ -124,36 +102,7 @@ export default function Over() {
             {loading && <p>読み込み中...</p>}
             {error && <p>{error}</p>}
             {!loading && !error && (
-              <table className={styles.table}>
-                <thead>
-                  <tr>
-                    <th>資産番号</th>
-                    <th>ユーザ番号</th>
-                    <th>名前</th>
-                    <th>返却予定日</th>
-                    <th>備考</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredList.length === 0 ? (
-                    <tr>
-                      <td colSpan={5} style={{ textAlign: "center" }}>延滞中の貸出はありません</td>
-                    </tr>
-                  ) : (
-                    filteredList.map(item => (
-                      <tr key={item.id || item.asset_num}>
-                        <td>{item.asset_num}</td>
-                        <td>{item.user_no}</td>
-                        <td>{item.name}</td>
-                        <td className={styles.redText}>
-                          {item.return_date ? item.return_date.replace(/-/g, "/").slice(0, 10) : ''}
-                        </td>
-                        <td>{item.remarks}</td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
+              <OverTable filteredList={filteredList} styles={styles} />
             )}
           </div>
         </div>

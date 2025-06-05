@@ -1,11 +1,12 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import Link from 'next/link';
+import Header from './Header';
+import DeviceTable from './DeviceTable';
+import RentalModal from './RentalModal';
 import styles from '../styles/Rental.module.css';
 import { useRouter } from 'next/navigation';
 import { axiosInstance } from '../lib/axios';
-import { useCookies } from 'react-cookie';
 
 export default function DeviceList() {
   const [devices, setDevices] = useState([]);
@@ -17,9 +18,6 @@ export default function DeviceList() {
   const [showRentalForm, setShowRentalForm] = useState(false);
   const [rentalDevice, setRentalDevice] = useState(null);
   const [rentalMessage, setRentalMessage] = useState('');
-  const [returnMessage, setReturnMessage] = useState('');
-  const [cookies, setCookie, removeCookie] = useCookies(['token']); 
-  
 
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -122,69 +120,21 @@ export default function DeviceList() {
     }
   };
 
-  const handleReturn = async (device) => {
-    try {
-      const payload = {
-        user_no: device.user_no,
-      };
-
-      const res = await axiosInstance.post(`/rental/${device.asset_num}/return`, payload);
-
-      setDevices(devices.filter(d => d.asset_num !== device.asset_num));
-
-      setReturnMessage(`資産番号 ${device.asset_num} の返却が完了しました！`);
-    } catch (err) {
-      console.error('返却エラー:', err);
-      setReturnMessage(`資産番号 ${device.asset_num} の返却に失敗しました。`);
-    }
-  };
-
   if (!hasMounted) return null;
   if (loading) return <p>Loading...</p>;
   if (error) return <p style={{ color: 'red' }}>{error}</p>;
 
   const displayDevices = filteredDevices ?? availableDevices;
 
-  const handleLogout = () => {
-        removeCookie('token');
-
-        localStorage.removeItem('authToken'); 
-        sessionStorage.removeItem('authToken'); 
-
-
-        console.log('ログアウトしました');
-        router.push('/login'); 
-  };
-
   return (
     <>
-      <header className={styles.header}>
-        <button
-          className={styles.hamburger}
-          aria-label="メニュー"
-          onClick={() => setOpen(!open)}
-          ref={hamburgerRef}
-        >
-          <span className={styles.bar} />
-          <span className={styles.bar} />
-          <span className={styles.bar} />
-        </button>
-        <span className={styles.title}>PC貸出システム</span>
-        {open && (
-          <nav className={styles.dropdown} ref={dropdownRef}>
-            <Link href="/" onClick={() => setOpen(false)}>メインメニュー</Link>
-            <Link href="/device" onClick={() => setOpen(false)}>機器リスト</Link>
-            <Link href="/user" onClick={() => setOpen(false)}>ユーザリスト</Link>
-            <Link href="/rental" onClick={() => setOpen(false)}>貸出</Link>
-            <Link href="/return" onClick={() => setOpen(false)}>返却</Link>
-            <Link href="/over" onClick={() => setOpen(false)}>延滞者リスト</Link>
-          </nav>
-        )}
-
-        <button className={styles.logoutButton} onClick={handleLogout}>
-                ログアウト
-        </button>
-      </header>
+      <Header
+        open={open}
+        setOpen={setOpen}
+        hamburgerRef={hamburgerRef}
+        dropdownRef={dropdownRef}
+        styles={styles}
+      />
 
       <div className={styles.container}>
         <div className={styles.listWrapper}>
@@ -202,39 +152,13 @@ export default function DeviceList() {
             </div>
           </div>
           <div className={styles.listContent}>
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th>資産番号</th>
-                  <th>メーカー</th>
-                  <th>OS</th>
-                  <th>メモリ</th>
-                  <th>容量</th>
-                  <th>備考</th>
-                  <th>貸出</th>
-                </tr>
-              </thead>
-              <tbody>
-                {displayDevices.map(device => (
-                  <tr key={device.asset_num}>
-                    <td>{device.asset_num}</td>
-                    <td>{device.maker}</td>
-                    <td>{device.os}</td>
-                    <td>{device.memory}</td>
-                    <td>{device.disc_capacity}</td>
-                    <td>{device.remarks}</td>
-                    <td>
-                      <button
-                        className={styles.rentalBtn}
-                        onClick={() => handleRental(device)}
-                      >
-                        貸出
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <DeviceTable
+              devices={displayDevices}
+              styles={styles}
+              showRental={true}
+              showDetail={false}
+              onRental={handleRental}
+            />
           </div>
         </div>
 
@@ -248,56 +172,15 @@ export default function DeviceList() {
         </div>
 
         {showRentalForm && (
-          <div className={styles.modalOverlay} onClick={() => setShowRentalForm(false)}>
-            <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
-              <h2>貸出登録</h2>
-              <form onSubmit={handleRentalSubmit} className={styles.form}>
-                <div><label>資産番号</label><input value={rentalDevice.asset_num} disabled /></div>
-                <div><label>保管場所</label><input value={rentalDevice.place || ''} disabled /></div>
-                <div><label>OS</label><input value={rentalDevice.os || ''} disabled /></div>
-                <div><label>メーカー</label><input value={rentalDevice.maker || ''} disabled /></div>
-                <div>
-                  <label>ユーザ番号</label>
-                  <input
-                    value={rentalDevice.user_no || ''}
-                    onChange={e => setRentalDevice({ ...rentalDevice, user_no: e.target.value })}
-                    required
-                  />
-                </div>
-                <div>
-                  <label>名前</label>
-                  <input
-                    type="text"
-                    value={rentalDevice.name || ''}
-                    onChange={e => setRentalDevice({ ...rentalDevice, name: e.target.value })}
-                    required
-                  />
-                </div>
-                <div>
-                  <label>返却予定日</label>
-                  <input
-                    type="date"
-                    value={rentalDevice.return_date || ''}
-                    onChange={e => setRentalDevice({ ...rentalDevice, return_date: e.target.value })}
-                    required
-                  />
-                </div>
-                <div className={styles.remarksWrapper}>
-                  <label>備考</label>
-                  <textarea
-                    className={styles.remarksInput}
-                    value={rentalDevice.remarks || ''}
-                    onChange={e => setRentalDevice({ ...rentalDevice, remarks: e.target.value })}
-                  />
-                </div>
-                <div className={styles.buttonGroup}>
-                  <button type="submit" className={`${styles.formButton} ${styles.orangeButton}`}>登録</button>
-                  <button type="button" className={`${styles.formButton} ${styles.secondaryButton}`} onClick={() => setShowRentalForm(false)}>戻る</button>
-                </div>
-              </form>
-              {rentalMessage && <p>{rentalMessage}</p>}
-            </div>
-          </div>
+          <RentalModal
+            show={showRentalForm}
+            rentalDevice={rentalDevice}
+            setRentalDevice={setRentalDevice}
+            onSubmit={handleRentalSubmit}
+            onClose={() => setShowRentalForm(false)}
+            rentalMessage={rentalMessage}
+            styles={styles}
+          />
         )}
 
         {returnMessage && <p className={styles.message}>{returnMessage}</p>}

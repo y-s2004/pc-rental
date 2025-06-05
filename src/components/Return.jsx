@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import Link from 'next/link';
+import Header from './Header';
+import ReturnTable from './ReturnTable';
 import styles from '../styles/Return.module.css';
 import { useCookies } from 'react-cookie';
 import { useRouter } from 'next/navigation';
@@ -13,7 +14,6 @@ export default function ReturnDeviceList() {
     const [filteredDevices, setFilteredDevices] = useState(null);
     const [returnMessage, setReturnMessage] = useState('');
     const [showModal, setShowModal] = useState(false); 
-    const [cookies, setCookie, removeCookie] = useCookies(['token']); 
     const [open, setOpen] = useState(false);
     const dropdownRef = useRef(null);
     const hamburgerRef = useRef(null);
@@ -100,47 +100,17 @@ export default function ReturnDeviceList() {
         const date = new Date(dateString);
         return `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}`;
     };
-
-
-    const handleLogout = () => {
-        removeCookie('token');
-
-        localStorage.removeItem('authToken'); 
-        sessionStorage.removeItem('authToken'); 
-
-
-        console.log('ログアウトしました');
-        router.push('/login'); 
-    };
     
     return (
       <>
-        <header className={styles.header}>
-          <button
-            className={styles.hamburger}
-            aria-label="メニュー"
-            onClick={() => setOpen(!open)}
-          >
-            <span className={styles.bar} />
-            <span className={styles.bar} />
-            <span className={styles.bar} />
-          </button>
-          <span className={styles.title}>PC返却システム</span>
-          {open && (
-            <nav className={styles.dropdown} ref={dropdownRef}>
-              <Link href="/" onClick={() => setOpen(false)}>メインメニュー</Link>
-              <Link href="/device" onClick={() => setOpen(false)}>機器リスト</Link>
-              <Link href="/user" onClick={() => setOpen(false)}>ユーザリスト</Link>
-              <Link href="/rental" onClick={() => setOpen(false)}>貸出</Link>
-              <Link href="/return" onClick={() => setOpen(false)}>返却</Link>
-              <Link href="/over" onClick={() => setOpen(false)}>延滞者リスト</Link>
-            </nav>
-          )}
-            <button className={styles.logoutButton} onClick={handleLogout}>
-                ログアウト
-            </button>
-        </header>
-  
+        <Header
+          open={open}
+          setOpen={setOpen}
+          hamburgerRef={hamburgerRef}
+          dropdownRef={dropdownRef}
+          styles={styles}
+        />
+
         <div className={styles.container}>
           <div className={styles.listWrapper}>
             <div className={styles.headerRow}>
@@ -157,37 +127,12 @@ export default function ReturnDeviceList() {
               </div>
             </div>
             <div className={styles.listContent}>
-              <table className={styles.table}>
-                <thead>
-                  <tr>
-                    <th>資産番号</th>
-                    <th>社員番号</th>
-                    <th>社員名</th>
-                    <th>貸出日</th>
-                    <th>返却期限</th>
-                    <th>返却</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {(filteredDevices ?? devices).map(device => (
-                    <tr key={device.asset_num}>
-                      <td>{device.asset_num}</td>
-                      <td>{device.user_no}</td>
-                      <td>{device.name}</td>
-                      <td>{formatDate(device.rental_date)}</td>
-                      <td>{formatDate(device.return_date)}</td>
-                      <td>
-                        <button
-                          className={`${styles.rentalBtn}`}
-                          onClick={() => handleReturn(device)}
-                        >
-                          返却
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <ReturnTable
+                devices={filteredDevices ?? devices}
+                styles={styles}
+                formatDate={formatDate}
+                handleReturn={handleReturn}
+              />
             </div>
           </div>
   
