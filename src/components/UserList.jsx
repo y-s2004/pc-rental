@@ -154,6 +154,7 @@ export default function UserList() {
       delete payload.register_date;
       delete payload.update_date;
 
+      console.log(payload); 
       const res = await axiosInstance.put(`/user/${detailUser.employee_no}`, payload);
 
       setUsers(users.map(u => u.employee_no === detailUser.employee_no ? { ...u, ...res.data } : u));
