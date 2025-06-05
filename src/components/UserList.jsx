@@ -259,7 +259,7 @@ export default function UserList() {
             <Link href="/user" onClick={() => setOpen(false)}>ユーザリスト</Link>
             <Link href="/rental" onClick={() => setOpen(false)}>貸出</Link>
             <Link href="/return" onClick={() => setOpen(false)}>返却</Link>
-            <Link href="/late" onClick={() => setOpen(false)}>延滞者リスト</Link>
+            <Link href="/over" onClick={() => setOpen(false)}>延滞者リスト</Link>
           </nav>
         )}
         <button className={styles.logoutButton} onClick={handleLogout}>

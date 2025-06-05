@@ -134,12 +134,12 @@ export default function DeviceList() {
             const dateString = now.toISOString().split('T')[0]; 
 
             const payload = {
-            ...editDevice,
-            disc_capacity: editDevice.disc_capacity,
-            inventory_date: editDevice.inventory_date
-                ? `${editDevice.inventory_date}`
-                : null,
-            update_date: `${dateString}T${timeString}`,
+              ...editDevice,
+              disc_capacity: editDevice.disc_capacity,
+              inventory_date: editDevice.inventory_date
+                  ? `${editDevice.inventory_date}`
+                  : null,
+              update_date: `${dateString}T${timeString}`,
             };
 
             console.log('送信データ:', payload);
@@ -168,38 +168,36 @@ export default function DeviceList() {
 
             const formatDateTime = (date) => {
                 if (!date) return null;
-                return date.includes('T') ? date : `${date}T00:00:00`; // 重複を防ぐ
+                return date.includes('T') ? date : `${date}T00:00:00`;
             };
 
             const payload = {
-            ...newDevice,
-            breakdown: false, 
-            rental_start: formatDateTime(newDevice.rental_start),
-            rental_deadline: formatDateTime(newDevice.rental_deadline),
-            inventory_date: formatDateTime(newDevice.inventory_date),
-            update_date: `${dateString}T${timeString}`, 
+              ...newDevice,
+              breakdown: false, 
+              rental_start: formatDateTime(newDevice.rental_start),
+              rental_deadline: formatDateTime(newDevice.rental_deadline),
+              inventory_date: formatDateTime(newDevice.inventory_date),
+              update_date: `${dateString}T${timeString}`, 
             };
 
-            console.log('送信データ:', payload); 
             const res = await axiosInstance.post('/device', payload);
-            setSubmitMessage('機器登録に成功しました！');
-            setDevices(prev => [...prev, res.data]);
-            setNewDevice({
-            asset_num: '',
-            maker: '',
-            os: '',
-            memory: '',
-            disc_capacity: '',
-            graphic_board: '',
-            place: '',
-            rental_start: '',
-            rental_deadline: '',
-            inventory_date: '',
-            remarks: '',
+              setSubmitMessage('機器登録に成功しました！');
+              setDevices(prev => [...prev, res.data]);
+              setNewDevice({
+              asset_num: '',
+              maker: '',
+              os: '',
+              memory: '',
+              disc_capacity: '',
+              graphic_board: '',
+              place: '',
+              rental_start: '',
+              rental_deadline: '',
+              inventory_date: '',
+              remarks: '',
             });
             setShowForm(false);
         } catch (err) {
-            console.error('登録エラー:', err.response?.data || err.message);
             setSubmitMessage('機器登録に失敗しました。');
         }
     };
