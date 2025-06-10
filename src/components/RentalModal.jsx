@@ -108,3 +108,38 @@ export default function RentalModal({
         </div>
     );
 }
+
+/*
+const handleUserNoChange = useCallback(async (e) => {
+    const value = e.target.value;
+    setRentalDevice(prev => ({ ...prev, user_no: value }));
+
+    if (value) {
+        try {
+            const res = await fetch(`/user/${value}`);
+            if (res.ok) {
+                const data = await res.json();
+                setRentalDevice(prev => ({
+                    ...prev,
+                    name: data.name || ''
+                }));
+            } else {
+                setRentalDevice(prev => ({
+                    ...prev,
+                    name: ''
+                }));
+            }
+        } catch {
+            setRentalDevice(prev => ({
+                ...prev,
+                name: ''
+            }));
+        }
+    } else {
+        setRentalDevice(prev => ({
+            ...prev,
+            name: ''
+        }));
+    }
+}, [setRentalDevice]);
+*/ 
