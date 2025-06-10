@@ -8,8 +8,6 @@ import UserTable from './UserTable';
 import styles from '../styles/UserList.module.css';
 import { useRouter } from 'next/navigation';
 import { axiosInstance } from '../lib/axios';
-import { useCookies } from 'react-cookie';
-
 
 export default function UserList() {
     const [users, setUsers] = useState([]);
@@ -99,14 +97,14 @@ export default function UserList() {
 
     useEffect(() => {
         function handleClickOutside(event) {
-        if (
-            dropdownRef.current &&
-            !dropdownRef.current.contains(event.target) &&
-            hamburgerRef.current &&
-            !hamburgerRef.current.contains(event.target)
-        ) {
-            setOpen(false);
-        }
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target) &&
+                hamburgerRef.current &&
+                !hamburgerRef.current.contains(event.target)
+            ) {
+                setOpen(false);
+            }
         }
 
         if (open) {
@@ -152,7 +150,7 @@ export default function UserList() {
                 age: parseInt(editUser.age, 10),
                 gender: editUser.gender === '男性' ? 0 : editUser.gender === '女性' ? 1 : 2,
             };
-            
+
             delete payload.register_date;
             delete payload.update_date;
 
@@ -250,9 +248,9 @@ export default function UserList() {
                                 value={serchText}
                                 onChange={(e) => {
                                 setSerchText(e.target.value);
-                                if (e.target.value.trim() === '') {
-                                    setFilteredUsers(null); 
-                                }
+                                    if (e.target.value.trim() === '') {
+                                        setFilteredUsers(null); 
+                                    }
                                 }}
                             />
                             <button className={styles.searchBtn} onClick={handleSearch}>検索</button>
@@ -261,9 +259,9 @@ export default function UserList() {
                 
                     <div className={styles.listContent}>
                         <UserTable
-                        users={filteredUsers ?? users}
-                        onDetail={setDetailUser}
-                        styles={styles}
+                            users={filteredUsers ?? users}
+                            onDetail={setDetailUser}
+                            styles={styles}
                         />
                     </div>
                 </div>
