@@ -4,7 +4,6 @@ import { useEffect, useState, useRef } from 'react';
 import Header from './Header';
 import ReturnTable from './ReturnTable';
 import styles from '../styles/Return.module.css';
-import { useCookies } from 'react-cookie';
 import { useRouter } from 'next/navigation';
 import { axiosInstance } from '../lib/axios';
 
