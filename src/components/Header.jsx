@@ -1,38 +1,23 @@
 import Link from 'next/link';
 import useLogout from './Logout';
 
-export default function RentalHeader({ open, setOpen, hamburgerRef, dropdownRef, styles }) {
+export default function RentalHeader({ styles }) {
     const handleLogout = useLogout();
 
     return (
         <header className={styles.header}>
-            <button
-                className={styles.hamburger}
-                aria-label="メニュー"
-                onClick={() => setOpen(!open)}
-                ref={hamburgerRef}
-            >
-                <span className={styles.bar} />
-                <span className={styles.bar} />
-                <span className={styles.bar} />
-            </button>
-
             <span className={styles.title}>PC貸出システム</span>
-
-            {open && (
-                <nav className={styles.dropdown} ref={dropdownRef}>
-                    <Link href="/" onClick={() => setOpen(false)}>メインメニュー</Link>
-                    <Link href="/device" onClick={() => setOpen(false)}>機器リスト</Link>
-                    <Link href="/user" onClick={() => setOpen(false)}>ユーザリスト</Link>
-                    <Link href="/rental" onClick={() => setOpen(false)}>貸出</Link>
-                    <Link href="/return" onClick={() => setOpen(false)}>返却</Link>
-                    <Link href="/over" onClick={() => setOpen(false)}>延滞者リスト</Link>
-                </nav>
-            )}
-            
-            <button className={styles.logoutButton} onClick={handleLogout}>
-                ログアウト
-            </button>
+            <div className={styles.headerNav}>
+                <Link href="/" className={styles.headerBtn}>メインメニュー</Link>
+                <Link href="/device" className={styles.headerBtn}>機器リスト</Link>
+                <Link href="/user" className={styles.headerBtn}>ユーザリスト</Link>
+                <Link href="/rental" className={styles.headerBtn}>貸出</Link>
+                <Link href="/return" className={styles.headerBtn}>返却</Link>
+                <Link href="/over" className={styles.headerBtn}>延滞者リスト</Link>
+                <button className={styles.logoutButton} onClick={handleLogout}>
+                    ログアウト
+                </button>
+            </div>
         </header>
     );
 }
