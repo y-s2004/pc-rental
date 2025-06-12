@@ -73,6 +73,7 @@ export default function DeviceList() {
                 setOpen(false);
             }
         }
+
         if (open) {
             document.addEventListener('mousedown', handleClickOutside);
         } else {
@@ -212,13 +213,7 @@ export default function DeviceList() {
 
     return (
         <>
-            <Header
-                open={open}
-                setOpen={setOpen}
-                hamburgerRef={hamburgerRef}
-                dropdownRef={dropdownRef}
-                styles={styles}
-            />
+            <Header styles={styles} />
 
             <div className={styles.container}>
                 <div className={styles.listWrapper}>

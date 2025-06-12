@@ -32,13 +32,7 @@ export default function MainMenu() {
 
     return (
         <>
-            <Header
-                open={open}
-                setOpen={setOpen}
-                hamburgerRef={hamburgerRef}
-                dropdownRef={dropdownRef}
-                styles={styles}
-            />
+            <Header styles={styles} />
 
             <main className={styles.main}>
                 <div className={styles.cardWrapper}>
@@ -54,6 +48,7 @@ export default function MainMenu() {
                     </div>
                 </div>
             </main>
+
         </>
     );
 }
