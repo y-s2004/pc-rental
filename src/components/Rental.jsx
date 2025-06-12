@@ -43,21 +43,21 @@ export default function DeviceList() {
 
     useEffect(() => {
         function handleClickOutside(event) {
-        if (
-            dropdownRef.current &&
-            !dropdownRef.current.contains(event.target) &&
-            hamburgerRef.current &&
-            !hamburgerRef.current.contains(event.target)
-        ) {
-            setOpen(false);
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target) &&
+                hamburgerRef.current &&
+                !hamburgerRef.current.contains(event.target)
+            ) {
+                setOpen(false);
+            }
         }
-        }
+
         if (open) {
             document.addEventListener('mousedown', handleClickOutside);
         } else {
             document.removeEventListener('mousedown', handleClickOutside);
-        }
-        return () => {
+        } return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, [open]);
@@ -141,14 +141,14 @@ export default function DeviceList() {
                     <div className={styles.headerRow}>
                         <h1>貸出可能なデバイス</h1>
                         <div className={styles.searchBoxWrapper}>
-                        <input
-                            className={styles.searchInput}
-                            type="text"
-                            placeholder="検索"
-                            value={searchText}
-                            onChange={e => setSearchText(e.target.value)}
-                        />
-                        <button className={styles.searchBtn} onClick={handleSearch}>検索</button>
+                            <input
+                                className={styles.searchInput}
+                                type="text"
+                                placeholder="検索"
+                                value={searchText}
+                                onChange={e => setSearchText(e.target.value)}
+                            />
+                            <button className={styles.searchBtn} onClick={handleSearch}>検索</button>
                         </div>
                     </div>
                     <div className={styles.listContent}>
@@ -172,15 +172,15 @@ export default function DeviceList() {
                 </div>
 
                 {showRentalForm && (
-                <RentalModal
-                    show={showRentalForm}
-                    rentalDevice={rentalDevice}
-                    setRentalDevice={setRentalDevice}
-                    onSubmit={handleRentalSubmit}
-                    onClose={() => setShowRentalForm(false)}
-                    rentalMessage={rentalMessage}
-                    styles={styles}
-                />
+                    <RentalModal
+                        show={showRentalForm}
+                        rentalDevice={rentalDevice}
+                        setRentalDevice={setRentalDevice}
+                        onSubmit={handleRentalSubmit}
+                        onClose={() => setShowRentalForm(false)}
+                        rentalMessage={rentalMessage}
+                        styles={styles}
+                    />
                 )}
             </div>
         </>

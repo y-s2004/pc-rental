@@ -29,6 +29,7 @@ export default function DeviceForm({
                         required
                     />
                 </div>
+
                 <div>
                     <label className={styles.formLabel}>メーカー</label>
                     <input
@@ -40,6 +41,7 @@ export default function DeviceForm({
                         required
                     />
                 </div>
+
                 <div>
                     <label className={styles.formLabel}>OS</label>
                     <input
@@ -50,6 +52,7 @@ export default function DeviceForm({
                         className={styles.formInput}
                     />
                 </div>
+
                 <div>
                     <label className={styles.formLabel}>メモリ</label>
                     <input
@@ -60,6 +63,7 @@ export default function DeviceForm({
                         className={styles.formInput}
                     />
                 </div>
+
                 <div>
                     <label className={styles.formLabel}>容量</label>
                     <input
@@ -70,6 +74,7 @@ export default function DeviceForm({
                         className={styles.formInput}
                     />
                 </div>
+
                 <div>
                     <label>グラフィックボード</label>
                     <select
@@ -83,6 +88,7 @@ export default function DeviceForm({
                     <option value="false">❌</option>
                     </select>
                 </div>
+
                 <div>
                     <label>保管場所</label>
                     <input
@@ -94,6 +100,7 @@ export default function DeviceForm({
                         required
                     />
                 </div>
+
                 <div>
                     <label>リース開始日</label>
                     <input
@@ -105,6 +112,7 @@ export default function DeviceForm({
                         required
                     />
                 </div>
+
                 <div>
                     <label>リース終了日</label>
                     <input
@@ -116,6 +124,7 @@ export default function DeviceForm({
                         required
                     />
                 </div>
+
                 <div>
                     <label>棚卸日</label>
                     <input
@@ -126,6 +135,7 @@ export default function DeviceForm({
                         required
                     />
                 </div>
+
                 <div className={styles.remarksWrapper}>
                     <label>備考</label>
                     <textarea
@@ -136,6 +146,7 @@ export default function DeviceForm({
                         onChange={e => setNewDevice({ ...newDevice, remarks: e.target.value })}
                     />
                 </div>
+                
                 <div className={styles.formButtonGroup}>
                     <button type="submit" className={styles.formButton}>登録</button>
                     <button

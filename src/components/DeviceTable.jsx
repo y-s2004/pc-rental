@@ -44,10 +44,10 @@ export default function DeviceTable({
                         {showRental && (
                             <td>
                                 <button
-                                className={styles.rentalBtn}
-                                onClick={() => onRental(device)}
+                                    className={styles.rentalBtn}
+                                    onClick={() => onRental(device)}
                                 >
-                                貸出
+                                    貸出
                                 </button>
                             </td>
                         )}
