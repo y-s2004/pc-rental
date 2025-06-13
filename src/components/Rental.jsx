@@ -7,6 +7,7 @@ import RentalModal from './RentalModal';
 import styles from '../styles/Rental.module.css';
 import { useRouter } from 'next/navigation';
 import { axiosInstance } from '../lib/axios';
+import BackButton from './BackButton';
 
 export default function DeviceList() {
     const [devices, setDevices] = useState([]);
@@ -78,7 +79,15 @@ export default function DeviceList() {
     };
 
     const handleRental = (device) => {
-        setRentalDevice(device);
+        const today = new Date();
+        const returnDate = new Date(today);
+        returnDate.setDate(today.getDate() + 90);
+
+        setRentalDevice({
+            ...device,
+            rental_date: today.toISOString(),
+            return_date: returnDate.toISOString(),
+        });
         setShowRentalForm(true);
         setRentalMessage('');
     };
@@ -156,15 +165,6 @@ export default function DeviceList() {
                     </div>
                 </div>
 
-                <div className={styles.backButtonWrapper}>
-                    <button
-                        className={styles.backButton}
-                        onClick={() => router.push('/home')}
-                    >
-                        戻る
-                    </button>
-                </div>
-
                 {showRentalForm && (
                     <RentalModal
                         show={showRentalForm}
@@ -176,6 +176,12 @@ export default function DeviceList() {
                         styles={styles}
                     />
                 )}
+                
+                <div className={styles.backButtonWrapper}>
+                    <BackButton className={styles.backButton} to="/home">
+                        戻る
+                    </BackButton>
+                </div>
             </div>
         </>
     );

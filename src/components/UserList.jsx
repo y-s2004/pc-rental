@@ -8,6 +8,7 @@ import UserTable from './UserTable';
 import styles from '../styles/UserList.module.css';
 import { useRouter } from 'next/navigation';
 import { axiosInstance } from '../lib/axios';
+import BackButton from './BackButton';
 
 export default function UserList() {
     const [users, setUsers] = useState([]);
@@ -260,8 +261,12 @@ export default function UserList() {
                     </div>
                 </div>
                 <div className={styles.buttonGroup}>
-                    <button className={styles.btn} onClick={() => setShowForm(true)}>新規登録</button>
-                    <button className={`${styles.btn} ${styles.secondary}`} onClick={() => router.push('/home')}>戻る</button>
+                    <button className={styles.btn} onClick={() => setShowForm(true)}>
+                        新規登録
+                    </button>
+                    <BackButton className={`${styles.btn} ${styles.secondary}`} to="/home">
+                        戻る
+                    </BackButton>
                 </div>
 
                 {detailUser && (

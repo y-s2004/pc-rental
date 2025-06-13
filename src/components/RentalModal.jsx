@@ -10,7 +10,7 @@ export default function RentalModal({
     rentalMessage,
     styles,
 }) {
-    
+
     if (!show || !rentalDevice) return null;
 
     const handleUserNoChange = useCallback(async (e) => {
@@ -80,9 +80,8 @@ export default function RentalModal({
                         <label>返却予定日</label>
                         <input
                             type="date"
-                            value={rentalDevice.return_date || ''}
-                            onChange={e => setRentalDevice({ ...rentalDevice, return_date: e.target.value })}
-                            required
+                            value={rentalDevice.return_date ? rentalDevice.return_date.slice(0, 10) : ''}
+                            readOnly
                         />
                     </div>
                     <div className={styles.remarksWrapper}>

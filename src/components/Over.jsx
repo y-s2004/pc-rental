@@ -4,6 +4,7 @@ import OverTable from './OverTable';
 import styles from '../styles/OverList.module.css';
 import { axiosInstance } from '../lib/axios';
 import { useRouter } from 'next/navigation';
+import BackButton from './BackButton';
 
 export default function Over() {
     const [overList, setOverList] = useState([]);
@@ -18,12 +19,12 @@ export default function Over() {
 
     useEffect(() => {
         function handleClickOutside(event) {
-        if (
-            dropdownRef.current && !dropdownRef.current.contains(event.target) &&
-            hamburgerRef.current && !hamburgerRef.current.contains(event.target)
-        ) {
-            setOpen(false);
-        }
+            if (
+                dropdownRef.current && !dropdownRef.current.contains(event.target) &&
+                hamburgerRef.current && !hamburgerRef.current.contains(event.target)
+            ) {
+                setOpen(false);
+            }
         }
         if (open) {
             document.addEventListener('mousedown', handleClickOutside);
@@ -40,7 +41,7 @@ export default function Over() {
         axiosInstance.get('/rental/over')
         .then(res => {
             const filtered = res.data.filter(item =>
-            item.return_date < today && item.rental_status === true
+                item.return_date < today && item.rental_status === true
             );
             setOverList(filtered);
             setFilteredList(filtered);
@@ -100,13 +101,11 @@ export default function Over() {
                         )}
                     </div>
                 </div>
+                
                 <div className={styles.backButtonWrapper}>
-                    <button
-                        className={styles.backButton}
-                        onClick={() => router.push('/home')}
-                    >
+                    <BackButton className={styles.backButton} to="/home">
                         戻る
-                    </button>
+                    </BackButton>
                 </div>
             </div>
         </>

@@ -8,7 +8,7 @@ import DeviceForm from './DeviceForm';
 import styles from '../styles/DeviceList.module.css';
 import { useRouter } from 'next/navigation';
 import { axiosInstance } from '../lib/axios';
-import { useCookies } from 'react-cookie';
+import BackButton from './BackButton';
 
 export default function DeviceList() {
     const [devices, setDevices] = useState([]);
@@ -17,7 +17,6 @@ export default function DeviceList() {
     const [hasMounted, setHasMounted] = useState(false);
     const [detailDevice, setDetailDevice] = useState(null);
     const [searchText, setSearchText] = useState('');
-    const [filteredDevices, setFilteredDevices] = useState(null);
     const [editMode, setEditMode] = useState(false);
     const [editDevice, setEditDevice] = useState({});
     const [editError, setEditError] = useState('');
@@ -105,7 +104,7 @@ export default function DeviceList() {
         }
     };
 
-    const handleCloseForm = () => {
+    const CloseForm = () => {
         setShowForm(false);
         setNewDevice({
             asset_num: '',
@@ -233,23 +232,23 @@ export default function DeviceList() {
                             <button className={styles.searchBtn} onClick={handleSearch}>検索</button>
                         </div>
                     </div>
-                <div className={styles.listContent}>
-                    <DeviceTable
-                    devices={devices}
-                    styles={styles}
-                    showRental={false}
-                    showDetail={true}
-                    onDetail={handleDetail}
-                    />
-                </div>
+                    <div className={styles.listContent}>
+                        <DeviceTable
+                        devices={devices}
+                        styles={styles}
+                        showRental={false}
+                        showDetail={true}
+                        onDetail={handleDetail}
+                        />
+                    </div>
                 </div>
                 <div className={styles.buttonGroup}>
                     <button className={styles.btn} onClick={() => setShowForm(true)}>
                         新規登録
                     </button>
-                    <button className={`${styles.btn} ${styles.secondary}`} onClick={() => router.push('/home')}>
+                    <BackButton className={`${styles.btn} ${styles.secondary}`} to="/home">
                         戻る
-                    </button>
+                    </BackButton>
                 </div>
 
                 {detailDevice && (
@@ -275,7 +274,7 @@ export default function DeviceList() {
                         handleInputChange={handleInputChange}
                         setNewDevice={setNewDevice}
                         handleSubmit={handleSubmit}
-                        handleCloseForm={handleCloseForm}
+                        handleCloseForm={CloseForm}
                         styles={styles}
                     />
                 )}

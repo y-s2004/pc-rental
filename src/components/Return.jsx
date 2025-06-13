@@ -6,6 +6,7 @@ import ReturnTable from './ReturnTable';
 import styles from '../styles/Return.module.css';
 import { useRouter } from 'next/navigation';
 import { axiosInstance } from '../lib/axios';
+import BackButton from './BackButton';
 
 export default function ReturnDeviceList() {
     const [devices, setDevices] = useState([]);
@@ -106,53 +107,51 @@ export default function ReturnDeviceList() {
             <Header styles={styles} />
 
             <div className={styles.container}>
-            <div className={styles.listWrapper}>
-                <div className={styles.headerRow}>
-                    <h1>貸出中のデバイス</h1>
-                    <div className={styles.searchBoxWrapper}>
-                        <input
-                            className={styles.searchInput}
-                            type="text"
-                            placeholder="検索"
-                            value={searchText}
-                            onChange={e => setSearchText(e.target.value)}
+                <div className={styles.listWrapper}>
+                    <div className={styles.headerRow}>
+                        <h1>貸出中のデバイス</h1>
+                        <div className={styles.searchBoxWrapper}>
+                            <input
+                                className={styles.searchInput}
+                                type="text"
+                                placeholder="検索"
+                                value={searchText}
+                                onChange={e => setSearchText(e.target.value)}
+                            />
+                            <button className={styles.searchBtn} onClick={handleSearch}>検索</button>
+                        </div>
+                    </div>
+                    <div className={styles.listContent}>
+                        <ReturnTable
+                            devices={filteredDevices ?? devices}
+                            styles={styles}
+                            formatDate={formatDate}
+                            handleReturn={handleReturn}
                         />
-                        <button className={styles.searchBtn} onClick={handleSearch}>検索</button>
                     </div>
                 </div>
-                <div className={styles.listContent}>
-                    <ReturnTable
-                        devices={filteredDevices ?? devices}
-                        styles={styles}
-                        formatDate={formatDate}
-                        handleReturn={handleReturn}
-                    />
-                </div>
-            </div>
     
-            <div className={styles.backButtonWrapper}>
-                <button
-                    className={styles.backButton}
-                    onClick={() => router.push('/home')}
-                >
-                    戻る
-                </button>
-            </div>
-    
-            {showModal && (
-                <div className={styles.modalOverlay} onClick={() => setShowModal(false)}>
-                    <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
-                        <h2>返却結果</h2>
-                        <p>{returnMessage}</p>
-                        <button
-                            className={`${styles.formButton} ${styles.orangeButton}`}
-                            onClick={() => setShowModal(false)}
-                        >
-                            閉じる
-                        </button>
+                {showModal && (
+                    <div className={styles.modalOverlay} onClick={() => setShowModal(false)}>
+                        <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
+                            <h2>返却結果</h2>
+                            <p>{returnMessage}</p>
+                            <button
+                                className={`${styles.formButton} ${styles.orangeButton}`}
+                                onClick={() => setShowModal(false)}
+                            >
+                                閉じる
+                            </button>
+                        </div>
                     </div>
+                )}
+
+                <div className={styles.backButtonWrapper}>
+                    <BackButton className={styles.backButton} to="/home">
+                        戻る
+                    </BackButton>
                 </div>
-            )}
+
             </div>
         </>
     );

@@ -24,6 +24,11 @@ export default function Login() {
         .then(res => {
             if (res.status === 200) {
                 console.log("ログイン成功", res);
+                const user = res.data.user;
+                    localStorage.setItem('loginUser', JSON.stringify({
+                    authority: user.authority,
+                    name: user.name
+                }));
                 setMessage("ログイン完了");
                 let page = cookies.pastPage || "/home";
                 setCookie("token", res.data);

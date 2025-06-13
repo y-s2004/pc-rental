@@ -5,7 +5,6 @@ export default function UserFormModal({
     newUser,
     handleInputChange,
     handleSubmit,
-    handleCloseForm,
     genderOptions,
     accountLevelOptions,
     styles,
@@ -155,16 +154,6 @@ export default function UserFormModal({
                         </div>
                     )}
 
-                    <div className={styles.formButtonGroup}>
-                        <button type="submit" className={styles.formButton}>登録</button>
-                        <button
-                            type="button"
-                            onClick={handleCloseForm}
-                            className={`${styles.formButton} ${styles.secondary}`}
-                        >
-                            戻る
-                        </button>
-                    </div>
 
                 </form>
             </div>

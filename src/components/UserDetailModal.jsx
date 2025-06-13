@@ -116,7 +116,7 @@ export default function UserDetailModal({
                         <button className={styles.updateBtn} onClick={() => setEditMode(true)}>更新</button>
                     )}
                 
-                    <button
+                    <BackButton
                         type="button"
                         className={styles.closeBtn}
                         onClick={() => {
@@ -125,7 +125,7 @@ export default function UserDetailModal({
                         }}
                     >
                         戻る
-                    </button>
+                    </BackButton>
                 </div>
                 {editError && <div className={styles.errorMsg}>{editError}</div>}
             </div>
