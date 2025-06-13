@@ -4,7 +4,6 @@ import { useEffect, useState, useRef } from 'react';
 import Header from './Header';
 import ReturnTable from './ReturnTable';
 import styles from '../styles/Return.module.css';
-import { useRouter } from 'next/navigation';
 import { axiosInstance } from '../lib/axios';
 import BackButton from './BackButton';
 
@@ -17,7 +16,6 @@ export default function ReturnDeviceList() {
     const [open, setOpen] = useState(false);
     const dropdownRef = useRef(null);
     const hamburgerRef = useRef(null);
-    const router = useRouter();
 
     useEffect(() => {
         const fetchDevices = async () => {

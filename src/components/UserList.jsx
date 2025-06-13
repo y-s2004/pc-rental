@@ -21,6 +21,7 @@ export default function UserList() {
     const [editMode, setEditMode] = useState(false);
     const [editUser, setEditUser] = useState({});
     const [editError, setEditError] = useState('');
+    
 
     const handleSearch = () => {
         if (serchText.trim() === '') {
@@ -52,8 +53,6 @@ export default function UserList() {
         });
     };
 
-    const router = useRouter();
-
     const [open, setOpen] = useState(false);
     const dropdownRef = useRef(null);
     const hamburgerRef = useRef(null);
@@ -75,8 +74,6 @@ export default function UserList() {
         account_level: '',
         password: '',
     });
-
-    const [submitMessage, setSubmitMessage] = useState('');
 
     useEffect(() => {
         setHasMounted(true);
@@ -187,35 +184,35 @@ export default function UserList() {
         console.log(payload)
 
         try {
-        const {
-            register_date,
-            update_date,
-            ...payloadRaw
-        } = newUser;
+            const {
+                register_date,
+                update_date,
+                ...payloadRaw
+            } = newUser;
 
-        const payload = {
-            ...payloadRaw,
-            age: parseInt(payloadRaw.age, 10),
-            gender: payloadRaw.gender === '男性' ? 0 : payloadRaw.gender === '女性' ? 1 : 2,
-            delete_flag: false,
-        };
+            const payload = {
+                ...payloadRaw,
+                age: parseInt(payloadRaw.age, 10),
+                gender: payloadRaw.gender === '男性' ? 0 : payloadRaw.gender === '女性' ? 1 : 2,
+                delete_flag: false,
+            };
 
-        const res = await axiosInstance.post('/user', payload);
-        setSubmitMessage('ユーザ登録に成功しました！');
-        setUsers(prev => [...prev, res.data]);
-        setNewUser({
-            employee_no: '',
-            name: '',
-            name_kana: '',
-            department: '',
-            tel_no: '',
-            mail_address: '',
-            age: '',
-            gender: '',
-            position: '',
-            account_level: '',
-            password: '',
-        });
+            const res = await axiosInstance.post('/user', payload);
+            setSubmitMessage('ユーザ登録に成功しました！');
+            setUsers(prev => [...prev, res.data]);
+            setNewUser({
+                employee_no: '',
+                name: '',
+                name_kana: '',
+                department: '',
+                tel_no: '',
+                mail_address: '',
+                age: '',
+                gender: '',
+                position: '',
+                account_level: '',
+                password: '',
+            });
         } catch (err) {
             console.error(err);
             setSubmitMessage('ユーザ登録に失敗しました。');

@@ -6,7 +6,6 @@ import DeviceTable from './DeviceTable';
 import DeviceDetail from './DeviceDetail';
 import DeviceForm from './DeviceForm';
 import styles from '../styles/DeviceList.module.css';
-import { useRouter } from 'next/navigation';
 import { axiosInstance } from '../lib/axios';
 import BackButton from './BackButton';
 
@@ -24,11 +23,6 @@ export default function DeviceList() {
     const handleDetail = (device) => {
         setDetailDevice(device);
     };
-
-    const router = useRouter();
-    const [open, setOpen] = useState(false);
-    const dropdownRef = useRef(null);
-    const hamburgerRef = useRef(null);
 
     const [newDevice, setNewDevice] = useState({
         asset_num: '',
@@ -61,27 +55,6 @@ export default function DeviceList() {
             setLoading(false);
         });
     }, []);
-
-    useEffect(() => {
-        function handleClickOutside(event) {
-            if (dropdownRef.current &&
-                !dropdownRef.current.contains(event.target) &&
-                hamburgerRef.current &&
-                !hamburgerRef.current.contains(event.target)
-            ) {
-                setOpen(false);
-            }
-        }
-
-        if (open) {
-            document.addEventListener('mousedown', handleClickOutside);
-        } else {
-            document.removeEventListener('mousedown', handleClickOutside);
-        }
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [open]);
 
     useEffect(() => {
         if (detailDevice) {
@@ -234,11 +207,11 @@ export default function DeviceList() {
                     </div>
                     <div className={styles.listContent}>
                         <DeviceTable
-                        devices={devices}
-                        styles={styles}
-                        showRental={false}
-                        showDetail={true}
-                        onDetail={handleDetail}
+                            devices={devices}
+                            styles={styles}
+                            showRental={false}
+                            showDetail={true}
+                            onDetail={handleDetail}
                         />
                     </div>
                 </div>

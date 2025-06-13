@@ -5,7 +5,6 @@ import Header from './Header';
 import DeviceTable from './DeviceTable';
 import RentalModal from './RentalModal';
 import styles from '../styles/Rental.module.css';
-import { useRouter } from 'next/navigation';
 import { axiosInstance } from '../lib/axios';
 import BackButton from './BackButton';
 
@@ -20,8 +19,6 @@ export default function DeviceList() {
     const [rentalDevice, setRentalDevice] = useState(null);
     const [rentalMessage, setRentalMessage] = useState('');
     
-
-    const router = useRouter();
     const [open, setOpen] = useState(false);
     const dropdownRef = useRef(null);
     const hamburgerRef = useRef(null);

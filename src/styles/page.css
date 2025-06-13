@@ -38,3 +38,88 @@ h1 {
 .table tr:hover {
   background-color: #eaeaea;
 }
+
+.logoutButton {
+  position: absolute;
+  top: 1rem;
+  right: 3rem;
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.logoutButton:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.header {
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 20px 20px;
+    background-color: #0261c0;
+    color: white;
+    position: fixed;
+    gap: 20px;
+    z-index: 1000;
+}
+
+.headerTitle {
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.headerNav {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+}
+
+.headerBtn {
+    background: transparent;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.headerBtn:hover {
+    background: #2674c2;
+    color: #fff;
+}
+
+.logoutButton {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-left: 8px;
+    margin-top: 5px;
+}
+
+.logoutButton:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.loginInfo {
+  color: #fff;
+  margin-left: 13rem;
+  font-size: 1rem;
+  white-space: nowrap;
+}

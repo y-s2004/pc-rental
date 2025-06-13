@@ -3,7 +3,6 @@ import Header from './Header';
 import OverTable from './OverTable';
 import styles from '../styles/OverList.module.css';
 import { axiosInstance } from '../lib/axios';
-import { useRouter } from 'next/navigation';
 import BackButton from './BackButton';
 
 export default function Over() {
@@ -15,7 +14,6 @@ export default function Over() {
     const [open, setOpen] = useState(false);
     const dropdownRef = useRef(null);
     const hamburgerRef = useRef(null);
-    const router = useRouter();
 
     useEffect(() => {
         function handleClickOutside(event) {
