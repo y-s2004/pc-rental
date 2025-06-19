@@ -231,7 +231,10 @@ export default function UserList() {
             <div className={styles.container}>
                 <div className={styles.listWrapper}>
                     <div className={styles.headerRow}>
-                        <h1>ユーザリスト</h1>
+                        <h1 className={styles.title}>ユーザリスト</h1>
+                        <button className={styles.createBtn} onClick={() => setShowForm(true)}>
+                            新規登録
+                        </button>
                         <div className={styles.searchBoxWrapper}>
                             <input
                                 className={styles.searchInput}
@@ -257,14 +260,10 @@ export default function UserList() {
                         />
                     </div>
                 </div>
-                <div className={styles.buttonGroup}>
-                    <button className={styles.btn} onClick={() => setShowForm(true)}>
-                        新規登録
-                    </button>
-                    <BackButton className={`${styles.btn} ${styles.secondary}`} to="/home">
-                        戻る
-                    </BackButton>
-                </div>
+
+                <BackButton className={`${styles.backBtn}`} to="/home">
+                    戻る
+                </BackButton>
 
                 {detailUser && (
                     <UserDetailModal

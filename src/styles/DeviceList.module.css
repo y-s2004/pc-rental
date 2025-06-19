@@ -1,10 +1,9 @@
-
-
 .title {
     font-weight: 700;
     font-size: 1.3rem;
     margin-right: 32px;
     white-space: nowrap;
+    margin-right: 24px;;
 }
 
 .container {
@@ -95,36 +94,37 @@
   color: #333;
 }
 
-.buttonGroup {
-  display: flex;
-  gap: 100px;
-  justify-content: center;
-  margin-top: 20px;
-  position: sticky;
-  bottom: 0; 
-  background: #fff; 
-  z-index: 10; 
-  padding: 16px 0; 
-}
-
-.btn {
-  background: #f57f17;
-  color: #fff;
-  padding: 20px 50px;
-  border-radius: 5px;
-  font-size: 1rem;
-  border: none;
-  outline: none;
-}
-
-.btn.secondary{
-    background: #0261c0; 
+.createBtn{
+    background: #f57f17;
     color: #fff;
+    padding: 15px 24px;   
+    border-radius: 5px;
+    font-size: 1rem;
+    border: none;
+    outline: none;      
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    align-self: flex-start;
+    margin-top: -4px;
 }
 
-.btn:hover { background: #f9a825; }
+.createBtn:hover { background: #f9a825; }
 
-.btn.secondary:hover { background: #2674c2; }
+.backBtn {
+    background: #0261c0;
+    color: #fff;
+    padding: 20px 50px;
+    border-radius: 5px;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    margin: 32px auto 0 auto;   
+    display: block;    
+}
+
+.backBtn:hover { background: #2674c2; }
 
 .modalOverlay {
   position: fixed;
@@ -195,6 +195,7 @@
   z-index: 5; 
   padding: 16px 0;
   border-bottom: 1px solid #ddd; 
+  gap: 1.5rem;
 }
 
 .headerRow h1 {

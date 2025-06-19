@@ -1,4 +1,5 @@
 import React from 'react';
+import BackButton from './BackButton';
 
 export default function UserDetailModal({
     show,
@@ -85,19 +86,22 @@ export default function UserDetailModal({
                     {editMode && editUser.account_level === '管理者' && (
                         <>
                             <div className={styles.detailLabel}>パスワード</div>
-                            <div className={styles.detailValue}>: <input
-                            type="password"
-                            value={editUser.password || ''}
-                            onChange={e => setEditUser(u => ({...u, password: e.target.value}))}
-                            required
-                            /></div>
+                            <div className={styles.detailValue}>
+                                : <input
+                                    type="password"
+                                    value={editUser.password || ''}
+                                    onChange={e => setEditUser(u => ({...u, password: e.target.value}))}
+                                    required
+                                />
+                            </div>
                         </>
                     )}
                     <div className={styles.detailLabel}>登録日</div>
                     <div className={styles.detailValue}>
                         : {detailUser.register_date
                             ? new Date(detailUser.register_date).toLocaleDateString('ja-JP', {year: 'numeric', month: '2-digit', day: '2-digit'})
-                            : ''}
+                            : ''
+                        }
                     </div>
                     {detailUser.update_date && (
                         <>
@@ -108,6 +112,7 @@ export default function UserDetailModal({
                         </>
                     )}
                 </div>
+
                 <div className={styles.detailBtnGroup}>
                     <button className={styles.deleteBtn} onClick={handleDelete}>削除</button>
                     {editMode ? (
