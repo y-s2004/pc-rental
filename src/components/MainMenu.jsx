@@ -9,7 +9,6 @@ export default function MainMenu() {
     return (
         <>
             <Header />
-
             <main className={styles.main}>
                 <div className={styles.cardWrapper}>
                     <h1 className={styles.menuTitle}>メインメニュー</h1>
@@ -24,7 +23,6 @@ export default function MainMenu() {
                     </div>
                 </div>
             </main>
-
         </>
     );
 }

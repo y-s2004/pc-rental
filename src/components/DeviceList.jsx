@@ -65,19 +65,6 @@ export default function DeviceList() {
         }
     }, [detailDevice]);
 
-    const handleSearch = () => {
-        if (searchText.trim() === '') {
-            setFilteredDevices(null);
-        } else {
-            const filtered = devices.filter(device =>
-                Object.values(device).some(value =>
-                String(value).toLowerCase().includes(searchText.toLowerCase())
-                )
-            );
-            setFilteredDevices(filtered);
-        }
-    };
-
     const CloseForm = () => {
         setShowForm(false);
         setNewDevice({
@@ -187,7 +174,6 @@ export default function DeviceList() {
     return (
         <>
             <Header />
-
             <div className={styles.container}>
                 <div className={styles.listWrapper}>
                     <div className={styles.headerRow}>
