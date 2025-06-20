@@ -11,6 +11,7 @@ import BackButton from './BackButton';
 
 export default function DeviceList() {
     const [devices, setDevices] = useState([]);
+    const [filteredDevices, setFilteredDevices] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [hasMounted, setHasMounted] = useState(false);
@@ -201,16 +202,31 @@ export default function DeviceList() {
                                 placeholder="検索"
                                 value={searchText}
                                 onChange={e => {
-                                    setSearchText(e.target.value);
-                                    if (e.target.value.trim() === '') setFilteredDevices(null);
+                                    const input = e.target.value;
+                                    setSearchText(input);
+                                    if (input.trim() === '') {
+                                        setFilteredDevices(null);
+                                    } else {
+                                        const normalizedInput = input.toLowerCase();
+                                        const filtered = devices.filter(device => {
+                                            const assetNum = String(device.asset_num || '').toLowerCase();
+                                            const maker = String(device.maker || '').toLowerCase();
+                                            const os = String(device.os || '').toLowerCase();
+                                            return (
+                                                assetNum.includes(normalizedInput) ||
+                                                maker.includes(normalizedInput) ||
+                                                os.includes(normalizedInput)
+                                            );
+                                        });
+                                        setFilteredDevices(filtered);
+                                    }
                                 }}
                             />
-                            <button className={styles.searchBtn} onClick={handleSearch}>検索</button>
                         </div>
                     </div>
                     <div className={styles.listContent}>
                         <DeviceTable
-                            devices={devices}
+                            devices={filteredDevices ?? devices}
                             styles={styles}
                             showRental={false}
                             showDetail={true}

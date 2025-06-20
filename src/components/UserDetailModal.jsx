@@ -83,14 +83,14 @@ export default function UserDetailModal({
                         )
                         : detailUser.account_level}
                     </div>
-                    {editMode && editUser.account_level === '管理者' && (
+                    {editMode && (
                         <>
                             <div className={styles.detailLabel}>パスワード</div>
                             <div className={styles.detailValue}>
                                 : <input
                                     type="password"
                                     value={editUser.password || ''}
-                                    onChange={e => setEditUser(u => ({...u, password: e.target.value}))}
+                                    onChange={e => setEditUser(u => ({ ...u, password: e.target.value }))}
                                     required
                                 />
                             </div>
@@ -121,7 +121,7 @@ export default function UserDetailModal({
                         <button className={styles.updateBtn} onClick={() => setEditMode(true)}>更新</button>
                     )}
                 
-                    <BackButton
+                    <button
                         type="button"
                         className={styles.closeBtn}
                         onClick={() => {
@@ -130,7 +130,7 @@ export default function UserDetailModal({
                         }}
                     >
                         戻る
-                    </BackButton>
+                    </button>
                 </div>
                 {editError && <div className={styles.errorMsg}>{editError}</div>}
             </div>

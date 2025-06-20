@@ -95,7 +95,8 @@
 }
 
 .createBtn{
-    background: #f57f17;
+    background: #0261c0;
+    /*background: #f57f17;*/
     color: #fff;
     padding: 15px 24px;   
     border-radius: 5px;
@@ -110,7 +111,7 @@
     margin-top: -4px;
 }
 
-.createBtn:hover { background: #f9a825; }
+.createBtn:hover { background: #2674c2; }
 
 .backBtn {
     background: #0261c0;
@@ -141,7 +142,7 @@
   border-radius: 12px;
   padding: 32px;
   min-width: 350px;
-  max-width: 900px;
+  max-width: 5000px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.18);
   position: relative;
   display: flex;
@@ -165,22 +166,7 @@
   border-radius: 4px;
   outline: none;
   height: 22px;
-}
-
-.searchBtn {
-  background: #0261c0;
-  color: #fff;
-  padding: 0px 24px;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.2s;
-  height: 40px;
-}
-
-.searchBtn:hover {
-  background: #2674c2;
+  width: 260px
 }
 
 .headerRow {
@@ -302,10 +288,10 @@
 
 .form {
   display: grid;
-  grid-template-columns: 1fr 1fr; 
+  grid-template-columns: 1fr; 
   gap: 16px 24px;
   width: 100%;
-  max-width: 1000px;
+  max-width: none;
   margin: 0 auto;
 }
 
@@ -334,8 +320,8 @@
   border-radius: 4px;
   box-sizing: border-box;
 }
+
 .formButtonGroup {
-  grid-column: span 2;
   display: flex;
   justify-content: center;
   gap: 16px;
@@ -373,8 +359,8 @@
   word-break: break-all;
 }
 .remarksInput {
-  width: 100%;
-  min-width: 300px;
+  width: 50%;
+  min-width: 100px;
 }
 
 .inventoryDateInput {
@@ -388,7 +374,6 @@
 }
 
 .remarksWrapper {
-  grid-column: span 2; 
   text-align: center; 
 }
 

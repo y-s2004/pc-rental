@@ -99,6 +99,12 @@ export default function ReturnDeviceList() {
         const date = new Date(dateString);
         return `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}`;
     };
+
+    function toHiragana(str) {
+        return str.replace(/[\u30a1-\u30f6]/g, m =>
+            String.fromCharCode(m.charCodeAt(0) - 0x60)
+        );
+    }
     
     return (
         <>
@@ -114,9 +120,29 @@ export default function ReturnDeviceList() {
                                 type="text"
                                 placeholder="検索"
                                 value={searchText}
-                                onChange={e => setSearchText(e.target.value)}
+                                onChange={e => {
+                                    const input = e.target.value;
+                                    setSearchText(input);
+                                    if (input.trim() === '') {
+                                        setFilteredDevices(null);
+                                    } else {
+                                        const normalizedInput = toHiragana(input.toLowerCase());
+                                        const filtered = devices.filter(device => {
+                                            const assetNum = String(device.asset_num || '').toLowerCase();
+                                            const employeeNo = String(device.employee_no || '').toLowerCase();
+                                            const name = toHiragana(String(device.name || '').toLowerCase());
+                                            const nameKana = toHiragana(String(device.name_kana || '').toLowerCase());
+                                            return (
+                                                assetNum.includes(normalizedInput) ||
+                                                employeeNo.includes(normalizedInput) ||
+                                                name.includes(normalizedInput) ||
+                                                nameKana.includes(normalizedInput)
+                                            );
+                                        });
+                                        setFilteredDevices(filtered);
+                                    }
+                                }}
                             />
-                            <button className={styles.searchBtn} onClick={handleSearch}>検索</button>
                         </div>
                     </div>
                     <div className={styles.listContent}>

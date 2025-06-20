@@ -146,9 +146,27 @@ export default function DeviceList() {
                                 type="text"
                                 placeholder="検索"
                                 value={searchText}
-                                onChange={e => setSearchText(e.target.value)}
+                                onChange={e => {
+                                    const input = e.target.value;
+                                    setSearchText(input);
+                                    if (input.trim() === '') {
+                                        setFilteredDevices(null);
+                                    } else {
+                                        const normalizedInput = input.toLowerCase();
+                                        const filtered = availableDevices.filter(device => {
+                                            const assetNum = String(device.asset_num || '').toLowerCase();
+                                            const maker = String(device.maker || '').toLowerCase();
+                                            const os = String(device.os || '').toLowerCase();
+                                            return (
+                                                assetNum.includes(normalizedInput) ||
+                                                maker.includes(normalizedInput) ||
+                                                os.includes(normalizedInput)
+                                            );
+                                        });
+                                        setFilteredDevices(filtered);
+                                    }
+                                }}
                             />
-                            <button className={styles.searchBtn} onClick={handleSearch}>検索</button>
                         </div>
                     </div>
                     <div className={styles.listContent}>

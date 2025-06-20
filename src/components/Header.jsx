@@ -17,18 +17,21 @@ export default function RentalHeader() {
         }
     }, []);
 
+    /*<span className={styles.title}>PC貸出システム</span>*/
+
     return (
         <header className={styles.header}>
-            <span className={styles.title}>PC貸出システム</span>
+            
             <div className={styles.headerNav}>
-                <Link href="/" className={styles.headerBtn}>メインメニュー</Link>
-                <Link href="/device" className={styles.headerBtn}>機器リスト</Link>
-                <Link href="/user" className={styles.headerBtn}>ユーザリスト</Link>
-                <Link href="/rental" className={styles.headerBtn}>貸出</Link>
-                <Link href="/return" className={styles.headerBtn}>返却</Link>
-                <Link href="/over" className={styles.headerBtn}>延滞者リスト</Link>
+                <Link href="/" className={styles.headerBtn}>PC貸出管理システム</Link>
+                <Link href="/user" className={styles.headerBtn}>ユーザ一覧</Link>
+                <Link href="/device" className={styles.headerBtn}>機器一覧</Link>
+                <Link href="/over" className={styles.headerBtn}>延滞者一覧</Link>
+                <Link href="/rental" className={styles.headerBtn}>貸出登録</Link>
+                <Link href="/return" className={styles.headerBtn}>返却登録</Link>
+                
                 <span className={styles.loginInfo}>
-                    権限：{loginUser.authority} 氏名：{loginUser.name}
+                    権限：{loginUser.authority}  氏名：{loginUser.name}
                 </span>
                 <button className={styles.logoutButton} onClick={Logout}>
                     ログアウト

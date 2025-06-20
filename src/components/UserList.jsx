@@ -219,10 +219,18 @@ export default function UserList() {
         }
     };
 
+    
+
 
     if (!hasMounted) return null;
     if (loading) return <p>Loading...</p>;
     if (error) return <p style={{ color: 'red' }}>{error}</p>;
+
+    function toHiragana(str) {
+        return str.replace(/[\u30a1-\u30f6]/g, m =>
+            String.fromCharCode(m.charCodeAt(0) - 0x60)
+        );
+}
 
     return (
         <>
@@ -231,7 +239,7 @@ export default function UserList() {
             <div className={styles.container}>
                 <div className={styles.listWrapper}>
                     <div className={styles.headerRow}>
-                        <h1 className={styles.title}>ユーザリスト</h1>
+                        <h1 className={styles.title}>ユーザ一覧</h1>
                         <button className={styles.createBtn} onClick={() => setShowForm(true)}>
                             新規登録
                         </button>
@@ -241,17 +249,32 @@ export default function UserList() {
                                 type="text"
                                 placeholder="検索"
                                 value={serchText}
-                                onChange={(e) => {
-                                setSerchText(e.target.value);
-                                    if (e.target.value.trim() === '') {
-                                        setFilteredUsers(null); 
+                                onChange={e => {
+                                    setSerchText(e.target.value);
+                                    const input = e.target.value.trim();
+                                    if (input === '') {
+                                        setFilteredUsers(null);
+                                    } else {
+                                        const normalizedInput = toHiragana(input.toLowerCase());
+                                        const filtered = users.filter(user => {
+                                            const employeeNo = String(user.employee_no || '').toLowerCase();
+                                            const name = toHiragana(String(user.name || '').toLowerCase());
+                                            const nameKana = toHiragana(String(user.name_kana || '').toLowerCase());
+                                            return (
+                                                employeeNo.includes(normalizedInput) ||
+                                                name.includes(normalizedInput) ||
+                                                nameKana.includes(normalizedInput)
+                                            );
+                                        });
+                                        setFilteredUsers(filtered);
                                     }
                                 }}
                             />
-                            <button className={styles.searchBtn} onClick={handleSearch}>検索</button>
                         </div>
                     </div>
                 
+                    
+
                     <div className={styles.listContent}>
                         <UserTable
                             users={filteredUsers ?? users}

@@ -79,17 +79,6 @@ export default function Over() {
                 <div className={styles.listWrapper}>
                     <div className={styles.headerRow}>
                         <h1>延滞者リスト</h1>
-                        <div className={styles.searchBoxWrapper}>
-                            <input
-                                className={styles.searchInput}
-                                type="text"
-                                placeholder="検索"
-                                value={searchText}
-                                onChange={e => setSearchText(e.target.value)}
-                                onKeyDown={handleKeyDown}
-                            />
-                            <button className={styles.searchBtn} onClick={handleSearch}>検索</button>
-                        </div>
                     </div>
                     <div className={styles.listContent}>
                         {loading && <p>読み込み中...</p>}
