@@ -219,11 +219,31 @@ export default function UserList() {
     if (loading) return <p>Loading...</p>;
     if (error) return <p style={{ color: 'red' }}>{error}</p>;
 
+    const handleSearchInput = (input) => {
+        setSearchText(input);
+        if (input.trim() === '') {
+            setFilteredDevices(null);
+        } else {
+            const normalizedInput = input.toLowerCase();
+            const filtered = availableDevices.filter(device => {
+                const assetNum = String(device.asset_num || '').toLowerCase();
+                const maker = String(device.maker || '').toLowerCase();
+                const os = String(device.os || '').toLowerCase();
+                return (
+                    assetNum.includes(normalizedInput) ||
+                    maker.includes(normalizedInput) ||
+                    os.includes(normalizedInput)
+                );
+            });
+            setFilteredDevices(filtered);
+        }
+    };
+
     function toHiragana(str) {
         return str.replace(/[\u30a1-\u30f6]/g, m =>
             String.fromCharCode(m.charCodeAt(0) - 0x60)
         );
-}
+    }
 
     return (
         <>
@@ -242,26 +262,7 @@ export default function UserList() {
                                 type="text"
                                 placeholder="検索"
                                 value={serchText}
-                                onChange={e => {
-                                    setSerchText(e.target.value);
-                                    const input = e.target.value.trim();
-                                    if (input === '') {
-                                        setFilteredUsers(null);
-                                    } else {
-                                        const normalizedInput = toHiragana(input.toLowerCase());
-                                        const filtered = users.filter(user => {
-                                            const employeeNo = String(user.employee_no || '').toLowerCase();
-                                            const name = toHiragana(String(user.name || '').toLowerCase());
-                                            const nameKana = toHiragana(String(user.name_kana || '').toLowerCase());
-                                            return (
-                                                employeeNo.includes(normalizedInput) ||
-                                                name.includes(normalizedInput) ||
-                                                nameKana.includes(normalizedInput)
-                                            );
-                                        });
-                                        setFilteredUsers(filtered);
-                                    }
-                                }}
+                                onChange={e => handleSearchInput(e.target.value)}
                             />
                         </div>
                     </div>

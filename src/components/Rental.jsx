@@ -62,18 +62,7 @@ export default function DeviceList() {
 
     const availableDevices = devices.filter(device => !device.rental_status);
 
-    const handleSearch = () => {
-        if (searchText.trim() === '') {
-            setFilteredDevices(null); 
-        } else {
-        const filtered = availableDevices.filter(device =>
-            Object.values(device).some(value =>
-                String(value).toLowerCase().includes(searchText.toLowerCase())
-            )
-        );
-            setFilteredDevices(filtered);
-        }
-    };
+    
 
     const handleRental = (device) => {
         const today = new Date();
@@ -126,6 +115,26 @@ export default function DeviceList() {
         }
     };
 
+    const handleSearchInput = (input) => {
+            setSearchText(input);
+            if (input.trim() === '') {
+                setFilteredDevices(null);
+            } else {
+                const normalizedInput = input.toLowerCase();
+                const filtered = availableDevices.filter(device => {
+                    const assetNum = String(device.asset_num || '').toLowerCase();
+                    const maker = String(device.maker || '').toLowerCase();
+                    const os = String(device.os || '').toLowerCase();
+                    return (
+                        assetNum.includes(normalizedInput) ||
+                        maker.includes(normalizedInput) ||
+                        os.includes(normalizedInput)
+                    );
+                });
+                setFilteredDevices(filtered);
+            }
+        };
+
     if (!hasMounted) return null;
     if (loading) return <p>Loading...</p>;
     if (error) return <p style={{ color: 'red' }}>{error}</p>;
@@ -146,26 +155,7 @@ export default function DeviceList() {
                                 type="text"
                                 placeholder="検索"
                                 value={searchText}
-                                onChange={e => {
-                                    const input = e.target.value;
-                                    setSearchText(input);
-                                    if (input.trim() === '') {
-                                        setFilteredDevices(null);
-                                    } else {
-                                        const normalizedInput = input.toLowerCase();
-                                        const filtered = availableDevices.filter(device => {
-                                            const assetNum = String(device.asset_num || '').toLowerCase();
-                                            const maker = String(device.maker || '').toLowerCase();
-                                            const os = String(device.os || '').toLowerCase();
-                                            return (
-                                                assetNum.includes(normalizedInput) ||
-                                                maker.includes(normalizedInput) ||
-                                                os.includes(normalizedInput)
-                                            );
-                                        });
-                                        setFilteredDevices(filtered);
-                                    }
-                                }}
+                                onChange={e => handleSearchInput(e.target.value)}
                             />
                         </div>
                     </div>

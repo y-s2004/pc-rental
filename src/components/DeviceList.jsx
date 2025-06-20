@@ -165,7 +165,27 @@ export default function DeviceList() {
             } catch (err) {
                 setSubmitMessage('機器登録に失敗しました。');
             }
-        };
+    };
+
+    const handleSearchInput = (input) => {
+        setSearchText(input);
+        if (input.trim() === '') {
+            setFilteredDevices(null);
+        } else {
+            const normalizedInput = input.toLowerCase();
+            const filtered = availableDevices.filter(device => {
+                const assetNum = String(device.asset_num || '').toLowerCase();
+                const maker = String(device.maker || '').toLowerCase();
+                const os = String(device.os || '').toLowerCase();
+                return (
+                    assetNum.includes(normalizedInput) ||
+                    maker.includes(normalizedInput) ||
+                    os.includes(normalizedInput)
+                );
+            });
+            setFilteredDevices(filtered);
+        }
+    };
 
     if (!hasMounted) return null;
     if (loading) return <p>Loading...</p>;
@@ -187,26 +207,7 @@ export default function DeviceList() {
                                 type="text"
                                 placeholder="検索"
                                 value={searchText}
-                                onChange={e => {
-                                    const input = e.target.value;
-                                    setSearchText(input);
-                                    if (input.trim() === '') {
-                                        setFilteredDevices(null);
-                                    } else {
-                                        const normalizedInput = input.toLowerCase();
-                                        const filtered = devices.filter(device => {
-                                            const assetNum = String(device.asset_num || '').toLowerCase();
-                                            const maker = String(device.maker || '').toLowerCase();
-                                            const os = String(device.os || '').toLowerCase();
-                                            return (
-                                                assetNum.includes(normalizedInput) ||
-                                                maker.includes(normalizedInput) ||
-                                                os.includes(normalizedInput)
-                                            );
-                                        });
-                                        setFilteredDevices(filtered);
-                                    }
-                                }}
+                                onChange={e => handleSearchInput(e.target.value)}
                             />
                         </div>
                     </div>

@@ -100,6 +100,26 @@ export default function ReturnDeviceList() {
         return `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}`;
     };
 
+    const handleSearchInput = (input) => {
+        setSearchText(input);
+        if (input.trim() === '') {
+            setFilteredDevices(null);
+        } else {
+            const normalizedInput = input.toLowerCase();
+            const filtered = availableDevices.filter(device => {
+                const assetNum = String(device.asset_num || '').toLowerCase();
+                const maker = String(device.maker || '').toLowerCase();
+                const os = String(device.os || '').toLowerCase();
+                return (
+                    assetNum.includes(normalizedInput) ||
+                    maker.includes(normalizedInput) ||
+                    os.includes(normalizedInput)
+                );
+            });
+            setFilteredDevices(filtered);
+        }
+    };
+
     function toHiragana(str) {
         return str.replace(/[\u30a1-\u30f6]/g, m =>
             String.fromCharCode(m.charCodeAt(0) - 0x60)
@@ -120,28 +140,7 @@ export default function ReturnDeviceList() {
                                 type="text"
                                 placeholder="検索"
                                 value={searchText}
-                                onChange={e => {
-                                    const input = e.target.value;
-                                    setSearchText(input);
-                                    if (input.trim() === '') {
-                                        setFilteredDevices(null);
-                                    } else {
-                                        const normalizedInput = toHiragana(input.toLowerCase());
-                                        const filtered = devices.filter(device => {
-                                            const assetNum = String(device.asset_num || '').toLowerCase();
-                                            const employeeNo = String(device.employee_no || '').toLowerCase();
-                                            const name = toHiragana(String(device.name || '').toLowerCase());
-                                            const nameKana = toHiragana(String(device.name_kana || '').toLowerCase());
-                                            return (
-                                                assetNum.includes(normalizedInput) ||
-                                                employeeNo.includes(normalizedInput) ||
-                                                name.includes(normalizedInput) ||
-                                                nameKana.includes(normalizedInput)
-                                            );
-                                        });
-                                        setFilteredDevices(filtered);
-                                    }
-                                }}
+                                onChange={e => handleSearchInput(e.target.value)}
                             />
                         </div>
                     </div>

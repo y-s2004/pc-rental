@@ -8,7 +8,6 @@ import BackButton from './BackButton';
 export default function Over() {
     const [overList, setOverList] = useState([]);
     const [filteredList, setFilteredList] = useState([]);
-    const [searchText, setSearchText] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [open, setOpen] = useState(false);
@@ -50,26 +49,6 @@ export default function Over() {
             setLoading(false);
         });
     }, []);
-
-    const handleSearch = () => {
-        if (!searchText) {
-            setFilteredList(overList);
-            return;
-        }
-        const lower = searchText.toLowerCase();
-        setFilteredList(
-            overList.filter(item =>
-                (item.asset_num && item.asset_num.toLowerCase().includes(lower)) ||
-                (item.user_no && item.user_no.toLowerCase().includes(lower)) ||
-                (item.name && item.name.toLowerCase().includes(lower)) ||
-                (item.remarks && item.remarks.toLowerCase().includes(lower))
-            )
-        );
-    };
-
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter') handleSearch();
-    };
 
     return (
         <>
