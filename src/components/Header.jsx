@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import useLogout from './Logout';
 import styles from '../styles/Header.module.css';
@@ -17,11 +19,8 @@ export default function RentalHeader() {
         }
     }, []);
 
-    /*<span className={styles.title}>PC貸出システム</span>*/
-
     return (
         <header className={styles.header}>
-            
             <div className={styles.headerNav}>
                 <Link href="/" className={styles.headerBtn}>PC貸出管理システム</Link>
                 <Link href="/user" className={styles.headerBtn}>ユーザ一覧</Link>
