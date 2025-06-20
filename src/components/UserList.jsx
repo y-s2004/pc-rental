@@ -176,10 +176,6 @@ export default function UserList() {
             ...newUser,
             delete_flag: false,
         };
-        
-        if (newUser.account_level !== '管理者') {
-            payload.password = 'dummy'; 
-        }
 
         console.log(payload)
 
