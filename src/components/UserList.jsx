@@ -219,9 +219,6 @@ export default function UserList() {
         }
     };
 
-    
-
-
     if (!hasMounted) return null;
     if (loading) return <p>Loading...</p>;
     if (error) return <p style={{ color: 'red' }}>{error}</p>;
