@@ -13,7 +13,7 @@ export default function UserFormModal({
     if (!show) return null;
 
     return (
-        <div className={styles.modalOverlay} onClick={() => setShowForm(false)}>
+        <div className={styles.modalOverlay} onClick={handleCloseForm}>
             <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
                 <h2>新規ユーザ登録</h2>
 

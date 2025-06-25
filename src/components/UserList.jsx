@@ -6,7 +6,6 @@ import UserFormModal from './UserFormModal';
 import UserDetailModal from './UserDetailModal';
 import UserTable from './UserTable';
 import styles from '../styles/UserList.module.css';
-import { useRouter } from 'next/navigation';
 import { axiosInstance } from '../lib/axios';
 import BackButton from './BackButton';
 
@@ -20,22 +19,9 @@ export default function UserList() {
     const [filteredUsers, setFilteredUsers] = useState(null);
     const [editMode, setEditMode] = useState(false);
     const [editUser, setEditUser] = useState({});
+    const [submitMessage, setSubmitMessage] = useState('');
     const [editError, setEditError] = useState('');
     
-
-    const handleSearch = () => {
-        if (serchText.trim() === '') {
-            setFilteredUsers(null);
-        } else {
-            const filtered = users.filter(user =>
-                Object.values(user).some(value =>
-                String(value).toLowerCase().includes(serchText.toLowerCase())
-                )
-            );
-            setFilteredUsers(filtered);
-        }
-    };
-
     const handleCloseForm = () => {
         setShowForm(false);
         setNewUser({
@@ -220,22 +206,19 @@ export default function UserList() {
     if (error) return <p style={{ color: 'red' }}>{error}</p>;
 
     const handleSearchInput = (input) => {
-        setSearchText(input);
+        setSerchText(input);
         if (input.trim() === '') {
-            setFilteredDevices(null);
+            setFilteredUsers(null);
         } else {
             const normalizedInput = input.toLowerCase();
-            const filtered = availableDevices.filter(device => {
-                const assetNum = String(device.asset_num || '').toLowerCase();
-                const maker = String(device.maker || '').toLowerCase();
-                const os = String(device.os || '').toLowerCase();
-                return (
-                    assetNum.includes(normalizedInput) ||
-                    maker.includes(normalizedInput) ||
-                    os.includes(normalizedInput)
-                );
-            });
-            setFilteredDevices(filtered);
+            const filtered = users.filter(user =>
+                Object.entries(user)
+                    .filter(([key]) => key !== 'password')
+                    .some(([, value]) =>
+                        String(value).toLowerCase().includes(normalizedInput)
+                    )
+            );
+            setFilteredUsers(filtered);
         }
     };
 
