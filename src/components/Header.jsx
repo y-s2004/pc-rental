@@ -7,8 +7,8 @@ import { useState, useEffect } from 'react';
 
 export default function RentalHeader() {
     const Logout = useLogout();
+
     const [loginUser, setLoginUser] = useState({ authority: '', name: '' });
-    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -16,12 +16,9 @@ export default function RentalHeader() {
             if (user) {
                 setLoginUser(JSON.parse(user));
             }
-            setMounted(true);
         }
     }, []);
 
-    if (!mounted) return null;
-    
     return (
         <header className={styles.header}>
             <div className={styles.headerNav}>
