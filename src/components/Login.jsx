@@ -51,7 +51,7 @@ export default function Login() {
         });
     }
 
-     function handleKeyDown(e) {
+    function handleKeyDown(e) {
         if (e.key === 'Enter') {
             handleClick();
         }

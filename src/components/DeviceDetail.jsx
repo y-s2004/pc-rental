@@ -22,27 +22,50 @@ export default function DeviceDetailModal({
                 <h2 className={styles.detailTitle}>機器詳細</h2>
                 <div className={styles.detailGrid}>
                     <div className={styles.detailLabel}>資産番号</div>
-                    <div className={styles.detailValue}>: {editMode
-                        ? <input value={editDevice.asset_num} disabled />
-                        : detailDevice.asset_num}
+                    <div className={styles.detailValue}>
+                        : {editMode
+                            ? <input value={editDevice.asset_num} disabled />
+                            : detailDevice.asset_num
+                        }
                     </div>
 
                     <div className={styles.detailLabel}>メーカー</div>
-                    <div className={styles.detailValue}>: {editMode
-                        ? <input value={editDevice.maker} onChange={e => setEditDevice(d => ({...d, maker: e.target.value}))} />
-                        : detailDevice.maker}
+                    <div className={styles.detailValue}>
+                        : {editMode
+                            ? (
+                                <input 
+                                    value={editDevice.maker} 
+                                    onChange={e => setEditDevice(d => ({...d, maker: e.target.value}))}
+                                />
+                            )
+                            : detailDevice.maker
+                        }
                     </div>
 
                     <div className={styles.detailLabel}>OS</div>
-                    <div className={styles.detailValue}>: {editMode
-                        ? <input value={editDevice.os} onChange={e => setEditDevice(d => ({...d, os: e.target.value}))} />
-                        : detailDevice.os}
+                    <div className={styles.detailValue}>
+                        : {editMode
+                            ? (
+                                <input 
+                                    value={editDevice.os} 
+                                    onChange={e => setEditDevice(d => ({...d, os: e.target.value}))} 
+                                />
+                            )
+                            : detailDevice.os
+                        }
                     </div>
 
                     <div className={styles.detailLabel}>メモリ</div>
-                    <div className={styles.detailValue}>: {editMode
-                        ? <input value={editDevice.memory} onChange={e => setEditDevice(d => ({...d, memory: e.target.value}))} />
-                        : detailDevice.memory}
+                    <div className={styles.detailValue}>
+                        : {editMode
+                            ? (
+                                <input 
+                                    value={editDevice.memory} 
+                                    onChange={e => setEditDevice(d => ({...d, memory: e.target.value}))} 
+                                />
+                            )
+                            : detailDevice.memory
+                        }
                     </div>
 
                     <div className={styles.detailLabel}>グラフィックボード</div>
@@ -62,15 +85,29 @@ export default function DeviceDetailModal({
                     </div>
 
                     <div className={styles.detailLabel}>保管場所</div>
-                    <div className={styles.detailValue}>: {editMode
-                        ? <input value={editDevice.place || ''} onChange={e => setEditDevice(d => ({...d, place: e.target.value}))} />
-                        : detailDevice.place}
+                    <div className={styles.detailValue}>
+                        : {editMode
+                            ? ( 
+                                <input 
+                                    value={editDevice.place || ''} 
+                                    onChange={e => setEditDevice(d => ({...d, place: e.target.value}))} 
+                                />
+                            )
+                            : detailDevice.place
+                        }
                     </div>
 
                     <div className={styles.detailLabel}>容量</div>
-                    <div className={styles.detailValue}>: {editMode
-                        ? <input value={editDevice.disc_capacity} onChange={e => setEditDevice(d => ({...d, disc_capacity: e.target.value}))} />
-                        : detailDevice.disc_capacity}
+                    <div className={styles.detailValue}>
+                        : {editMode
+                            ? (
+                                <input 
+                                    value={editDevice.disc_capacity} 
+                                    onChange={e => setEditDevice(d => ({...d, disc_capacity: e.target.value}))} 
+                                />
+                            )
+                            : detailDevice.disc_capacity
+                        }
                     </div>
 
                     <div className={styles.detailLabel}>備考</div>
@@ -133,11 +170,13 @@ export default function DeviceDetailModal({
                 
                 <div className={styles.detailBtnGroup}>
                     <button className={styles.deleteBtn} onClick={handleDelete}>削除</button>
-                    {editMode ? (
-                        <button className={styles.updateBtn} onClick={handleUpdate}>保存</button>
-                    ) : (
-                        <button className={styles.updateBtn} onClick={() => setEditMode(true)}>更新</button>
-                    )}
+                    {editMode 
+                        ? (
+                            <button className={styles.updateBtn} onClick={handleUpdate}>保存</button>
+                        ) : (
+                            <button className={styles.updateBtn} onClick={() => setEditMode(true)}>更新</button>
+                        )
+                    }
                     <button className={styles.closeBtn} onClick={() => {
                         setDetailDevice(null);
                         setEditMode(false);

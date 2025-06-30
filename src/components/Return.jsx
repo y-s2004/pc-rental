@@ -58,20 +58,6 @@ export default function ReturnDeviceList() {
         };
     }, [open]);
 
-    const handleSearch = () => {
-        if (searchText.trim() === '') {
-            setFilteredDevices(null);
-        } else {
-            setFilteredDevices(
-                devices.filter(device =>
-                    device.asset_num.includes(searchText) ||
-                    device.user_no.includes(searchText) ||
-                    device.name.includes(searchText)
-                )
-            );
-        }
-    };
-
     const handleReturn = async (device) => {
         try {
             const payload = {
@@ -106,7 +92,7 @@ export default function ReturnDeviceList() {
             setFilteredDevices(null);
         } else {
             const normalizedInput = input.toLowerCase();
-            const filtered = availableDevices.filter(device => {
+            const filtered = devices.filter(device => {
                 const assetNum = String(device.asset_num || '').toLowerCase();
                 const maker = String(device.maker || '').toLowerCase();
                 const os = String(device.os || '').toLowerCase();
@@ -120,12 +106,6 @@ export default function ReturnDeviceList() {
         }
     };
 
-    function toHiragana(str) {
-        return str.replace(/[\u30a1-\u30f6]/g, m =>
-            String.fromCharCode(m.charCodeAt(0) - 0x60)
-        );
-    }
-    
     return (
         <>
             <Header />

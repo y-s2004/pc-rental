@@ -216,20 +216,27 @@ export default function UserList() {
             setFilteredUsers(null);
         } else {
             const normalizedInput = input.toLowerCase();
+            const hiraganaInput = toHiragana(normalizedInput);
+
             const filtered = users.filter(user =>
                 Object.entries(user)
                     .filter(([key]) => key !== 'password')
-                    .some(([, value]) =>
-                        String(value).toLowerCase().includes(normalizedInput)
-                    )
+                    .some(([key, value]) => {
+                        const strValue = String(value).toLowerCase();
+                        if (key === 'name' || key === 'name_kana') {
+                            return toHiragana(strValue).includes(hiraganaInput);
+                        }
+                        return strValue.includes(normalizedInput);
+                    })
             );
             setFilteredUsers(filtered);
         }
     };
 
+
     function toHiragana(str) {
-        return str.replace(/[\u30a1-\u30f6]/g, m =>
-            String.fromCharCode(m.charCodeAt(0) - 0x60)
+        return str.replace(/[\u30a1-\u30f6]/g, ch =>
+            String.fromCharCode(ch.charCodeAt(0) - 0x60)
         );
     }
 

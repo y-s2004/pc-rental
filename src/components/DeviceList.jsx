@@ -179,7 +179,7 @@ export default function DeviceList() {
             setFilteredDevices(null);
         } else {
             const normalizedInput = input.toLowerCase();
-            const filtered = availableDevices.filter(device => {
+            const filtered = devices.filter(device => {
                 const assetNum = String(device.asset_num || '').toLowerCase();
                 const maker = String(device.maker || '').toLowerCase();
                 const os = String(device.os || '').toLowerCase();
@@ -192,7 +192,7 @@ export default function DeviceList() {
             setFilteredDevices(filtered);
         }
     };
-
+    
     if (!hasMounted) return null;
     if (loading) return <p>Loading...</p>;
     if (error) return <p style={{ color: 'red' }}>{error}</p>;
@@ -260,7 +260,7 @@ export default function DeviceList() {
                     />
                 )}
             </div>
-            
+
             {submitMessage && (
                 <div className={styles.modalOverlay} onClick={() => setSubmitMessage('')}>
                     <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
