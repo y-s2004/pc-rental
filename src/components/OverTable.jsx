@@ -3,15 +3,15 @@ import React from 'react';
 export default function OverTable({ filteredList, styles }) {
     return (
         <table className={styles.table}>
-        <thead>
-            <tr>
-                <th>資産番号</th>
-                <th>ユーザ番号</th>
-                <th>名前</th>
-                <th>返却予定日</th>
-                <th>備考</th>
-            </tr>
-        </thead>
+            <thead>
+                <tr>
+                    <th>資産番号</th>
+                    <th>ユーザ番号</th>
+                    <th>名前</th>
+                    <th>返却予定日</th>
+                    <th>備考</th>
+                </tr>
+            </thead>
             <tbody>
                 {filteredList.length === 0 ? (
                     <tr>

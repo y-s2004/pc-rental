@@ -51,6 +51,12 @@ export default function Login() {
         });
     }
 
+     function handleKeyDown(e) {
+        if (e.key === 'Enter') {
+            handleClick();
+        }
+    }
+
     useEffect(() => {
         if (cookies.token) {
             router.push("/");
@@ -67,6 +73,7 @@ export default function Login() {
                     className={styles.textBox}
                     placeholder='社員番号'
                     value={employee}
+                    onKeyDown={handleKeyDown}
                 />
                 <input
                     type='password'
@@ -74,6 +81,7 @@ export default function Login() {
                     className={styles.textBox}
                     placeholder='パスワード'
                     value={password}
+                    onKeyDown={handleKeyDown}
                 />
                 <button className={styles.loginButton} onClick={handleClick}>ログイン</button>
             </div>

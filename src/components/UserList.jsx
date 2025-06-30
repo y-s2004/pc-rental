@@ -157,6 +157,11 @@ export default function UserList() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        if (devices.some(d => d.asset_num === newDevice.asset_num)) {
+            setSubmitMessage('同じ資産番号の機器が既に存在します。');
+            return;
+        }
 
         const payload = {
             ...newUser,
@@ -249,8 +254,6 @@ export default function UserList() {
                             />
                         </div>
                     </div>
-                
-                    
 
                     <div className={styles.listContent}>
                         <UserTable
@@ -297,6 +300,14 @@ export default function UserList() {
                     />
                 )}
             </div>
+            {submitMessage && (
+                <div className={styles.modalOverlay} onClick={() => setSubmitMessage('')}>
+                    <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
+                        <p>{submitMessage}</p>
+                        <button onClick={() => setSubmitMessage('')} className={styles.formButton}>閉じる</button>
+                    </div>
+                </div>
+            )}
         </>
     );
 }

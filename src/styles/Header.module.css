@@ -1,5 +1,4 @@
 .logoutButton {
-  position: absolute;
   top: 1rem;
   right: 3rem;
   background-color: transparent;
@@ -40,6 +39,8 @@
     align-items: center;
     gap: 16px;
     flex: 1;
+    flex-wrap: nowrap;
+    min-width: 0;
 }
 
 .headerBtn {
@@ -83,3 +84,4 @@
   font-size: 1rem;
   white-space: nowrap;
 }
+

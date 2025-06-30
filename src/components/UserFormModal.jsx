@@ -16,7 +16,6 @@ export default function UserFormModal({
         <div className={styles.modalOverlay} onClick={handleCloseForm}>
             <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
                 <h2>新規ユーザ登録</h2>
-
                 <form onSubmit={handleSubmit} className={styles.form} style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', alignItems: 'center', justifyContent: 'center' }}>
                     <input
                         name="employee_no"
