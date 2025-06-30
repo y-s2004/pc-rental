@@ -13,8 +13,8 @@ export default function MainMenu() {
                 <div className={styles.cardWrapper}>
                     <h1 className={styles.menuTitle}>メインメニュー</h1>
                     <div className={styles.row}>
-                        <Link href="/rental" className={`${styles.btn}`}>貸出</Link>
-                        <Link href="/return" className={`${styles.btn}`}>返却</Link>
+                        <Link href="/rental" className={styles.btn}>貸出</Link>
+                        <Link href="/return" className={styles.btn}>返却</Link>
                     </div>
                     <div className={styles.row}>
                         <Link href="/user" className={styles.btn}>ユーザ一覧</Link>
