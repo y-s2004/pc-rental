@@ -127,8 +127,9 @@ export default function DeviceList() {
     const handleSubmit = async (e) => {
             e.preventDefault();
 
-            if (devices.some(d => d.asset_num === newDevice.asset_num)) {
-                setSubmitMessage('同じ資産番号の機器が既に存在します。');
+             if (devices.some(d => d.asset_num === newDevice.asset_num)) {
+                setErrorModalMessage('同じ資産番号の機器が既に存在します。');
+                setShowErrorModal(true);
                 return;
             }
 
@@ -266,6 +267,14 @@ export default function DeviceList() {
                     <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
                         <p>{submitMessage}</p>
                         <button onClick={() => setSubmitMessage('')} className={styles.formButton}>閉じる</button>
+                    </div>
+                </div>
+            )}
+            {showErrorModal && (
+                <div className={styles.modalOverlay} onClick={() => setShowErrorModal(false)}>
+                    <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
+                        <p style={{ color: 'red' }}>{errorModalMessage}</p>
+                        <button onClick={() => setShowErrorModal(false)} className={styles.formButton}>閉じる</button>
                     </div>
                 </div>
             )}
