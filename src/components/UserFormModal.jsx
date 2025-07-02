@@ -9,6 +9,10 @@ export default function UserFormModal({
     genderOptions,
     accountLevelOptions,
     styles,
+    formError,
+    confirmPassword,
+    setConfirmPassword,
+    confirmError,
 }) {
     if (!show) return null;
 
@@ -16,6 +20,12 @@ export default function UserFormModal({
         <div className={styles.modalOverlay} onClick={handleCloseForm}>
             <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
                 <h2>新規ユーザ登録</h2>
+                {formError && (
+                    <p style={{ color: 'red', marginBottom: '1rem' }}>{formError}</p>
+                )}
+                {confirmError && (
+                    <p style={{ color: 'red', marginBottom: '1rem' }}>{confirmError}</p>
+                )}
                 <form onSubmit={handleSubmit} className={styles.form} style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', alignItems: 'center', justifyContent: 'center' }}>
                     <input
                         name="employee_no"
@@ -106,6 +116,15 @@ export default function UserFormModal({
                         placeholder="パスワード"
                         value={newUser.password}
                         onChange={handleInputChange}
+                        className={styles.formInput}
+                        required
+                    />
+                    <input
+                        name="confirm_password"
+                        type="password"
+                        placeholder="パスワード再入力"
+                        value={confirmPassword}
+                        onChange={e => setConfirmPassword(e.target.value)}
                         className={styles.formInput}
                         required
                     />

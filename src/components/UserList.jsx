@@ -21,6 +21,11 @@ export default function UserList() {
     const [editUser, setEditUser] = useState({});
     const [submitMessage, setSubmitMessage] = useState('');
     const [editError, setEditError] = useState('');
+    const [formError, setFormError] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [confirmError, setConfirmError] = useState('');
+    const [errorModalMessage, setErrorModalMessage] = useState('');
+    const [showErrorModal, setShowErrorModal] = useState(false);
     
     const handleCloseForm = () => {
         setShowForm(false);
@@ -37,6 +42,9 @@ export default function UserList() {
             account_level: '',
             password: '',
         });
+        setConfirmPassword('');
+        setFormError('');
+        setConfirmError('');
     };
 
     const [open, setOpen] = useState(false);
@@ -157,9 +165,16 @@ export default function UserList() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        if (devices.some(d => d.asset_num === newDevice.asset_num)) {
-            setSubmitMessage('同じ資産番号の機器が既に存在します。');
+
+        if (users.some(u => u.employee_no === newUser.employee_no)) {
+            setErrorModalMessage('同じ社員番号のユーザが既に存在します。');
+            setShowErrorModal(true);
+            return;
+        }
+
+        if (newUser.password !== confirmPassword) {
+            setErrorModalMessage('パスワードが一致しません。');
+            setShowErrorModal(true);
             return;
         }
 
@@ -304,6 +319,10 @@ export default function UserList() {
                         genderOptions={genderOptions}
                         accountLevelOptions={accountLevelOptions}
                         styles={styles}
+                        formError={formError}
+                        confirmPassword={confirmPassword}
+                        setConfirmPassword={setConfirmPassword}
+                        confirmError={confirmError}
                     />
                 )}
             </div>
@@ -312,6 +331,14 @@ export default function UserList() {
                     <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
                         <p>{submitMessage}</p>
                         <button onClick={() => setSubmitMessage('')} className={styles.formButton}>閉じる</button>
+                    </div>
+                </div>
+            )}
+            {showErrorModal && (
+                <div className={styles.modalOverlay} onClick={() => setShowErrorModal(false)}>
+                    <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
+                        <p style={{ color: 'red' }}>{errorModalMessage}</p>
+                        <button onClick={() => setShowErrorModal(false)} className={styles.formButton}>閉じる</button>
                     </div>
                 </div>
             )}
