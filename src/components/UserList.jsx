@@ -27,7 +27,6 @@ export default function UserList() {
     const [confirmError, setConfirmError] = useState('');
     const [errorModalMessage, setErrorModalMessage] = useState('');
     const [showErrorModal, setShowErrorModal] = useState(false);
-    
     const handleCloseForm = () => {
         setShowForm(false);
         setNewUser({...emptyUser});
@@ -35,8 +34,6 @@ export default function UserList() {
         setFormError('');
         setConfirmError('');
     };
-
-    const [open, setOpen] = useState(false);
     const [showForm , setShowForm] = useState(false);
     const [newUser, setNewUser] = useState({ ...emptyUser });
 
