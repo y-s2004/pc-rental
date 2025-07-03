@@ -8,7 +8,7 @@ import UserTable from './UserTable';
 import styles from '../styles/UserList.module.css';
 import { axiosInstance } from '../lib/axios';
 import BackButton from './BackButton';
-import { genderOptions, accountLevelOptions, emptyUser } from './userConstants';
+import { genderOptions, accountLevelOptions, emptyUser } from './Constants';
 
 export default function UserList() {
     const [users, setUsers] = useState([]);
@@ -60,12 +60,12 @@ export default function UserList() {
 
     useEffect(() => {
         if (detailUser) {
-        setEditUser({
-            ...detailUser,
-            gender: typeof detailUser.gender === 'number'
-            ? (detailUser.gender === 0 ? '男性' : detailUser.gender === 1 ? '女性' : 'その他')
-            : detailUser.gender
-        });
+            setEditUser({
+                ...detailUser,
+                gender: typeof detailUser.gender === 'number'
+                ? (detailUser.gender === 0 ? '男性' : detailUser.gender === 1 ? '女性' : 'その他')
+                : detailUser.gender
+            });
             setEditMode(false);
             setEditError('');
         }

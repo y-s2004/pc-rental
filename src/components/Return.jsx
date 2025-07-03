@@ -13,7 +13,6 @@ export default function ReturnDeviceList() {
     const [filteredDevices, setFilteredDevices] = useState(null);
     const [returnMessage, setReturnMessage] = useState('');
     const [showModal, setShowModal] = useState(false); 
-    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         const fetchDevices = async () => {

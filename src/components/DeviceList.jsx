@@ -6,7 +6,7 @@ import DeviceTable from './DeviceTable';
 import DeviceDetail from './DeviceDetail';
 import DeviceForm from './DeviceForm';
 import styles from '../styles/DeviceList.module.css';
-import emptyDevice from './deviceConstants';
+import emptyDevice from './Constants';
 import { axiosInstance } from '../lib/axios';
 import BackButton from './BackButton';
 
