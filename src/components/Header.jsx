@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import useLogout from './Logout.jsx';
-import styles from '../styles/Header.module.css';s
+import styles from '../styles/Header.module.css';
 import { useState, useEffect } from 'react';
 
 export default function RentalHeader() {
