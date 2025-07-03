@@ -6,6 +6,7 @@ import DeviceTable from './DeviceTable';
 import DeviceDetail from './DeviceDetail';
 import DeviceForm from './DeviceForm';
 import styles from '../styles/DeviceList.module.css';
+import emptyDevice from './deviceConstants';
 import { axiosInstance } from '../lib/axios';
 import BackButton from './BackButton';
 
@@ -26,21 +27,7 @@ export default function DeviceList() {
     const handleDetail = (device) => {
         setDetailDevice(device);
     };
-
-    const [newDevice, setNewDevice] = useState({
-        asset_num: '',
-        maker: '',
-        os: '',
-        memory: '',
-        disc_capacity: '',
-        graphic_board: '',
-        place: '',
-        rental_start: '',
-        rental_deadline: '',
-        inventory_date: '',
-        remarks: '',
-    });
-
+    const [newDevice, setNewDevice] = useState({ ...emptyDevice });
     const [submitMessage, setSubmitMessage] = useState('');
 
     useEffect(() => {
@@ -69,19 +56,7 @@ export default function DeviceList() {
 
     const CloseForm = () => {
         setShowForm(false);
-        setNewDevice({
-            asset_num: '',
-            maker: '',
-            os: '',
-            memory: '',
-            graphic_board: '',
-            place: '',
-            rental_start: '',
-            rental_deadline: '',
-            inventory_date: '',
-            disc_capacity: '',
-            remarks: '',
-        });
+        setNewDevice({ ...emptyDevice })
     };
 
     const handleDelete = async () => {
@@ -157,19 +132,7 @@ export default function DeviceList() {
                 const res = await axiosInstance.post('/device', payload);
                 setSubmitMessage('機器登録に成功しました！');
                 setDevices(prev => [...prev, res.data]);
-                setNewDevice({
-                    asset_num: '',
-                    maker: '',
-                    os: '',
-                    memory: '',
-                    disc_capacity: '',
-                    graphic_board: '',
-                    place: '',
-                    rental_start: '',
-                    rental_deadline: '',
-                    inventory_date: '',
-                    remarks: '',
-                });
+                setNewDevice({ ...emptyDevice });
                 setShowForm(false);
             } catch (err) {
                 setSubmitMessage('機器登録に失敗しました。');

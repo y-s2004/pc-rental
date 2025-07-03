@@ -8,6 +8,7 @@ import UserTable from './UserTable';
 import styles from '../styles/UserList.module.css';
 import { axiosInstance } from '../lib/axios';
 import BackButton from './BackButton';
+import { genderOptions, accountLevelOptions, emptyUser } from './userConstants';
 
 export default function UserList() {
     const [users, setUsers] = useState([]);
@@ -29,45 +30,15 @@ export default function UserList() {
     
     const handleCloseForm = () => {
         setShowForm(false);
-        setNewUser({
-            employee_no: '',
-            name: '',
-            name_kana: '',
-            department: '',
-            tel_no: '',
-            mail_address: '',
-            age: '',
-            gender: '',
-            position: '',
-            account_level: '',
-            password: '',
-        });
+        setNewUser({...emptyUser});
         setConfirmPassword('');
         setFormError('');
         setConfirmError('');
     };
 
     const [open, setOpen] = useState(false);
-    const dropdownRef = useRef(null);
-    const hamburgerRef = useRef(null);
-
-    const genderOptions = ['男性', '女性', 'その他'];
-    const accountLevelOptions = ['利用者', '管理者'];
     const [showForm , setShowForm] = useState(false);
-
-    const [newUser, setNewUser] = useState({
-        employee_no: '',
-        name: '',
-        name_kana: '',
-        department: '',
-        tel_no: '',
-        mail_address: '',
-        age: '',
-        gender: '',
-        position: '',
-        account_level: '',
-        password: '',
-    });
+    const [newUser, setNewUser] = useState({ ...emptyUser });
 
     useEffect(() => {
         setHasMounted(true);
@@ -86,31 +57,6 @@ export default function UserList() {
             setLoading(false);
         });
     }, []);
-
-    useEffect(() => {
-        function handleClickOutside(event) {
-            if (
-                dropdownRef.current &&
-                !dropdownRef.current.contains(event.target) &&
-                hamburgerRef.current &&
-                !hamburgerRef.current.contains(event.target)
-            ) {
-                setOpen(false);
-            }
-        }
-
-        if (open) {
-            document.addEventListener('mousedown', handleClickOutside);
-        } else {
-            document.removeEventListener('mousedown', handleClickOutside);
-        }
-
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [open]);
-
-    
 
     useEffect(() => {
         if (detailUser) {
@@ -202,19 +148,7 @@ export default function UserList() {
             const res = await axiosInstance.post('/user', payload);
             setSubmitMessage('ユーザ登録に成功しました！');
             setUsers(prev => [...prev, res.data]);
-            setNewUser({
-                employee_no: '',
-                name: '',
-                name_kana: '',
-                department: '',
-                tel_no: '',
-                mail_address: '',
-                age: '',
-                gender: '',
-                position: '',
-                account_level: '',
-                password: '',
-            });
+            setNewUser({ ...emptyUser });
             setShowForm(false);
         } catch (err) {
             console.error(err);

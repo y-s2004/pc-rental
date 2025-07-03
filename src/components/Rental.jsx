@@ -20,9 +20,6 @@ export default function DeviceList() {
     const [rentalMessage, setRentalMessage] = useState('');
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [errorModalMessage, setErrorModalMessage] = useState('');
-    const [open, setOpen] = useState(false);
-    const dropdownRef = useRef(null);
-    const hamburgerRef = useRef(null);
 
     useEffect(() => {
         setHasMounted(true);
@@ -40,30 +37,7 @@ export default function DeviceList() {
         });
     }, []);
 
-    useEffect(() => {
-        function handleClickOutside(event) {
-            if (
-                dropdownRef.current &&
-                !dropdownRef.current.contains(event.target) &&
-                hamburgerRef.current &&
-                !hamburgerRef.current.contains(event.target)
-            ) {
-                setOpen(false);
-            }
-        }
-
-        if (open) {
-            document.addEventListener('mousedown', handleClickOutside);
-        } else {
-            document.removeEventListener('mousedown', handleClickOutside);
-        } return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [open]);
-
     const availableDevices = devices.filter(device => !device.rental_status);
-
-    
 
     const handleRental = (device) => {
         const today = new Date();

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import Header from './Header';
 import ReturnTable from './ReturnTable';
 import styles from '../styles/Return.module.css';
@@ -14,8 +14,6 @@ export default function ReturnDeviceList() {
     const [returnMessage, setReturnMessage] = useState('');
     const [showModal, setShowModal] = useState(false); 
     const [open, setOpen] = useState(false);
-    const dropdownRef = useRef(null);
-    const hamburgerRef = useRef(null);
 
     useEffect(() => {
         const fetchDevices = async () => {
@@ -34,29 +32,6 @@ export default function ReturnDeviceList() {
         };
         fetchDevices();
     }, []);
-
-    useEffect(() => {
-        function handleClickOutside(event) {
-            if (
-                dropdownRef.current &&
-                !dropdownRef.current.contains(event.target) &&
-                hamburgerRef.current &&
-                !hamburgerRef.current.contains(event.target)
-            ) {
-                setOpen(false);
-            }
-        }
-
-        if (open) {
-            document.addEventListener('mousedown', handleClickOutside);
-        } else {
-            document.removeEventListener('mousedown', handleClickOutside);
-        }
-
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [open]);
 
     const handleReturn = async (device) => {
         try {
