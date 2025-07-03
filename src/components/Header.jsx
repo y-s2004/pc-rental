@@ -2,11 +2,12 @@
 
 import Link from 'next/link';
 import useLogout from './Logout.jsx';
-import styles from '../styles/Header.module.css';
+import styles from '../styles/Header.module.css';s
 import { useState, useEffect } from 'react';
 
 export default function RentalHeader() {
     const Logout = useLogout();
+    const [mounted, setMounted] = useState(false);
 
     const [loginUser, setLoginUser] = useState({ authority: '', name: '' });
 
@@ -16,6 +17,7 @@ export default function RentalHeader() {
             if (user) {
                 setLoginUser(JSON.parse(user));
             }
+            setMounted(true);
         }
     }, []);
 
@@ -28,10 +30,11 @@ export default function RentalHeader() {
                 <Link href="/over" className={styles.headerBtn}>延滞者一覧</Link>
                 <Link href="/rental" className={styles.headerBtn}>貸出登録</Link>
                 <Link href="/return" className={styles.headerBtn}>返却登録</Link>
-                
-                <span className={styles.loginInfo}>
-                    権限：{loginUser.authority}  氏名：{loginUser.name}
-                </span>
+                {mounted && (
+                    <span className={styles.loginInfo}>
+                        権限：{loginUser.authority}  氏名：{loginUser.name}
+                    </span>
+                )}
                 <button className={styles.logoutButton} onClick={Logout}>
                     ログアウト
                 </button>
