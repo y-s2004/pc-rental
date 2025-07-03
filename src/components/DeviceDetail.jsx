@@ -166,6 +166,11 @@ export default function DeviceDetailModal({
                             ? new Date(detailDevice.update_date).toLocaleDateString('ja-JP', {year: 'numeric', month: '2-digit', day: '2-digit'})
                         : ''}
                     </div>
+
+                    <div className={styles.detailLabel}>貸出状況</div>
+                    <div className={styles.detailValue}>
+                        : {detailDevice.rental_status ? '貸出中' : '貸出可能'}
+                    </div>
                 </div>
                 
                 <div className={styles.detailBtnGroup}>

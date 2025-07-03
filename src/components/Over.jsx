@@ -57,7 +57,7 @@ export default function Over() {
             <div className={styles.container}>
                 <div className={styles.listWrapper}>
                     <div className={styles.headerRow}>
-                        <h1>延滞者リスト</h1>
+                        <h1>延滞者一覧</h1>
                     </div>
                     <div className={styles.listContent}>
                         {loading && <p>読み込み中...</p>}

@@ -215,6 +215,7 @@ export default function UserList() {
                 account_level: '',
                 password: '',
             });
+            setShowForm(false);
         } catch (err) {
             console.error(err);
             setSubmitMessage('ユーザ登録に失敗しました。');

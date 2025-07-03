@@ -18,7 +18,8 @@ export default function DeviceList() {
     const [showRentalForm, setShowRentalForm] = useState(false);
     const [rentalDevice, setRentalDevice] = useState(null);
     const [rentalMessage, setRentalMessage] = useState('');
-    
+    const [showErrorModal, setShowErrorModal] = useState(false);
+    const [errorModalMessage, setErrorModalMessage] = useState('');
     const [open, setOpen] = useState(false);
     const dropdownRef = useRef(null);
     const hamburgerRef = useRef(null);
@@ -82,34 +83,34 @@ export default function DeviceList() {
         e.preventDefault();
         setRentalMessage('');
         try {
+            const userRes = await axiosInstance.get(`/user/${rentalDevice.user_no}`);
+            if (!userRes.data || !userRes.data.employee_no) {
+                setErrorModalMessage('入力された社員番号のユーザが存在しません。');
+                setShowErrorModal(true);
+                return;
+            }
 
-        const userRes = await axiosInstance.get(`/user/${rentalDevice.user_no}`);
-        if (!userRes.data || !userRes.data.employee_no) {
-            setRentalMessage('入力された社員番号のユーザが存在しません。');
-            return;
-        }
+            const payload = {
+                asset_num: rentalDevice.asset_num,
+                user_no: rentalDevice.user_no,
+                rental_date: new Date().toISOString(),
+                return_date: new Date(rentalDevice.return_date).toISOString(),
+                name: rentalDevice.name,
+                place: rentalDevice.place || '',
+                rental_status: true, 
+                remarks: rentalDevice.remarks || ''
+            };
 
-        const payload = {
-            asset_num: rentalDevice.asset_num,
-            user_no: rentalDevice.user_no,
-            rental_date: new Date().toISOString(),
-            return_date: new Date(rentalDevice.return_date).toISOString(),
-            name: rentalDevice.name,
-            place: rentalDevice.place || '',
-            rental_status: true, 
-            remarks: rentalDevice.remarks || ''
-        };
+            const res = await axiosInstance.post('/rental', payload);
 
-        const res = await axiosInstance.post('/rental', payload);
+            setDevices(devices.map(device =>
+                device.asset_num === rentalDevice.asset_num
+                ? { ...device, rental_status: true }
+                : device
+            ));
 
-        setDevices(devices.map(device =>
-            device.asset_num === rentalDevice.asset_num
-            ? { ...device, rental_status: true }
-            : device
-        ));
-
-        setRentalMessage('貸出登録が完了しました！');
-        setShowRentalForm(false);
+            setRentalMessage('貸出登録が完了しました！');
+            setShowRentalForm(false);
         } catch (err) {
             setRentalMessage('貸出登録に失敗しました。');
         }
@@ -148,7 +149,7 @@ export default function DeviceList() {
             <div className={styles.container}>
                 <div className={styles.listWrapper}>
                     <div className={styles.headerRow}>
-                        <h1>貸出可能なデバイス</h1>
+                        <h1>貸出登録</h1>
                         <div className={styles.searchBoxWrapper}>
                             <input
                                 className={styles.searchInput}
@@ -188,6 +189,14 @@ export default function DeviceList() {
                     </BackButton>
                 </div>
             </div>
+            {showErrorModal && (
+                <div className={styles.modalOverlay} onClick={() => setShowErrorModal(false)}>
+                    <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
+                        <p style={{ color: 'red' }}>{errorModalMessage}</p>
+                        <button onClick={() => setShowErrorModal(false)} className={styles.closeBtn}>閉じる</button>
+                    </div>
+                </div>
+            )}
         </>
     );
 }

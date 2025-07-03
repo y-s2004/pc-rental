@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import useLogout from './Logout';
+import useLogout from './Logout.jsx';
 import styles from '../styles/Header.module.css';
 import { useState, useEffect } from 'react';
 

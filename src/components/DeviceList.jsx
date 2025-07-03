@@ -21,6 +21,8 @@ export default function DeviceList() {
     const [editDevice, setEditDevice] = useState({});
     const [editError, setEditError] = useState('');
     const [showForm, setShowForm] = useState(false);
+    const [showErrorModal, setShowErrorModal] = useState(false);
+    const [errorModalMessage, setErrorModalMessage] = useState('');
     const handleDetail = (device) => {
         setDetailDevice(device);
     };

@@ -37,7 +37,7 @@ export default function Login() {
                 setTimeout(() => {
                     setShowModal(false);
                     router.push(page);
-                }, 5000);
+                }, 1000);
             } else {
                 setMessage("社員番号またはパスワードが違います");
                 setEmployee("");
@@ -56,12 +56,6 @@ export default function Login() {
             handleClick();
         }
     }
-
-    useEffect(() => {
-        if (cookies.token) {
-            router.push("/");
-        }
-    }, [cookies.token]);
 
     return (
         <main className={styles.main}>

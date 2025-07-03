@@ -1,5 +1,4 @@
 import React from 'react';
-import BackButton from './BackButton';
 
 export default function UserDetailModal({
     show,
@@ -103,14 +102,17 @@ export default function UserDetailModal({
                             : ''
                         }
                     </div>
-                    {detailUser.update_date && (
-                        <>
-                            <div className={styles.detailLabel}>最終更新日</div>
-                            <div className={styles.detailValue}>
-                                : {new Date(detailUser.update_date).toLocaleDateString('ja-JP', {year: 'numeric', month: '2-digit', day: '2-digit'})}
-                            </div>
-                        </>
-                    )}
+                    <div className={styles.detailLabel}>最終更新日</div>
+                    <div className={styles.detailValue}>
+                            : {new Date(detailUser.update_date).toLocaleDateString('ja-JP', {year: 'numeric', month: '2-digit', day: '2-digit'})}
+                    </div>
+                    <div className={styles.detailLabel}>退職日</div>
+                    <div className={styles.detailValue}>
+                        : {detailUser.retire_date
+                            ? new Date(detailUser.retire_date).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' })
+                            : ''
+                        }
+                    </div>
                 </div>
 
                 <div className={styles.detailBtnGroup}>
