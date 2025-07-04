@@ -28,4 +28,4 @@ export const setNewDevice = {
     inventory_date: '',
     disc_capacity: '',
     remarks: '',
-};
+};      

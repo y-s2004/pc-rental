@@ -27,7 +27,6 @@ export default function UserFormModal({
                     <p style={{ color: 'red', marginBottom: '1rem' }}>{confirmError}</p>
                 )}
                 <form onSubmit={handleSubmit} className={styles.form}>
-                    {/* 1行目 */}
                     <div style={{ display: 'flex', gap: '16px', gridColumn: 'span 2', width: '100%' }}>
                         <div style={{ flex: 1 }}>
                             <label className={styles.formLabel}>社員番号</label>
@@ -51,7 +50,6 @@ export default function UserFormModal({
                             />
                         </div>
                     </div>
-                    {/* 2行目 */}
                     <div style={{ display: 'flex', gap: '16px', gridColumn: 'span 2', width: '100%' }}>
                         <div style={{ flex: 1 }}>
                             <label className={styles.formLabel}>名前</label>
@@ -75,7 +73,6 @@ export default function UserFormModal({
                             />
                         </div>
                     </div>
-                    {/* 3行目 */}
                     <div style={{ display: 'flex', gap: '16px', gridColumn: 'span 2', width: '100%' }}>
                         <div style={{ flex: 1 }}>
                             <label className={styles.formLabel}>電話番号</label>
@@ -98,7 +95,6 @@ export default function UserFormModal({
                             />
                         </div>
                     </div>
-                    {/* 4行目 */}
                     <div style={{ display: 'flex', gap: '16px', gridColumn: 'span 2', width: '100%' }}>
                         <div style={{ flex: 1 }}>
                             <label className={styles.formLabel}>年齢</label>
@@ -122,7 +118,6 @@ export default function UserFormModal({
                             />
                         </div>
                     </div>
-                    {/* 5行目 */}
                     <div style={{ display: 'flex', gap: '16px', gridColumn: 'span 2', width: '100%' }}>
                         <div style={{ flex: 1 }}>
                             <label className={styles.formLabel}>性別</label>
@@ -155,7 +150,6 @@ export default function UserFormModal({
                             </select>
                         </div>
                     </div>
-                    {/* 6行目 */}
                     <div style={{ display: 'flex', gap: '16px', gridColumn: 'span 2', width: '100%' }}>
                         <div style={{ flex: 1 }}>
                             <label className={styles.formLabel}>パスワード</label>
