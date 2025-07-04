@@ -170,9 +170,6 @@ export default function DeviceList() {
                 <div className={styles.listWrapper}>
                     <div className={styles.headerRow}>
                         <h1 className={styles.title}>デバイスリスト</h1>
-                        <button className={styles.createBtn} onClick={() => setShowForm(true)}>
-                            新規登録
-                        </button>
                         <div className={styles.searchBoxWrapper}>
                             <input
                                 className={styles.searchInput}
@@ -194,9 +191,12 @@ export default function DeviceList() {
                     </div>
                 </div>
             
-                <BackButton className={`${styles.backBtn}`} to="/home">
-                    戻る
-                </BackButton>
+                <div className={styles.buttonWrapper}>
+                    <div className={styles.buttonRow}>
+                        <button className={styles.createBtn} onClick={() => setShowForm(true)}>新規登録</button>
+                        <BackButton className={styles.backBtn} to="/home">戻る</BackButton>
+                    </div>
+                </div>
     
                 {detailDevice && (
                     <DeviceDetail

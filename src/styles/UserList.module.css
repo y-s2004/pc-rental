@@ -94,23 +94,20 @@
     margin-right: 24px;;
 }
 
-.createBtn{
-    background: #0261c0;
+.createBtn {
+    background: #f57f17;
     color: #fff;
-    padding: 15px 24px;   
+    padding: 20px 50px;
     border-radius: 5px;
     font-size: 1rem;
     border: none;
-    outline: none;      
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-    align-self: flex-start;
-    margin-top: -4px;
+    outline: none;
+    margin: 25px auto 0 auto;   
+    display: inline-flex;   
+    margin: 0; 
 }
 
-.createBtn:hover { background: #2674c2; }
+.createBtn:hover { background: #f9a825; }
 
 .backBtn {
     background: #0261c0;
@@ -121,7 +118,8 @@
     border: none;
     outline: none;
     margin: 32px auto 0 auto;   
-    display: block;    
+    display: inline-flex;   
+    margin: 0; 
 }
 
 .backBtn:hover { background: #2674c2; }
@@ -361,4 +359,30 @@
 
 .logoutButton:hover {
   background-color: rgba(255, 255, 255, 0.2);
+}
+
+.buttonRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 24px;
+  padding: 0 8px;
+  box-sizing: border-box;
+}
+
+.buttonRow {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  gap: 200px; 
+  margin-top: 24px;
+  padding: 0 8px;
+}
+
+.buttonWrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
