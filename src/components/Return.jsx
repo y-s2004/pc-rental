@@ -42,9 +42,7 @@ export default function ReturnDeviceList() {
 
             const res = await axiosInstance.post(`/rental/${device.asset_num}/return`, payload);
 
-            
             setDevices(devices.filter(d => d.asset_num !== device.asset_num));
-
             setReturnMessage(`資産番号 ${device.asset_num} の返却が完了しました！`);
             setShowModal(true); 
 
