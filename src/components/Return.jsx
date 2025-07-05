@@ -96,6 +96,7 @@ export default function ReturnDeviceList() {
                             />
                         </div>
                     </div>
+                    
                     <div className={styles.listContent}>
                         <ReturnTable
                             devices={filteredDevices ?? devices}
