@@ -24,7 +24,7 @@ export default function DeviceList() {
     const [showForm, setShowForm] = useState(false);
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [errorModalMessage, setErrorModalMessage] = useState('');
-    const handleDetail = (device) => {
+    const Detail = (device) => {
         setDetailDevice(device);
     };
     const [newDevice, setNewDevice] = useState({ ...emptyDevice });
@@ -59,7 +59,7 @@ export default function DeviceList() {
         setNewDevice({ ...emptyDevice })
     };
 
-    const handleDelete = async () => {
+    const Delete = async () => {
         try {
             await axiosInstance.delete(`/device/${detailDevice.asset_num}`);
             setDevices(devices.filter(d => d.asset_num !== detailDevice.asset_num));
@@ -69,7 +69,7 @@ export default function DeviceList() {
         }
     };
 
-    const handleUpdate = async () => {
+    const Update = async () => {
         try {
             const now = new Date();
             const timeString = now.toTimeString().split(' ')[0];
@@ -96,12 +96,12 @@ export default function DeviceList() {
         }
     };
 
-    const handleInputChange = (e) => {
+    const InputChange = (e) => {
         const { name, value } = e.target;
         setNewDevice(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = async (e) => {
+    const Submit = async (e) => {
             e.preventDefault();
 
              if (devices.some(d => d.asset_num === newDevice.asset_num)) {
@@ -139,7 +139,7 @@ export default function DeviceList() {
             }
     };
 
-    const handleSearchInput = (input) => {
+    const SearchInput = (input) => {
         setSearchText(input);
         if (input.trim() === '') {
             setFilteredDevices(null);
@@ -176,7 +176,7 @@ export default function DeviceList() {
                                 type="text"
                                 placeholder="検索"
                                 value={searchText}
-                                onChange={e => handleSearchInput(e.target.value)}
+                                onChange={e => SearchInput(e.target.value)}
                             />
                         </div>
                     </div>
@@ -186,7 +186,7 @@ export default function DeviceList() {
                             styles={styles}
                             showRental={false}
                             showDetail={true}
-                            onDetail={handleDetail}
+                            onDetail={Detail}
                         />
                     </div>
                 </div>
@@ -207,8 +207,8 @@ export default function DeviceList() {
                         setEditDevice={setEditDevice}
                         setEditMode={setEditMode}
                         setDetailDevice={setDetailDevice}
-                        handleDelete={handleDelete}
-                        handleUpdate={handleUpdate}
+                        handleDelete={Delete}
+                        handleUpdate={Update}
                         editError={editError}
                         styles={styles}
                     />
@@ -218,9 +218,9 @@ export default function DeviceList() {
                     <DeviceForm
                         show={showForm}
                         newDevice={newDevice}
-                        handleInputChange={handleInputChange}
+                        handleInputChange={InputChange}
                         setNewDevice={setNewDevice}
-                        handleSubmit={handleSubmit}
+                        handleSubmit={Submit}
                         handleCloseForm={CloseForm}
                         styles={styles}
                     />

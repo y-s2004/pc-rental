@@ -8,7 +8,7 @@ import UserTable from './UserTable';
 import styles from '../styles/UserList.module.css';
 import { axiosInstance } from '../lib/axios';
 import BackButton from './BackButton';
-import { genderOptions, accountLevelOptions, emptyUser } from './Constants';
+import { gender, accountLevel, emptyUser } from './Constants';
 
 export default function UserList() {
     const [users, setUsers] = useState([]);
@@ -234,8 +234,8 @@ export default function UserList() {
                         handleDelete={handleDelete}
                         handleUpdate={handleUpdate}
                         handleClose={() => { setDetailUser(null); setEditMode(false); }}
-                        genderOptions={genderOptions}
-                        accountLevelOptions={accountLevelOptions}
+                        genderOptions={gender}
+                        accountLevelOptions={accountLevel}
                         editError={editError}
                         styles={styles}
                     />
@@ -248,8 +248,8 @@ export default function UserList() {
                         handleInputChange={handleInputChange}
                         handleSubmit={handleSubmit}
                         handleCloseForm={handleCloseForm}
-                        genderOptions={genderOptions}
-                        accountLevelOptions={accountLevelOptions}
+                        genderOptions={gender}
+                        accountLevelOptions={accountLevel}
                         styles={styles}
                         formError={formError}
                         confirmPassword={confirmPassword}

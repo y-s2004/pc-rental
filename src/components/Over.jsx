@@ -15,7 +15,7 @@ export default function Over() {
     const hamburgerRef = useRef(null);
 
     useEffect(() => {
-        function handleClickOutside(event) {
+        function ClickOutside(event) {
             if (
                 dropdownRef.current && !dropdownRef.current.contains(event.target) &&
                 hamburgerRef.current && !hamburgerRef.current.contains(event.target)
@@ -24,12 +24,12 @@ export default function Over() {
             }
         }
         if (open) {
-            document.addEventListener('mousedown', handleClickOutside);
+            document.addEventListener('mousedown', ClickOutside);
         } else {
-            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('mousedown', ClickOutside);
         }
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('mousedown', ClickOutside);
         };
     }, [open]);
 

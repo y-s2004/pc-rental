@@ -23,37 +23,44 @@ export default function UserDetailModal({
                 <h2 className={styles.detailTitle}>ユーザ詳細</h2>
                 <div className={styles.detailGrid}>
                     <div className={styles.detailLabel}>社員番号</div>
-                    <div className={styles.detailValue}>: {editMode
+                    <div className={styles.detailValue}>
+                        : {editMode
                         ? <input value={editUser.employee_no} disabled />
                         : detailUser.employee_no}
                     </div>
                     <div className={styles.detailLabel}>名前</div>
-                    <div className={styles.detailValue}>: {editMode
+                    <div className={styles.detailValue}>
+                        : {editMode
                         ? <input value={editUser.name} onChange={e => setEditUser(u => ({...u, name: e.target.value}))} />
                         : detailUser.name}
                     </div>
                     <div className={styles.detailLabel}>名前カナ</div>
-                    <div className={styles.detailValue}>: {editMode
+                    <div className={styles.detailValue}>
+                        : {editMode
                         ? <input value={editUser.name_kana} onChange={e => setEditUser(u => ({...u, name_kana: e.target.value}))} />
                         : detailUser.name_kana}
                     </div>
                     <div className={styles.detailLabel}>部署</div>
-                    <div className={styles.detailValue}>: {editMode
+                    <div className={styles.detailValue}>
+                        : {editMode
                         ? <input value={editUser.department} onChange={e => setEditUser(u => ({...u, department: e.target.value}))} />
                         : detailUser.department}
                     </div>
                     <div className={styles.detailLabel}>電話番号</div>
-                    <div className={styles.detailValue}>: {editMode
+                    <div className={styles.detailValue}>
+                        : {editMode
                         ? <input value={editUser.tel_no} onChange={e => setEditUser(u => ({...u, tel_no: e.target.value}))} />
                         : detailUser.tel_no}
                     </div>
                     <div className={styles.detailLabel}>メールアドレス</div>
-                    <div className={styles.detailValue}>: {editMode
+                    <div className={styles.detailValue}>
+                        : {editMode
                         ? <input value={editUser.mail_address} onChange={e => setEditUser(u => ({...u, mail_address: e.target.value}))} />
                         : detailUser.mail_address}
                     </div>
                     <div className={styles.detailLabel}>年齢</div>
-                    <div className={styles.detailValue}>: {editMode
+                    <div className={styles.detailValue}>
+                        : {editMode
                         ? <input type="number" value={editUser.age} onChange={e => setEditUser(u => ({...u, age: e.target.value}))} />
                         : detailUser.age}</div>
                     <div className={styles.detailLabel}>性別</div>
@@ -69,12 +76,14 @@ export default function UserDetailModal({
                         }
                     </div>
                     <div className={styles.detailLabel}>役職</div>
-                    <div className={styles.detailValue}>: {editMode
+                    <div className={styles.detailValue}>
+                        : {editMode
                         ? <input value={editUser.position} onChange={e => setEditUser(u => ({...u, position: e.target.value}))} />
                         : detailUser.position}
                     </div>
                     <div className={styles.detailLabel}>アカウントレベル</div>
-                    <div className={styles.detailValue}>: {editMode
+                    <div className={styles.detailValue}>
+                        : {editMode
                         ? (
                             <select value={editUser.account_level} onChange={e => setEditUser(u => ({...u, account_level: e.target.value, password: ''}))}>
                             {accountLevelOptions.map(level => <option key={level} value={level}>{level}</option>)}

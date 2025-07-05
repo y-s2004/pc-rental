@@ -39,7 +39,7 @@ export default function DeviceList() {
 
     const availableDevices = devices.filter(device => !device.rental_status);
 
-    const handleRental = (device) => {
+    const Rental = (device) => {
         const today = new Date();
         const returnDate = new Date(today);
         returnDate.setDate(today.getDate() + 90);
@@ -53,7 +53,7 @@ export default function DeviceList() {
         setRentalMessage('');
     };
 
-    const handleRentalSubmit = async (e) => {
+    const RentalSubmit = async (e) => {
         e.preventDefault();
         setRentalMessage('');
         try {
@@ -90,7 +90,7 @@ export default function DeviceList() {
         }
     };
 
-    const handleSearchInput = (input) => {
+    const SearchInput = (input) => {
             setSearchText(input);
             if (input.trim() === '') {
                 setFilteredDevices(null);
@@ -130,7 +130,7 @@ export default function DeviceList() {
                                 type="text"
                                 placeholder="検索"
                                 value={searchText}
-                                onChange={e => handleSearchInput(e.target.value)}
+                                onChange={e => SearchInput(e.target.value)}
                             />
                         </div>
                     </div>
@@ -140,7 +140,7 @@ export default function DeviceList() {
                             styles={styles}
                             showRental={true}
                             showDetail={false}
-                            onRental={handleRental}
+                            onRental={Rental}
                         />
                     </div>
                 </div>
@@ -150,7 +150,7 @@ export default function DeviceList() {
                         show={showRentalForm}
                         rentalDevice={rentalDevice}
                         setRentalDevice={setRentalDevice}
-                        onSubmit={handleRentalSubmit}
+                        onSubmit={RentalSubmit}
                         onClose={() => setShowRentalForm(false)}
                         rentalMessage={rentalMessage}
                         styles={styles}

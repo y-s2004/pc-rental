@@ -1,6 +1,6 @@
-export const genderOptions = ['男性', '女性', 'その他'];
+export const gender = ['男性', '女性', 'その他'];
 
-export const accountLevelOptions = ['利用者', '管理者'];
+export const accountLevel = ['利用者', '管理者'];
 
 export const emptyUser = {
     employee_no: '',

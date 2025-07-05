@@ -32,7 +32,7 @@ export default function ReturnDeviceList() {
         fetchDevices();
     }, []);
 
-    const handleReturn = async (device) => {
+    const Return = async (device) => {
         try {
             const payload = {
                 user_no: device.user_no,
@@ -58,7 +58,7 @@ export default function ReturnDeviceList() {
         return `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}`;
     };
 
-    const handleSearchInput = (input) => {
+    const SearchInput = (input) => {
         setSearchText(input);
         if (input.trim() === '') {
             setFilteredDevices(null);
@@ -92,17 +92,17 @@ export default function ReturnDeviceList() {
                                 type="text"
                                 placeholder="検索"
                                 value={searchText}
-                                onChange={e => handleSearchInput(e.target.value)}
+                                onChange={e => SearchInput(e.target.value)}
                             />
                         </div>
                     </div>
-                    
+
                     <div className={styles.listContent}>
                         <ReturnTable
                             devices={filteredDevices ?? devices}
                             styles={styles}
                             formatDate={formatDate}
-                            handleReturn={handleReturn}
+                            handleReturn={Return}
                         />
                     </div>
                 </div>

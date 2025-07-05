@@ -14,7 +14,7 @@ export default function Login() {
     const [cookies, setCookie, removeCookie] = useCookies(['token', 'pastPage']);
     const router = useRouter();
 
-    function handleClick() {
+    function Click() {
         let data = {
             employee_no: employee,
             password: password
@@ -29,11 +29,13 @@ export default function Login() {
                     authority: user.authority,
                     name: user.name
                 }));
+
                 setMessage("ログイン完了");
                 let page = cookies.pastPage || "/home";
                 setCookie("token", res.data);
                 removeCookie("pastPage");
                 setShowModal(true); 
+
                 setTimeout(() => {
                     setShowModal(false);
                     router.push(page);
@@ -51,9 +53,9 @@ export default function Login() {
         });
     }
 
-    function handleKeyDown(e) {
+    function KeyDown(e) {
         if (e.key === 'Enter') {
-            handleClick();
+            Click();
         }
     }
 
@@ -67,7 +69,7 @@ export default function Login() {
                     className={styles.textBox}
                     placeholder='社員番号'
                     value={employee}
-                    onKeyDown={handleKeyDown}
+                    onKeyDown={KeyDown}
                 />
                 <input
                     type='password'
@@ -75,9 +77,9 @@ export default function Login() {
                     className={styles.textBox}
                     placeholder='パスワード'
                     value={password}
-                    onKeyDown={handleKeyDown}
+                    onKeyDown={KeyDown}
                 />
-                <button className={styles.loginButton} onClick={handleClick}>ログイン</button>
+                <button className={styles.loginButton} onClick={Click}>ログイン</button>
             </div>
 
             {showModal && (

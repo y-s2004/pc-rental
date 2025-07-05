@@ -13,7 +13,7 @@ export default function RentalModal({
 
     if (!show || !rentalDevice) return null;
 
-    const handleUserNoChange = useCallback(async (e) => {
+    const UserNoChange = useCallback(async (e) => {
         const value = e.target.value;
         setRentalDevice(prev => ({ ...prev, user_no: value }));
 
@@ -63,7 +63,7 @@ export default function RentalModal({
                         <label>社員番号</label>
                         <input
                             value={rentalDevice.user_no || ''}
-                            onChange={handleUserNoChange}
+                            onChange={UserNoChange}
                             required
                         />
                     </div>
