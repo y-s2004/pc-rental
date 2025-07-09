@@ -26,7 +26,7 @@ export default function DeviceForm({
                             <input
                                 name="asset_num"
                                 placeholder="資産番号"
-                                value={newDevice.asset_num}
+                                value={newDevice.asset_num || ''}
                                 onChange={handleInputChange}
                                 className={styles.formInput}
                                 required
@@ -37,7 +37,7 @@ export default function DeviceForm({
                             <input
                                 name="maker"
                                 placeholder="メーカー"
-                                value={newDevice.maker}
+                                value={newDevice.maker || ''}
                                 onChange={handleInputChange}
                                 className={styles.formInput}
                                 required
@@ -50,7 +50,7 @@ export default function DeviceForm({
                             <input
                                 name="os"
                                 placeholder="OS"
-                                value={newDevice.os}
+                                value={newDevice.os || ''}
                                 onChange={handleInputChange}
                                 className={styles.formInput}
                             />
@@ -60,7 +60,7 @@ export default function DeviceForm({
                             <input
                                 name="memory"
                                 placeholder="メモリ"
-                                value={newDevice.memory}
+                                value={newDevice.memory || ''}
                                 onChange={handleInputChange}
                                 className={styles.formInput}
                             />
@@ -72,7 +72,7 @@ export default function DeviceForm({
                             <input
                                 name="disc_capacity"
                                 placeholder="容量"
-                                value={newDevice.disc_capacity}
+                                value={newDevice.disc_capacity || ''}
                                 onChange={handleInputChange}
                                 className={styles.formInput}
                             />
@@ -81,7 +81,7 @@ export default function DeviceForm({
                             <label className={styles.formLabel}>グラフィックボード</label>
                             <select
                                 name="graphic_board"
-                                value={newDevice.graphic_board}
+                                value={newDevice.graphic_board === true ? 'true' : 'false'}
                                 onChange={e => setNewDevice({ ...newDevice, graphic_board: e.target.value === 'true' })}
                                 className={styles.formInput}
                                 required
@@ -122,7 +122,7 @@ export default function DeviceForm({
                             <input
                                 type="date"
                                 name="rental_start"
-                                value={newDevice.rental_start}
+                                value={newDevice.rental_start || ''}
                                 onChange={handleInputChange}
                                 className={styles.formInput}
                                 required
@@ -133,7 +133,7 @@ export default function DeviceForm({
                             <input
                                 type="date"
                                 name="rental_deadline"
-                                value={newDevice.rental_deadline}
+                                value={newDevice.rental_deadline || ''}
                                 onChange={handleInputChange}
                                 className={styles.formInput}
                                 required

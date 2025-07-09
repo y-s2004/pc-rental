@@ -21,11 +21,13 @@ export const setNewDevice = {
     maker: '',
     os: '',
     memory: '',
-    graphic_board: '',
+    graphic_board: false,
     place: '',
     rental_start: '',
     rental_deadline: '',
     inventory_date: '',
     disc_capacity: '',
     remarks: '',
-};      
+};
+
+export default setNewDevice;      
