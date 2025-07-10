@@ -86,10 +86,13 @@ export default function UserList() {
                 gender: editUser.gender === '男性' ? 0 : editUser.gender === '女性' ? 1 : 2,
             };
 
+             if (!payload.password) {
+                delete payload.password;
+            }
+
             delete payload.register_date;
             delete payload.update_date;
 
-            console.log(payload); 
             const res = await axiosInstance.put(`/user/${detailUser.employee_no}`, payload);
 
             setUsers(users.map(u => u.employee_no === detailUser.employee_no ? { ...u, ...res.data } : u));
