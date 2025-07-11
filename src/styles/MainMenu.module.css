@@ -43,6 +43,23 @@
 .btn {
     display: inline-block;
     padding: 15px 30px; 
+    background-color: #f44336;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 18px; 
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn.red:hover {
+    background-color: #d32f2f;
+}
+
+.btn2 {
+    display: inline-block;
+    padding: 15px 30px; 
     background-color: #007bff;
     color: white;
     text-decoration: none;
@@ -53,15 +70,56 @@
     transition: background-color 0.3s ease;
 }
 
-.btn:hover {
+.btn2:hover {
     background-color: #0056b3;
 }
 
-.btn.red {
-    background-color: #f44336;
-}
+@media screen and (max-width: 768px) {
+    .cardWrapper {
+        padding: 30px;
+        width: 90%;
+    }
 
-.btn.red:hover {
-    background-color: #d32f2f;
-}
+    .menuTitleMain {
+        font-size: 1.8rem;
+    }
 
+    .menuTitle {
+        font-size: 1.5rem;
+    }
+
+    .btn, .btn2 {
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+
+    .row {
+        flex-direction: column;
+        gap: 15px; 
+    }
+    
+}
+@media screen and (max-width: 480px) {
+    .cardWrapper {
+        padding: 20px;
+        width: 95%;
+    }
+
+    .menuTitleMain {
+        font-size: 1.5rem;
+    }
+
+    .menuTitle {
+        font-size: 1.2rem;
+    }
+
+    .btn, .btn2 {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+
+    .row {
+        flex-direction: column;
+        gap: 10px; 
+    }
+}
