@@ -17,9 +17,9 @@ export default function MainMenu() {
                         <Link href="/return" className={`${styles.btn} ${styles.red}`}>返却</Link>
                     </div>
                     <div className={styles.row}>
-                        <Link href="/user" className={styles.btn}>ユーザ一覧</Link>
-                        <Link href="/device" className={styles.btn}>機器一覧</Link>
-                        <Link href="/over" className={styles.btn}>延滞者一覧</Link>
+                        <Link href="/user" className={styles.btn2}>ユーザ一覧</Link>
+                        <Link href="/device" className={styles.btn2}>機器一覧</Link>
+                        <Link href="/over" className={styles.btn2}>延滞者一覧</Link>
                     </div>
                 </div>
             </main>

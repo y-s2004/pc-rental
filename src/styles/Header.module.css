@@ -1,46 +1,35 @@
-.logoutButton {
-  top: 1rem;
-  right: 3rem;
-  background-color: transparent;
-  color: white;
-  border: 1px solid white;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-
-.logoutButton:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
 .header {
     top: 0;
     left: 0;
     width: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 20px 20px;
     background-color: #0261c0;
     color: white;
     position: fixed;
-    gap: 20px;
     z-index: 1000;
-}
-
-.headerTitle {
-    font-weight: 700;
-    font-size: 1.3rem;
 }
 
 .headerNav {
     display: flex;
     align-items: center;
     gap: 16px;
-    flex: 1;
-    flex-wrap: nowrap;
-    min-width: 0;
+    margin-right: auto;
+}
+
+.headerNav2 {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-right: 10px;
+}
+
+.headerRight {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .headerBtn {
@@ -69,8 +58,7 @@
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s ease;
-    margin-left: 8px;
-    margin-top: 5px;
+    margin-right: 30px;
 }
 
 .logoutButton:hover {
@@ -79,10 +67,76 @@
 }
 
 .loginInfo {
-  color: #fff;
-  margin-left: 19rem;
-  margin-right: 5px;
-  font-size: 1rem;
-  white-space: nowrap;
+    color: #fff;
+    font-size: 1rem;
+    white-space: nowrap;
+    margin-right: 20px;
 }
 
+/* ハンバーガーメニュー */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 28px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10;
+    margin-left: 1rem; /* ← 左に寄せる */
+}
+
+.bar {
+    width: 28px;
+    height: 3px;
+    background-color: white;
+    border-radius: 2px;
+}
+
+/* ドロップダウンメニュー */
+.dropdown {
+    position: absolute;
+    top: 60px;
+    right: 20px; /* ← 右寄せに変更 */
+    background: #2674c2;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    min-width: 180px;
+}
+
+.dropdown a {
+    color: #fff;
+    padding: 12px 16px;
+    text-decoration: none;
+    border-bottom: 1px solid #fff;
+}
+
+.dropdown a:last-child {
+    border-bottom: none;
+}
+
+.dropdown a:hover {
+    background: #1b548d;
+    color: #001219;
+}
+
+/* スマホ用のスタイル */
+@media screen and (max-width: 768px) {
+    .headerNav {
+        display: none;
+    }
+
+    .headerNav2 {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+        margin-right: 30px;
+    }
+}
