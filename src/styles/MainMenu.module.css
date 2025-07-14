@@ -99,6 +99,7 @@
     }
     
 }
+
 @media screen and (max-width: 480px) {
     .cardWrapper {
         padding: 20px;
@@ -123,3 +124,4 @@
         gap: 10px; 
     }
 }
+

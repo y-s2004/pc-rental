@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import useLogout from './Logout.jsx';
 import styles from '../styles/Header.module.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 
 export default function RentalHeader() {
     const Logout = useLogout();
@@ -20,6 +20,27 @@ export default function RentalHeader() {
             setMounted(true);
         }
     }, []);
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth > 768) {
+                setMenuOpen(false);
+            }
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []); 
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            const dropdown = document.querySelector(`.${styles.dropdown}`);
+            if (menuOpen && dropdown && !dropdown.contains(event.target)) {
+                setMenuOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [menuOpen]);
 
     return (
         <header className={styles.header}>
@@ -64,7 +85,7 @@ export default function RentalHeader() {
                             氏名：{loginUser.name}
                         </div>
                     )}
-                    <button className={styles.logoutButton} onClick={() => { setMenuOpen(false); Logout(); }}>
+                    <button className={styles.logoutButtonSec} onClick={() => { setMenuOpen(false); Logout(); }}>
                         ログアウト
                     </button>
                 </div>
