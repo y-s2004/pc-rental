@@ -225,6 +225,26 @@ export default function UserList() {
                     </div>
                 </div>
 
+            
+                <div className={styles.createBtnWrapper}>
+                    <button className={styles.createBtn2} onClick={() => setShowForm(true)}>
+                        新規登録
+                    </button>
+                </div>
+
+                <div className={styles.cardList}>
+                    {(filteredUsers ?? users).map(user => (
+                        <div className={styles.listWrapper2} key={user.employee_no}>
+                            <div className={styles.useCard}>
+                                <p>社員番号　　　:　　　{user.employee_no}</p>
+                                <p>名　　前　　　:　　　{user.name}</p>
+                                <p>部　　署　　　:　　　{user.department}</p>
+                                <p>役　　職　　　:　　　{user.position}</p>
+                            </div>
+                            <button className={styles.detailBtn2} onClick={() => setDetailUser(user)}>詳細＞</button>
+                        </div>
+                    ))}
+                </div>
                 {detailUser && (
                     <UserDetailModal
                         show={!!detailUser}
