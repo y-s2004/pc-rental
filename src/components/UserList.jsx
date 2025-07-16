@@ -44,7 +44,6 @@ export default function UserList() {
     useEffect(() => {
         axiosInstance.get('/user')
         .then(res => {
-            console.log('ユーザデータ:', res.data);
             setUsers(res.data);
             setLoading(false);
         })
