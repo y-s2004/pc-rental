@@ -149,14 +149,13 @@
 }
 
 .searchBoxWrapper {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  min-width: 100px;
-  margin-bottom: 16px;
-  gap: 5px;
-  
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    min-width: 100px;
+    margin-bottom: 16px;
+    gap: 5px;
 }
 
 .searchInput {
@@ -397,6 +396,11 @@
     display: none;
 }
 
+.searchBoxWrapper2 {
+  display: none;
+}
+
+
 /* スマホではテーブルを隠し、カードを表示 */
 @media screen and (max-width: 768px) {
     .listWrapper {
@@ -461,21 +465,18 @@
     }
 
     .createBtnWrapper {
-        margin-top: 50px;
         display: flex;
-        justify-content: center;
-        margin-bottom: 50px;
+        justify-content: left;
     }
 
     .createBtn2 {
         background: #f57f17;
         color: #fff;
-        padding: 20px 50px;
+        padding: 10px 20px;
         border-radius: 5px;
         font-size: 1rem;
         border: none;
-        outline: none;
-        margin: 25px auto 0 auto;   
+        outline: none;  
         display: inline-flex;   
         margin: 0; 
     }
@@ -508,4 +509,29 @@
         gap: 6px;
         align-items: center;
     }
+
+    .searchBoxWrapper2 {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .searchInput2 {
+        padding: 8px 12px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        outline: none;
+        height: 25px;
+        width: 150px;
+    }
+
+    .actionRow {
+        display: flex;
+        justify-content: space-between; 
+        align-items: center;
+        padding: 0 16px;
+        margin: 20px 0;
+        gap: 16px; 
+    }
+
 }

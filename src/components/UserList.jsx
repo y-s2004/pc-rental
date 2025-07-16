@@ -225,11 +225,21 @@ export default function UserList() {
                     </div>
                 </div>
 
-            
-                <div className={styles.createBtnWrapper}>
-                    <button className={styles.createBtn2} onClick={() => setShowForm(true)}>
-                        新規登録
-                    </button>
+                <div className={styles.actionRow}>
+                    <div className={styles.createBtnWrapper}>
+                        <button className={styles.createBtn2} onClick={() => setShowForm(true)}>
+                            新規登録
+                        </button>
+                    </div>
+                    <div className={styles.searchBoxWrapper2}>
+                            <input
+                                className={styles.searchInput2}
+                                type="text"
+                                placeholder="検索"
+                                value={serchText}
+                                onChange={e => handleSearchInput(e.target.value)}
+                            />
+                    </div>
                 </div>
 
                 <div className={styles.cardList}>
@@ -245,6 +255,7 @@ export default function UserList() {
                         </div>
                     ))}
                 </div>
+                
                 {detailUser && (
                     <UserDetailModal
                         show={!!detailUser}
