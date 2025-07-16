@@ -67,6 +67,29 @@ export default function Over() {
                         )}
                     </div>
                 </div>
+
+                <div className={styles.cardList}>
+                    {(filteredList ?? List).map(item => (
+                        <div className={styles.listWrapper2} key={item.id || item.asset_num}>
+                            <div className={styles.useCard}>
+                                <span className={styles.label}>資産番号：</span>
+                                <span className={styles.badge}>{item.asset_num}</span>
+                            </div>
+                            <div className={styles.useCard}>
+                                <span className={styles.label}>社員番号：</span>
+                                <span className={styles.badge}>{item.user_no}</span>
+                            </div>
+                            <div className={styles.useCard}>
+                                <span className={styles.label}>社員名：</span>
+                                <span className={styles.badge}>{item.name}</span>
+                            </div>
+                            <div className={styles.useCard}>
+                                <span className={styles.label}>返却期限日：</span>
+                                <span className={styles.badge2}>{item.return_date ? item.return_date.replace(/-/g, "/").slice(0, 10) : ''}</span>
+                            </div>
+                        </div>
+                    ))}
+                </div>
                 
                 <div className={styles.backButtonWrapper}>
                     <BackButton className={styles.backButton} to="/home">

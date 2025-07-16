@@ -145,6 +145,42 @@ export default function DeviceList() {
                     </div>
                 </div>
 
+                <div className={styles.actionRow}>
+                    <div className={styles.searchBoxWrapper2}>
+                        <input
+                            className={styles.searchInput2}
+                            type="text"
+                            placeholder="検索"
+                            value={searchText}
+                            onChange={e => SearchInput(e.target.value)}
+                        />
+                    </div>
+                </div>
+
+                <div className={styles.cardList}>
+                    {(filteredDevices ?? devices).map(device => (
+                        <div className={styles.listWrapper2} key={device.asset_num}>
+                            <div className={styles.useCard}>
+                                <span className={styles.label}>資産番号：</span>
+                                <span className={styles.badge}>{device.asset_num}</span>
+                            </div>
+                            <div className={styles.useCard}>
+                                <span className={styles.label}>OS：</span>
+                                <span className={styles.badge}>{device.os}</span>
+                            </div>
+                            <div className={styles.useCard}>
+                                <span className={styles.label}>メモリ：</span>
+                                <span className={styles.badge}>{device.memory}</span>
+                            </div>
+                            <div className={styles.useCard}>
+                                <span className={styles.label}>容量：</span>
+                                <span className={styles.badge}>{device.disc_capacity}</span>
+                            </div>
+                            <button className={styles.detailBtn2} onClick={() => Rental(device)}>貸出</button>
+                        </div>
+                    ))}
+                </div>
+
                 {showRentalForm && (
                     <RentalModal
                         show={showRentalForm}

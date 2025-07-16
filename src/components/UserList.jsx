@@ -260,7 +260,7 @@ export default function UserList() {
                                 <span className={styles.label}>役職：</span>
                                 <span className={styles.badge}>{user.position}</span>
                             </div>
-                            <button className={styles.detailBtn2} onClick={() => setDetailDevice(user)}>詳細＞</button>
+                            <button className={styles.detailBtn2} onClick={() => setDetailUser(user)}>詳 細</button>
                         </div>
                     ))}
                 </div>
@@ -300,6 +300,12 @@ export default function UserList() {
                         confirmError={confirmError}
                     />
                 )}
+
+                <div className={styles.backButtonWrapper}>
+                    <BackButton className={styles.backButton} to="/home">
+                        戻る
+                    </BackButton>
+                </div>
             </div>
             {submitMessage && (
                 <div className={styles.modalOverlay} onClick={() => setSubmitMessage('')}>

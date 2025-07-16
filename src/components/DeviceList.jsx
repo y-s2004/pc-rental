@@ -234,7 +234,7 @@ export default function DeviceList() {
                                 <span className={styles.label}>容量：</span>
                                 <span className={styles.badge}>{device.disc_capacity}</span>
                             </div>
-                            <button className={styles.detailBtn2} onClick={() => setDetailDevice(device)}>詳細＞</button>
+                            <button className={styles.detailBtn2} onClick={() => setDetailDevice(device)}>詳細</button>
                         </div>
                     ))}
                 </div>
@@ -266,6 +266,12 @@ export default function DeviceList() {
                         styles={styles}
                     />
                 )}
+                
+                <div className={styles.backButtonWrapper}>
+                    <BackButton className={styles.backButton} to="/home">
+                        戻る
+                    </BackButton>
+                </div>
             </div>
 
             {submitMessage && (

@@ -475,3 +475,77 @@ button.formButton.orangeButton:hover {
   font-weight: bold;
 }
 
+.listWrapper2 {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .listWrapper{
+        display: none;
+    }
+
+    .listWrapper2 {
+        margin: 0 auto;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        max-width: 1000px;
+        min-width: 320px;
+        max-height: 400px;
+        overflow-y: auto;
+        padding: 32px 24px 24px 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid #ddd
+    }
+    
+    .tableWrapper {
+        display: none;
+    }
+
+    .cardList {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        position: relative;
+    }
+
+    .userCard {
+       display: flex;
+       align-items: center;
+       padding: 6px 0;
+       border-bottom: 1px solid #eee;
+    }
+
+    .label {
+        font-weight: bold;
+        color: #555;
+        display: flex;
+        gap: 6px;
+        align-items: center;
+    }
+
+    .label {
+        font-weight: bold;
+        color: #444;
+        flex: 1;
+        display: inline-block;
+    }
+    
+    .badge {
+        color: #222;
+        flex: 2;
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    .badge2 {
+        color: red;
+        flex: 2;
+        text-align: right;
+        white-space: nowrap;
+    }
+
+}

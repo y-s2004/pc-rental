@@ -106,6 +106,46 @@ export default function ReturnDeviceList() {
                         />
                     </div>
                 </div>
+
+                <div className={styles.actionRow}>
+                    <div className={styles.searchBoxWrapper2}>
+                        <input
+                            className={styles.searchInput2}
+                            type="text"
+                            placeholder="検索"
+                            value={searchText}
+                            onChange={e => SearchInput(e.target.value)}
+                        />
+                    </div>
+                </div>
+
+                <div className={styles.cardList}>
+                    {(filteredDevices ?? devices).map(device => (
+                        <div className={styles.listWrapper2} key={device.asset_num}>
+                            <div className={styles.useCard}>
+                                <span className={styles.label}>資産番号：</span>
+                                <span className={styles.badge}>{device.asset_num}</span>
+                            </div>
+                            <div className={styles.useCard}>
+                                <span className={styles.label}>社員番号：</span>
+                                <span className={styles.badge}>{device.user_no}</span>
+                            </div>
+                            <div className={styles.useCard}>
+                                <span className={styles.label}>社員名：</span>
+                                <span className={styles.badge}>{device.name}</span>
+                            </div>
+                            <div className={styles.useCard}>
+                                <span className={styles.label}>貸出日：</span>
+                                <span className={styles.badge}>{formatDate(device.rental_date)}</span>
+                            </div>
+                            <div className={styles.useCard}>
+                                <span className={styles.label}>返却期限日：</span>
+                                <span className={styles.badge}>{formatDate(device.return_date)}</span>
+                            </div>
+                            <button className={styles.detailBtn2} onClick={() => Return(device)}>返却</button>
+                        </div>
+                    ))}
+                </div>
     
                 {showModal && (
                     <div className={styles.modalOverlay} onClick={() => setShowModal(false)}>
