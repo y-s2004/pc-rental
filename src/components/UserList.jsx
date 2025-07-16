@@ -232,13 +232,13 @@ export default function UserList() {
                         </button>
                     </div>
                     <div className={styles.searchBoxWrapper2}>
-                            <input
-                                className={styles.searchInput2}
-                                type="text"
-                                placeholder="検索"
-                                value={serchText}
-                                onChange={e => handleSearchInput(e.target.value)}
-                            />
+                        <input
+                            className={styles.searchInput2}
+                            type="text"
+                            placeholder="検索"
+                            value={serchText}
+                            onChange={e => handleSearchInput(e.target.value)}
+                        />
                     </div>
                 </div>
 
