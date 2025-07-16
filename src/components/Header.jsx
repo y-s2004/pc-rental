@@ -31,17 +31,6 @@ export default function RentalHeader() {
         return () => window.removeEventListener('resize', handleResize);
     }, []); 
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            const dropdown = document.querySelector(`.${styles.dropdown}`);
-            if (menuOpen && dropdown && !dropdown.contains(event.target)) {
-                setMenuOpen(false);
-            }
-        };
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [menuOpen]);
-
     return (
         <header className={styles.header}>
             {/* ロゴやタイトル */}
@@ -65,7 +54,10 @@ export default function RentalHeader() {
             </nav>
 
             {/* ハンバーガーメニュー（スマホ用） */}
-            <button className={styles.hamburger} onClick={() => setMenuOpen(!menuOpen)}>
+            <button
+                className={`${styles.hamburger} ${menuOpen ? styles.open : ''}`}
+                onClick={() => setMenuOpen(!menuOpen)}
+            >
                 <div className={styles.bar}></div>
                 <div className={styles.bar}></div>
                 <div className={styles.bar}></div>
