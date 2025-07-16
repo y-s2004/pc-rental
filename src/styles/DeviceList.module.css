@@ -356,14 +356,9 @@
   background: #2674c2; 
 }
 
-.remarksWide {
-  min-width: 300px;
-  max-width: 100%;
-  word-break: break-all;
-}
 .remarksInput {
-  width: 50%;
-  min-width: 100px;
+  width: 80%;
+  min-width: 300px;
 }
 
 .inventoryDateInput {
@@ -449,8 +444,9 @@
     .cardList {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
         gap: 16px;
+        position: relative;
     }
 
     .userCard {
@@ -458,21 +454,6 @@
        align-items: center;
        padding: 6px 0;
        border-bottom: 1px solid #eee;
-    }
-
-    .userCard button {
-        margin-top: 10px;
-        background-color: #0261c0;
-        color: white;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 6px;
-        font-size: 0.9rem;
-        cursor: pointer;
-    }
-
-    .userCard button:hover {
-        background-color: #2674c2;
     }
 
     .createBtnWrapper {

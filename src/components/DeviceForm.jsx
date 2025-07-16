@@ -148,7 +148,6 @@ export default function DeviceForm({
                             placeholder="備考"
                             value={newDevice.remarks || ''}
                             onChange={e => setNewDevice({ ...newDevice, remarks: e.target.value })}
-                            style={{ width: 600 }}
                         />
                     </div>
                     <div className={styles.formButtonGroup}>

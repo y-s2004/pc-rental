@@ -229,7 +229,7 @@ export default function UserList() {
                         <button className={styles.createBtn2} onClick={() => setShowForm(true)}>
                             新規登録
                         </button>
-                    </div>
+                    </div>  
                     <div className={styles.searchBoxWrapper2}>
                         <input
                             className={styles.searchInput2}
@@ -245,12 +245,22 @@ export default function UserList() {
                     {(filteredUsers ?? users).map(user => (
                         <div className={styles.listWrapper2} key={user.employee_no}>
                             <div className={styles.useCard}>
-                                <p>社員番号　　　:　　　{user.employee_no}</p>
-                                <p>名　　前　　　:　　　{user.name}</p>
-                                <p>部　　署　　　:　　　{user.department}</p>
-                                <p>役　　職　　　:　　　{user.position}</p>
+                                <span className={styles.label}>社員番号：</span>
+                                <span className={styles.badge}>{user.employee_no}</span>
                             </div>
-                            <button className={styles.detailBtn2} onClick={() => setDetailUser(user)}>詳細＞</button>
+                            <div className={styles.useCard}>
+                                <span className={styles.label}>名前：</span>
+                                <span className={styles.badge}>{user.name}</span>
+                            </div>
+                            <div className={styles.useCard}>
+                                <span className={styles.label}>部署：</span>
+                                <span className={styles.badge}>{user.department}</span>
+                            </div>
+                            <div className={styles.useCard}>
+                                <span className={styles.label}>役職：</span>
+                                <span className={styles.badge}>{user.position}</span>
+                            </div>
+                            <button className={styles.detailBtn2} onClick={() => setDetailDevice(user)}>詳細＞</button>
                         </div>
                     ))}
                 </div>
