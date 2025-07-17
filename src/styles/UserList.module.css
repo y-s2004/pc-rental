@@ -286,110 +286,110 @@
 }
 
 .form {
-  display: grid;
-  grid-template-columns: 1fr 1fr; 
-  gap: 16px 24px;
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 16px 24px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .formLabel {
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 4px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 4px;
 }
 
 .formInput {
-  padding: 8px 12px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  outline: none;
-  height: 40px;
-  width: 100%;
-  box-sizing: border-box;
+    padding: 8px 12px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    height: 40px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .formButtonGroup {
-  grid-column: span 2;
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 20px;
-  gap: 50px;
+    grid-column: span 2;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 20px;
+    gap: 50px;
 }
 
 .formButton {
-  background: #f57f17;
-  color: #fff;
-  padding: 10px 24px;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.2s;
+    background: #f57f17;
+    color: #fff;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
 }
 
 .formButton:hover {
-  background: #f9a825; 
+    background: #f9a825; 
 }
 
 .formButton.secondary {
-  background: #0261c0; 
-  color: #fff;
+    background: #0261c0; 
+    color: #fff;
 }
 
 .formButton.secondary:hover {
-  background: #2674c2; 
+    background: #2674c2; 
 }
 
 .logoutButton {
-  position: absolute;
-  top: 1rem;
-  right: 3rem;
-  background-color: transparent;
-  color: white;
-  border: 1px solid white;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
+    position: absolute;
+    top: 1rem;
+    right: 3rem;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
 .logoutButton:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .buttonRow {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin-top: 24px;
-  padding: 0 8px;
-  box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 24px;
+    padding: 0 8px;
+    box-sizing: border-box;
 }
 
 .buttonRow {
-  display: flex;
-  justify-content: center; 
-  align-items: center;
-  gap: 200px; 
-  margin-top: 24px;
-  padding: 0 8px;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    gap: 200px; 
+    margin-top: 24px;
+    padding: 0 8px;
 }
 
 .buttonWrapper {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
 }
 
 .cardList {
-  display: none;
+    display: none;
 }
 
 .createBtnWrapper {
@@ -397,7 +397,7 @@
 }
 
 .searchBoxWrapper2 {
-  display: none;
+    display: none;
 }
 
 
@@ -547,5 +547,4 @@
         border: none;
         outline: none;
     }
-
 }
