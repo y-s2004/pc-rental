@@ -3,8 +3,12 @@
 import { CookiesProvider } from 'react-cookie';
 import Header from '../components/Header';
 import '../styles/page.css'; 
+import { usePathname } from 'next/navigation'; 
 
 export default function RootLayout({ children }) {
+    const pathname = usePathname();
+    const noHeaderPaths = ['/login'];
+    
     return (
         <html lang="ja">
             <head>
@@ -15,7 +19,7 @@ export default function RootLayout({ children }) {
             </head>
             <body className='font-sans bg-gray-100 text-gray-900'>
                 <CookiesProvider>
-                    <Header />
+                    {!noHeaderPaths.includes(pathname) && <Header />}
                     {children}
                 </CookiesProvider>
             </body>
