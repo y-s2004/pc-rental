@@ -361,23 +361,24 @@ button.formButton.orangeButton:hover {
 }
 
 .backButtonWrapper {
-  margin-top: 20px;
-  text-align: center;
-  padding: 16px 0;
-  background: #fff;
-  position: sticky;
-  bottom: 0;
-  z-index: 10;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    gap: 200px; 
+    margin-top: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
 }
 
 .backButton {
-  background: #0261c0;
-  color: #fff;
-  padding: 20px 50px;
-  border-radius: 5px;
-  font-size: 1rem;
-  border: none;
-  outline: none;
+    background: #0261c0;
+    color: #fff;
+    padding: 20px 50px;
+    border-radius: 5px;
+    font-size: 1rem;
+    border: none;
+    outline: none;
 }
 
 .backButton:hover {
@@ -486,9 +487,16 @@ button.formButton.orangeButton:hover {
     display: none;
 }
 
+.backButtonWrapper2 {
+    display: none;
+}
 
 @media screen and (max-width: 768px) {
     .listWrapper{
+        display: none;
+    }
+
+    .backButtonWrapper {
         display: none;
     }
 
@@ -591,4 +599,26 @@ button.formButton.orangeButton:hover {
         white-space: nowrap;
     }
 
+    .backButtonWrapper2{
+        margin-top: 20px;
+        text-align: center;
+        padding: 16px 0;
+        background: #fff;
+        position: sticky;
+        bottom: 0;
+        z-index: 10;
+        display: block;
+    }
+
+    .backButton2 {
+        background: #0261c0;
+        color: #fff;
+        padding: 20px 50px;
+        border-radius: 5px;
+        font-size: 1rem;
+        border: none;
+        outline: none;
+    }
+
+    .backButton2:hover { background: #2674c2; }
 }

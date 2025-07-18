@@ -8,8 +8,11 @@ import styles from '../styles/UserList.module.css';
 import { axiosInstance } from '../lib/axios';
 import BackButton from './BackButton';
 import { gender, accountLevel, emptyUser } from './Constants';
+import SessionTimeout from './SessionTimeout';
 
 export default function UserList() {
+    SessionTimeout();
+
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -261,6 +264,12 @@ export default function UserList() {
                         </div>
                     ))}
                 </div>
+
+                <div className={styles.backButtonWrapper}>
+                    <BackButton className={styles.backButton} to="/home">
+                        戻る
+                    </BackButton>
+                </div>
                 
                 {detailUser && (
                     <UserDetailModal
@@ -298,11 +307,6 @@ export default function UserList() {
                     />
                 )}
 
-                <div className={styles.backButtonWrapper}>
-                    <BackButton className={styles.backButton} to="/home">
-                        戻る
-                    </BackButton>
-                </div>
             </div>
             {submitMessage && (
                 <div className={styles.modalOverlay} onClick={() => setSubmitMessage('')}>

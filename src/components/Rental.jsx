@@ -6,8 +6,11 @@ import RentalModal from './RentalModal';
 import styles from '../styles/Rental.module.css';
 import { axiosInstance } from '../lib/axios';
 import BackButton from './BackButton';
+import SessionTimeout from './SessionTimeout';
 
 export default function DeviceList() {
+    SessionTimeout();
+
     const [devices, setDevices] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -142,6 +145,12 @@ export default function DeviceList() {
                     </div>
                 </div>
 
+                <div className={styles.backButtonWrapper}>
+                    <BackButton className={styles.backButton} to="/home">
+                        戻る
+                    </BackButton>
+                </div>
+
                 <div className={styles.actionRow}>
                     <div className={styles.searchBoxWrapper2}>
                         <input
@@ -178,6 +187,12 @@ export default function DeviceList() {
                     ))}
                 </div>
 
+                <div className={styles.backButtonWrapper2}>
+                    <BackButton className={styles.backButton2} to="/home">
+                        戻る
+                    </BackButton>
+                </div>
+
                 {showRentalForm && (
                     <RentalModal
                         show={showRentalForm}
@@ -190,11 +205,6 @@ export default function DeviceList() {
                     />
                 )}
                 
-                <div className={styles.backButtonWrapper}>
-                    <BackButton className={styles.backButton} to="/home">
-                        戻る
-                    </BackButton>
-                </div>
             </div>
             {showErrorModal && (
                 <div className={styles.modalOverlay} onClick={() => setShowErrorModal(false)}>

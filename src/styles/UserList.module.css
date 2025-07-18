@@ -364,17 +364,6 @@
 
 .buttonRow {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin-top: 24px;
-    padding: 0 8px;
-    box-sizing: border-box;
-}
-
-.buttonRow {
-    display: flex;
     justify-content: center; 
     align-items: center;
     gap: 200px; 
@@ -400,6 +389,9 @@
     display: none;
 }
 
+.backButtonWrapper2 {
+    display: none;
+}
 
 /* スマホではテーブルを隠し、カードを表示 */
 @media screen and (max-width: 768px) {
@@ -547,4 +539,6 @@
         border: none;
         outline: none;
     }
+
+    .backButton:hover { background: #2674c2; }
 }

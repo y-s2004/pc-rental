@@ -3,8 +3,11 @@ import OverTable from './OverTable';
 import styles from '../styles/OverList.module.css';
 import { axiosInstance } from '../lib/axios';
 import BackButton from './BackButton';
+import SessionTimeout from './SessionTimeout';
 
 export default function Over() {
+    SessionTimeout();
+
     const [overList, setOverList] = useState([]);
     const [filteredList, setFilteredList] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -65,6 +68,12 @@ export default function Over() {
                     </div>
                 </div>
 
+                <div className={styles.backButtonWrapper}>
+                    <BackButton className={styles.backButton} to="/home">
+                        戻る
+                    </BackButton>
+                </div>
+
                 <div className={styles.cardList}>
                     {(filteredList ?? List).map(item => (
                         <div className={styles.listWrapper2} key={item.id || item.asset_num}>
@@ -87,9 +96,9 @@ export default function Over() {
                         </div>
                     ))}
                 </div>
-                
-                <div className={styles.backButtonWrapper}>
-                    <BackButton className={styles.backButton} to="/home">
+
+                <div className={styles.backButtonWrapper2}>
+                    <BackButton className={styles.backButton2} to="/home">
                         戻る
                     </BackButton>
                 </div>

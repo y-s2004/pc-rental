@@ -412,6 +412,10 @@
     display: none;
 }
 
+.backButtonWrapper2 {
+    display:  none;;
+}
+
 @media screen and (max-width: 768px){
     .listWrapper {
         display: none;
@@ -556,4 +560,6 @@
         border: none;
         outline: none;
     }
+
+    .backButton:hover { background: #2674c2; }
 }

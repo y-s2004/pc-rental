@@ -5,8 +5,11 @@ import ReturnTable from './ReturnTable';
 import styles from '../styles/Return.module.css';
 import { axiosInstance } from '../lib/axios';
 import BackButton from './BackButton';
+import SessionTimeout from './SessionTimeout';
 
 export default function ReturnDeviceList() {
+    SessionTimeout();
+
     const [devices, setDevices] = useState([]);
     const [searchText, setSearchText] = useState('');
     const [filteredDevices, setFilteredDevices] = useState(null);
@@ -104,6 +107,12 @@ export default function ReturnDeviceList() {
                     </div>
                 </div>
 
+                <div className={styles.backButtonWrapper}>
+                    <BackButton className={styles.backButton} to="/home">
+                        戻る
+                    </BackButton>
+                </div>
+
                 <div className={styles.actionRow}>
                     <div className={styles.searchBoxWrapper2}>
                         <input
@@ -143,6 +152,12 @@ export default function ReturnDeviceList() {
                         </div>
                     ))}
                 </div>
+
+                <div className={styles.backButtonWrapper2}>
+                    <BackButton className={styles.backButton2} to="/home">
+                        戻る
+                    </BackButton>
+                </div>
     
                 {showModal && (
                     <div className={styles.modalOverlay} onClick={() => setShowModal(false)}>
@@ -159,11 +174,6 @@ export default function ReturnDeviceList() {
                     </div>
                 )}
 
-                <div className={styles.backButtonWrapper}>
-                    <BackButton className={styles.backButton} to="/home">
-                        戻る
-                    </BackButton>
-                </div>
 
             </div>
         </>

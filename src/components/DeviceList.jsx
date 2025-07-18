@@ -8,8 +8,11 @@ import styles from '../styles/DeviceList.module.css';
 import emptyDevice from './Constants';
 import { axiosInstance } from '../lib/axios';
 import BackButton from './BackButton';
+import SessionTimeout from './SessionTimeout';
 
 export default function DeviceList() {
+    SessionTimeout();
+
     const [devices, setDevices] = useState([]);
     const [filteredDevices, setFilteredDevices] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -237,6 +240,12 @@ export default function DeviceList() {
                     ))}
                 </div>
 
+                <div className={styles.backButtonWrapper}>
+                        <BackButton className={styles.backButton} to="/home">
+                            戻る
+                        </BackButton>
+                </div>
+
                 {detailDevice && (
                     <DeviceDetail
                         show={!!detailDevice}
@@ -265,11 +274,6 @@ export default function DeviceList() {
                     />
                 )}
                 
-                <div className={styles.backButtonWrapper}>
-                    <BackButton className={styles.backButton} to="/home">
-                        戻る
-                    </BackButton>
-                </div>
             </div>
 
             {submitMessage && (
