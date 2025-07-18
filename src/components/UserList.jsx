@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import Header from './Header';
 import UserFormModal from './UserFormModal';
 import UserDetailModal from './UserDetailModal';
 import UserTable from './UserTable';
@@ -191,8 +190,6 @@ export default function UserList() {
 
     return (
         <>
-            <Header />
-
             <div className={styles.container}>
                 <div className={styles.listWrapper}>
                     <div className={styles.headerRow}>

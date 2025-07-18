@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Header from './Header';
 import ReturnTable from './ReturnTable';
 import styles from '../styles/Return.module.css';
 import { axiosInstance } from '../lib/axios';
@@ -80,8 +79,6 @@ export default function ReturnDeviceList() {
 
     return (
         <>
-            <Header />
-
             <div className={styles.container}>
                 <div className={styles.listWrapper}>
                     <div className={styles.headerRow}>

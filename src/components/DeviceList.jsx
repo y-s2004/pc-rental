@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import Header from './Header';
 import DeviceTable from './DeviceTable';
 import DeviceDetail from './DeviceDetail';
 import DeviceForm from './DeviceForm';
@@ -165,7 +164,6 @@ export default function DeviceList() {
 
     return (
         <>
-            <Header />
             <div className={styles.container}>
                 <div className={styles.listWrapper}>
                     <div className={styles.headerRow}>

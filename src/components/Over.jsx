@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import Header from './Header';
 import OverTable from './OverTable';
 import styles from '../styles/OverList.module.css';
 import { axiosInstance } from '../lib/axios';
@@ -52,8 +51,6 @@ export default function Over() {
 
     return (
         <>
-            <Header />
-
             <div className={styles.container}>
                 <div className={styles.listWrapper}>
                     <div className={styles.headerRow}>
