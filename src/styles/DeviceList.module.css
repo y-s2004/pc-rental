@@ -412,7 +412,7 @@
     display: none;
 }
 
-.backButtonWrapper2 {
+.backButtonWrapper {
     display:  none;;
 }
 
@@ -549,6 +549,7 @@
         position: sticky;
         bottom: 0;
         z-index: 10;
+        display: block;
     }
 
     .backButton {
