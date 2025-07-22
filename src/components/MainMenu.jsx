@@ -2,11 +2,8 @@
 
 import Link from 'next/link';
 import styles from '../styles/MainMenu.module.css';
-import SessionTimeout from './SessionTimeout';
 
 export default function MainMenu() {
-    SessionTimeout();
-
     return (
         <>
             <main className={styles.main}>

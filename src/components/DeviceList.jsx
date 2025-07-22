@@ -8,11 +8,8 @@ import styles from '../styles/DeviceList.module.css';
 import emptyDevice from './Constants';
 import { axiosInstance } from '../lib/axios';
 import BackButton from './BackButton';
-import SessionTimeout from './SessionTimeout';
 
 export default function DeviceList() {
-    SessionTimeout();
-
     const [devices, setDevices] = useState([]);
     const [filteredDevices, setFilteredDevices] = useState(null);
     const [loading, setLoading] = useState(true);

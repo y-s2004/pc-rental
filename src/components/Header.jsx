@@ -33,10 +33,8 @@ export default function RentalHeader() {
 
     return (
         <header className={styles.header}>
-            {/* ロゴやタイトル */}
             <Link href="/" className={styles.headerBtn}>PC貸出管理システム</Link>
 
-            {/* PC用ナビゲーション */}
             <nav className={styles.headerNav}>
                 <Link href="/user" className={styles.headerBtn}>ユーザ一覧</Link>
                 <Link href="/device" className={styles.headerBtn}>機器一覧</Link>
@@ -53,7 +51,6 @@ export default function RentalHeader() {
                 <button className={styles.logoutButton} onClick={Logout}>ログアウト</button>
             </nav>
 
-            {/* ハンバーガーメニュー（スマホ用） */}
             <button
                 className={`${styles.hamburger} ${menuOpen ? styles.open : ''}`}
                 onClick={() => setMenuOpen(!menuOpen)}
@@ -63,7 +60,6 @@ export default function RentalHeader() {
                 <div className={styles.bar}></div>
             </button>
 
-            {/* スマホ用ドロップダウンメニュー */}
             {menuOpen && (
                 <div className={styles.dropdown}>
                     <Link href="/user" onClick={() => setMenuOpen(false)}>ユーザ一覧</Link>

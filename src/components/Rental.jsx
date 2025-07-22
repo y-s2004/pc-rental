@@ -6,11 +6,8 @@ import RentalModal from './RentalModal';
 import styles from '../styles/Rental.module.css';
 import { axiosInstance } from '../lib/axios';
 import BackButton from './BackButton';
-import SessionTimeout from './SessionTimeout';
 
 export default function DeviceList() {
-    SessionTimeout();
-
     const [devices, setDevices] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);

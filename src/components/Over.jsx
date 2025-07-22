@@ -3,11 +3,8 @@ import OverTable from './OverTable';
 import styles from '../styles/OverList.module.css';
 import { axiosInstance } from '../lib/axios';
 import BackButton from './BackButton';
-import SessionTimeout from './SessionTimeout';
 
 export default function Over() {
-    SessionTimeout();
-
     const [overList, setOverList] = useState([]);
     const [filteredList, setFilteredList] = useState([]);
     const [loading, setLoading] = useState(true);
