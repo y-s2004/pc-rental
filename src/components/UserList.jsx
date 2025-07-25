@@ -127,8 +127,6 @@ export default function UserList() {
             delete_flag: false,
         };
 
-        console.log(payload)
-
         try {
             const {
                 register_date,
