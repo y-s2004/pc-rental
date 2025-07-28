@@ -164,6 +164,7 @@ export default function DeviceList() {
 
     return (
         <>
+        <Header />
             <div className={styles.container}>
                 <div className={styles.listWrapper}>
                     <div className={styles.headerRow}>
